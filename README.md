@@ -106,3 +106,7 @@
 
 - **필수:** `README.md` (프로젝트 설정, 실행 방법, 주요 결정 사항 요약)
 - **권장:** 복잡한 컴포넌트나 함수에는 JSDoc 스타일 주석 사용.
+
+### 9. etc..
+- [Toss Slash(TypeScript/JavaScript 패키지)](https://www.slash.page/ko/)
+- [React-Use(범용 커스텀 훅)](https://github.com/streamich/react-use?tab=readme-ov-file)
