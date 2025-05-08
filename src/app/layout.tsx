@@ -7,6 +7,7 @@ import "./globals.css";
 const pretendard = localFont({
   src: "./fonts/PretendardVariable.woff2",
   variable: "--font-pretendard",
+  display: "swap",
 });
 
 // const geistSans = Geist({
@@ -30,12 +31,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${pretendard.variable} ${pretendard.variable} antialiased`}
-      >
-        {children}
-      </body>
+    <html lang="ko">
+      <body className={`${pretendard.variable} antialiased`}>{children}</body>
     </html>
   );
 }

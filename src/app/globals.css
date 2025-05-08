@@ -112,6 +112,10 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
+body {
+  font-family: var(--font-pretendard), sans-serif; /* 이 부분이 중요! */
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
