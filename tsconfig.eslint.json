@@ -1,0 +1,15 @@
+// tsconfig.eslint.json
+{
+    "extends": "./tsconfig.json",
+    "include": [
+      "next-env.d.ts",
+      "**/*.ts",
+      "**/*.tsx",
+      "eslint.config.mjs",
+      "prettier.config.js", // Prettier 설정 파일이 JS/TS일 경우
+      ".prettierrc.ts",
+      "next.config.ts"
+      // 기타 린팅 대상에 포함하고 싶은 설정 파일들
+    ],
+    "exclude": ["node_modules", ".next", "out"]
+  }
