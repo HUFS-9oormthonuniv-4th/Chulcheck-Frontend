@@ -12,7 +12,7 @@ import jsxA11yPlugin from 'eslint-plugin-jsx-a11y';
 import reactPlugin from 'eslint-plugin-react';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
 // import tailwindcssPlugin from 'eslint-plugin-tailwindcss';
-import tanstackQueryPlugin from '@tanstack/eslint-plugin-query'; // React Query 사용 시
+// import tanstackQueryPlugin from '@tanstack/eslint-plugin-query'; // React Query 사용 시
 
 // --- 설정 임포트 ---
 import eslintConfigPrettier from 'eslint-config-prettier'; // Prettier 충돌 방지
@@ -62,7 +62,7 @@ export default tseslint.config(
       react: reactPlugin,
       'react-hooks': reactHooksPlugin,
       // tailwindcss: tailwindcssPlugin,
-      '@tanstack/query': tanstackQueryPlugin, // React Query 사용 시
+      // '@tanstack/query': tanstackQueryPlugin, // React Query 사용 시
     },
     settings: {
       // 플러그인별 추가 설정
@@ -164,7 +164,10 @@ export default tseslint.config(
       ],
 
       // === 주석 ===
-      'no-warning-comments': ['warn', { terms: ['todo', 'fixme'], location: 'start' }],
+      'no-warning-comments': [
+        'warn',
+        { terms: ['todo', 'fixme'], location: 'start' },
+      ],
 
       // === Import 순서 (eslint-plugin-import 필요) ===
       'import/order': [
@@ -192,7 +195,10 @@ export default tseslint.config(
           alphabetize: { order: 'asc', caseInsensitive: true },
         },
       ],
-      'import/no-unresolved': ['error', { commonjs: true, caseSensitive: true, ignore: ['^@/'] }], // 경로 별칭(@/) 무시
+      'import/no-unresolved': [
+        'error',
+        { commonjs: true, caseSensitive: true, ignore: ['^@/'] },
+      ], // 경로 별칭(@/) 무시
       'import/prefer-default-export': 'off', // 팀 컨벤션에 따라
       'import/no-extraneous-dependencies': [
         'error',
@@ -231,13 +237,15 @@ export default tseslint.config(
       // ESLint로 강제 불가
 
       // === 데이터 페칭 (React Query - 사용 시) ===
-      '@tanstack/query/exhaustive-deps': 'warn',
-      '@tanstack/query/no-rest-destructuring': 'warn',
-      '@tanstack/query/stable-query-client': 'error',
+      // '@tanstack/query/exhaustive-deps': 'warn',
+      // '@tanstack/query/no-rest-destructuring': 'warn',
+      // '@tanstack/query/stable-query-client': 'error',
 
       // === 기타 필요한 규칙 추가 또는 기본 규칙 비활성화 ===
       'no-console':
-        process.env.NODE_ENV === 'production' ? ['warn', { allow: ['warn', 'error'] }] : 'off',
+        process.env.NODE_ENV === 'production'
+          ? ['warn', { allow: ['warn', 'error'] }]
+          : 'off',
       // "no-unused-vars": "off", // @typescript-eslint/no-unused-vars 사용 권장
       '@typescript-eslint/no-unused-vars': [
         'warn',

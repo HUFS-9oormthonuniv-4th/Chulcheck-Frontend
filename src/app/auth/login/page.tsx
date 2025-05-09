@@ -1,9 +1,13 @@
 "use client";
 
+import { useState } from "react";
+
 import Image from "next/image";
 import Link from "next/link";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -17,40 +21,106 @@ import {
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 
-// 로그인 폼 인터페이스 정의
-interface LoginFormData {
-  email: string;
-  password: string;
+// 상수 정의
+const PASSWORD_MIN_LENGTH = 6;
+
+// zod 스키마 정의
+const loginSchema = z.object({
+  email: z
+    .string()
+    .min(1, "이메일을 입력해주세요.")
+    .email("유효한 이메일 주소를 입력해주세요."),
+  password: z
+    .string()
+    .min(1, "비밀번호를 입력해주세요.")
+    .min(
+      PASSWORD_MIN_LENGTH,
+      `비밀번호는 최소 ${PASSWORD_MIN_LENGTH}자 이상이어야 합니다.`,
+    ),
+});
+
+type LoginFormData = z.infer<typeof loginSchema>;
+
+// 소셜 로그인 버튼 컴포넌트
+interface SocialLoginButtonsProps {
+  isLoading: boolean;
 }
 
-// 유효성 검사 규칙을 상수로 분리
-export const EMAIL_RULES = {
-  required: "이메일을 입력해주세요.",
-  pattern: {
-    value: /\S+@\S+\.\S+/,
-    message: "유효한 이메일 주소를 입력해주세요.",
-  },
-};
+function SocialLoginButtons({ isLoading }: SocialLoginButtonsProps) {
+  const handleKakaoLogin = (): void => {
+    console.log("카카오 로그인");
+  };
 
-export const PASSWORD_RULES = {
-  required: "비밀번호를 입력해주세요.",
-  minLength: {
-    value: 6,
-    message: "비밀번호는 최소 6자 이상이어야 합니다.",
-  },
-};
+  const handleNaverLogin = (): void => {
+    console.log("네이버 로그인");
+  };
 
-// 더미 로그인 API (실제로는 API 호출 구현 필요)
-export const loginApi = async (data: LoginFormData): Promise<void> => {
-  // 실제 API 호출을 시뮬레이션하기 위한 지연
-  await new Promise((resolve) => setTimeout(resolve, 500));
-  console.log("API 호출 성공:", data);
-  return Promise.resolve();
-};
+  const handleGoogleLogin = (): void => {
+    console.log("구글 로그인");
+  };
+
+  return (
+    <div className="flex flex-col gap-3">
+      {/* 카카오 로그인 */}
+      <Button
+        variant="outline"
+        className="w-full h-[50px] bg-[#FFDE32] hover:bg-[#FFDE32]/80 border-none text-[#1A1A1A] text-base flex items-center justify-center gap-2 rounded-lg font-normal"
+        disabled={isLoading}
+        onClick={handleKakaoLogin}
+        type="button"
+      >
+        <Image
+          src="/assets/icons/logo-kakaotalk.svg"
+          width={20}
+          height={18}
+          alt="Kakao"
+        />
+        카카오로 로그인
+      </Button>
+
+      {/* 네이버 로그인 */}
+      <Button
+        variant="outline"
+        className="w-full h-[50px] bg-[#03C75A] hover:bg-[#03C75A]/80 border-none text-white text-base flex items-center justify-center gap-2 rounded-lg font-medium"
+        disabled={isLoading}
+        onClick={handleNaverLogin}
+        type="button"
+      >
+        <Image
+          src="/assets/icons/logo-naver.svg"
+          width={16}
+          height={16}
+          alt="Naver"
+        />
+        네이버 로그인
+      </Button>
+
+      {/* 구글 로그인 */}
+      <Button
+        variant="outline"
+        className="w-full h-[50px] bg-white border border-[#747775] text-base text-[#1F1F1F] flex items-center justify-center gap-2 rounded-md font-medium"
+        disabled={isLoading}
+        onClick={handleGoogleLogin}
+        type="button"
+      >
+        <Image
+          src="/assets/icons/logo-google.svg"
+          width={18}
+          height={18}
+          alt="Google"
+        />
+        Google로 로그인
+      </Button>
+    </div>
+  );
+}
 
 export default function LoginPage() {
-  // react-hook-form 설정
+  const [isLoading, setIsLoading] = useState(false);
+  const [serverError, setServerError] = useState<string | null>(null);
+
   const form = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
       password: "",
@@ -58,22 +128,36 @@ export default function LoginPage() {
     mode: "onSubmit",
   });
 
-  // 폼 제출 핸들러 - 비동기 처리는 별도 함수로 추출
-  const onSubmit = (data: LoginFormData) => {
-    console.log("폼 데이터:", data);
-    // 여기서 비동기 로직을 호출, void 반환
-    void handleLogin(data);
-  };
+  const onSubmit = async (data: LoginFormData) => {
+    setIsLoading(true);
+    setServerError(null);
 
-  // 실제 로그인 비동기 처리
-  const handleLogin = async (data: LoginFormData) => {
     try {
-      // API 호출을 시뮬레이션하기 위한 지연
+      // API 예시
       await new Promise((resolve) => setTimeout(resolve, 500));
-      console.log("로그인 성공:", data);
-      // 여기에 실제 로그인 로직 추가
+      console.log("로그인 시도:", data);
+
+      // TODO: 실제 로그인 API 연동
+      // const response = await fetch('/api/auth/login', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(data),
+      // });
+
+      // if (!response.ok) {
+      //   throw new Error('로그인에 실패했습니다. 이메일과 비밀번호를 확인해주세요.');
+      // }
+
+      // window.location.href = '/dashboard';
     } catch (error) {
       console.error("로그인 실패:", error);
+      setServerError(
+        error instanceof Error
+          ? error.message
+          : "로그인 중 오류가 발생했습니다.",
+      );
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -84,7 +168,7 @@ export default function LoginPage() {
       {/* 로고 영역 */}
       <div className="flex justify-center items-center w-full py-10 mt-4 mb-8">
         <h1
-          className="text-2xl font-normal text-[#3282F0]"
+          className="text-2xl font-normal text-primary"
           style={{ fontFamily: "Michroma" }}
         >
           Chulcheck.kr
@@ -93,7 +177,15 @@ export default function LoginPage() {
 
       {/* 폼 영역 */}
       <div className="w-full max-w-[310px] flex flex-col gap-6">
-        {/* Form 컴포넌트 활용 */}
+        {serverError && (
+          <div
+            className="p-3 bg-red-50 border border-red-200 rounded-md text-red-600 text-sm"
+            role="alert"
+          >
+            {serverError}
+          </div>
+        )}
+
         <Form {...form}>
           <form
             onSubmit={(e) => {
@@ -106,7 +198,6 @@ export default function LoginPage() {
             <FormField
               control={form.control}
               name="email"
-              rules={EMAIL_RULES}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-sm font-medium text-[#0F172A]">
@@ -114,8 +205,11 @@ export default function LoginPage() {
                   </FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="이메일을 입력 해주세요"
+                      type="email"
+                      placeholder="이메일을 입력해주세요"
                       className="w-full h-[50px] border border-[#CBD5E1] rounded-md px-3 placeholder:text-[#94A3B8]"
+                      aria-invalid={!!form.formState.errors.email}
+                      disabled={isLoading}
                       {...field}
                     />
                   </FormControl>
@@ -128,7 +222,6 @@ export default function LoginPage() {
             <FormField
               control={form.control}
               name="password"
-              rules={PASSWORD_RULES}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-sm font-medium text-[#0F172A]">
@@ -137,8 +230,10 @@ export default function LoginPage() {
                   <FormControl>
                     <Input
                       type="password"
-                      placeholder="비밀 번호를 입력 해주세요"
+                      placeholder="비밀번호를 입력해주세요"
                       className="w-full h-[50px] border border-[#CBD5E1] rounded-md px-3 placeholder:text-[#94A3B8]"
+                      aria-invalid={!!form.formState.errors.password}
+                      disabled={isLoading}
                       {...field}
                     />
                   </FormControl>
@@ -151,7 +246,7 @@ export default function LoginPage() {
             <div className="flex flex-row items-center justify-between pt-1">
               <Link
                 href="/auth/signup"
-                className="text-xs font-bold text-[#D6E6FC]"
+                className="text-xs font-bold text-primary"
               >
                 회원가입
               </Link>
@@ -166,9 +261,10 @@ export default function LoginPage() {
             {/* 로그인 버튼 */}
             <Button
               type="submit"
-              className="w-full bg-[#3282F0] hover:bg-[#3282F0]/80 text-white text-base font-semibold py-4 rounded-lg h-auto"
+              className="w-full bg-primary hover:bg-primary/80 text-white text-base font-semibold py-4 rounded-lg h-auto"
+              disabled={isLoading}
             >
-              로그인
+              {isLoading ? "로그인 중..." : "로그인"}
             </Button>
           </form>
         </Form>
@@ -181,50 +277,8 @@ export default function LoginPage() {
           </span>
         </div>
 
-        {/* 소셜 로그인 버튼들 */}
-        <div className="flex flex-col gap-3">
-          {/* 카카오 로그인 */}
-          <Button
-            variant="outline"
-            className="w-full h-[50px] bg-[#FFDE32] hover:bg-[#FFDE32]/80 border-none text-[#1A1A1A] text-base flex items-center justify-center gap-2 rounded-lg font-normal"
-          >
-            <Image
-              src="/assets/icons/logo-kakaotalk.svg"
-              width={20}
-              height={18}
-              alt="Kakao"
-            />
-            카카오로 로그인
-          </Button>
-
-          {/* 네이버 로그인 */}
-          <Button
-            variant="outline"
-            className="w-full h-[50px] bg-[#03C75A] hover:bg-[#03C75A]/80 border-none text-white text-base flex items-center justify-center gap-2 rounded-lg font-medium"
-          >
-            <Image
-              src="/assets/icons/logo-naver.svg"
-              width={16}
-              height={16}
-              alt="Naver"
-            />
-            네이버 로그인
-          </Button>
-
-          {/* 구글 로그인 */}
-          <Button
-            variant="outline"
-            className="w-full h-[50px] bg-white border border-[#747775] text-base text-[#1F1F1F] flex items-center justify-center gap-2 rounded-md font-medium"
-          >
-            <Image
-              src="/assets/icons/logo-google.svg"
-              width={18}
-              height={18}
-              alt="Google"
-            />
-            Google로 로그인
-          </Button>
-        </div>
+        {/* 소셜 로그인 버튼 컴포넌트 */}
+        <SocialLoginButtons isLoading={isLoading} />
       </div>
     </div>
   );
