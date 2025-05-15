@@ -46,7 +46,7 @@ interface SocialLoginButtonsProps {
   isLoading: boolean;
 }
 
-function SocialLoginButtons({ isLoading }: SocialLoginButtonsProps) {
+export function SocialLoginButtons({ isLoading }: SocialLoginButtonsProps) {
   const handleKakaoLogin = (): void => {
     console.log("카카오 로그인");
   };
