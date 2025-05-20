@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { TitleAndDescription } from "@/components/TitleAndDescription";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -16,7 +17,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { TitleAndDescription } from "@/components/ui/TitleAndDescription";
 
 // 상수 정의
 const STUDENT_ID_MAX_LENGTH = 9;
