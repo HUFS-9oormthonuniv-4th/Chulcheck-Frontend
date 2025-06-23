@@ -8,15 +8,15 @@ interface SocialLoginButtonsProps {
 
 export function SocialLoginButtons({ isLoading }: SocialLoginButtonsProps) {
   const handleKakaoLogin = (): void => {
-    console.log("카카오 로그인");
+    // console.log("카카오 로그인");
   };
 
   const handleNaverLogin = (): void => {
-    console.log("네이버 로그인");
+    // console.log("네이버 로그인");
   };
 
   const handleGoogleLogin = (): void => {
-    console.log("구글 로그인");
+    // console.log("구글 로그인");
   };
 
   return (
