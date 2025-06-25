@@ -1,11 +1,9 @@
-"use client";
-
-interface Props {
+interface FormFieldProps {
   label: string;
   placeholder: string;
 }
 
-export const FormField = ({ label, placeholder }: Props) => {
+export const FormField = ({ label, placeholder }: FormFieldProps) => {
   return (
     <div>
       <label className="block text-sm font-semibold text-[#2C3344] mb-1">

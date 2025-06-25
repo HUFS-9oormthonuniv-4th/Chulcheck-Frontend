@@ -1,7 +1,5 @@
 "use client";
 
-import React from "react";
-
 import { RefreshCw, Copy } from "lucide-react";
 
 export function CopyLink() {
@@ -31,7 +29,7 @@ export function CopyLink() {
           type="text"
           readOnly
           value="https://fclub-log.vercel.app/"
-          className="flex-grow px-3 rounded-lg text-gray-700 text-sm outline-none border border-gray-300 "
+          className="flex-grow px-3 rounded-lg text-gray-700 text-sm outline-none border border-gray-300"
         />
         <button
           onClick={() => {

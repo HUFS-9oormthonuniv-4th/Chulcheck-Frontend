@@ -1,18 +1,16 @@
-"use client";
-
 import { Listbox } from "@headlessui/react";
 import { Check, ChevronDown } from "lucide-react";
 
-import { Member } from "@/types/admin";
+import { Member } from "@/lib/type/admin";
 
-interface Props {
+interface MemberSelectProps {
   value: Member["role"];
   onChange: (value: Member["role"]) => void;
 }
 
 const roles: Member["role"][] = ["대표", "운영진", "미르미"];
 
-export function MemberSelect({ value, onChange }: Props) {
+export function MemberSelect({ value, onChange }: MemberSelectProps) {
   return (
     <div className="relative text-sm overflow-visible">
       <Listbox value={value} onChange={onChange}>

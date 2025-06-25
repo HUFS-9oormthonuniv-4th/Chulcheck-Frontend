@@ -1,4 +1,4 @@
-import { Member, AttendanceRecord } from "@/types/admin";
+import { Member, AttendanceRecord } from "@/lib/type/admin";
 
 export const mockMembers: Member[] = [
   {

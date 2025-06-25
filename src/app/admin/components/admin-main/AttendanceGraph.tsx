@@ -1,12 +1,16 @@
 import { User } from "lucide-react";
 
-interface Props {
+interface AttendanceGraphProps {
   percentage: number;
   total: number;
   attended: number;
 }
 
-export function AttendanceGraph({ percentage, total, attended }: Props) {
+export function AttendanceGraph({
+  percentage,
+  total,
+  attended,
+}: AttendanceGraphProps) {
   const radius = 45;
   const circumference = 2 * Math.PI * radius;
   const strokeDashoffset = circumference * (1 - percentage / 100);

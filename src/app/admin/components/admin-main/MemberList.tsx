@@ -1,4 +1,4 @@
-import { Member } from "@/types/admin";
+import { Member } from "@/lib/type/admin";
 
 import { MemberSelect } from "./MemberListSelect";
 

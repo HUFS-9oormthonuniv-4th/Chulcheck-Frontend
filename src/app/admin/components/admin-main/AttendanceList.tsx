@@ -1,4 +1,4 @@
-import { AttendanceRecord } from "@/types/admin";
+import { AttendanceRecord } from "@/lib/type/admin";
 
 interface AttendanceListProps {
   records: AttendanceRecord[];
