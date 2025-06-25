@@ -1,6 +1,6 @@
-import { ChevronDown } from "lucide-react";
-
 import { Member } from "@/types/admin";
+
+import { MemberSelect } from "./MemberListSelect";
 
 interface MemberListProps {
   members: Member[];
@@ -27,25 +27,15 @@ export function MemberList({ members, onRoleChange }: MemberListProps) {
             </div>
             <div className="flex-grow">
               <p className="font-semibold text-gray-900">{member.name}</p>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-600 whitespace-nowrap">
                 {member.department} • 가입일: {member.joinDate}
               </p>
             </div>
             <div className="relative">
-              <select
+              <MemberSelect
                 value={member.role}
-                onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-                  onRoleChange(member.id, e.target.value as Member["role"])
-                }
-                className="appearance-none rounded-md py-2 pl-1 pr-6 text-sm focus:outline-none" // Added pr-6 to make space for arrow
-              >
-                <option value="대표">대표</option>
-                <option value="운영진">운영진</option>
-                <option value="미르미">미르미</option>
-              </select>
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-1 text-gray-700">
-                <ChevronDown className="h-4 w-4" />
-              </div>
+                onChange={(newRole) => onRoleChange(member.id, newRole)}
+              />
             </div>
           </div>
         ))}
