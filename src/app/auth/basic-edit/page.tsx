@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { TitleAndDescription } from "@/components/TitleAndDescription";
+import { TitleAndDescription } from "@/components/TitleAndDescription.tsx";
 import { Button } from "@/components/ui/button";
 import {
   Form,

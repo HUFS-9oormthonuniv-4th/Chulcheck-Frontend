@@ -1,6 +1,6 @@
 import React from "react";
 
-import { TitleAndDescription } from "@/components/TitleAndDescription";
+import { TitleAndDescription } from "@/components/TitleAndDescription.tsx";
 
 import QrCard from "../(attendance)/check/QrCard";
 
