@@ -116,7 +116,10 @@
   --color-sub: #D6E6FC;
 }
 
-body {
+html, body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
   font-family: var(--font-pretendard), sans-serif; /* 이 부분이 중요! */
 }
 

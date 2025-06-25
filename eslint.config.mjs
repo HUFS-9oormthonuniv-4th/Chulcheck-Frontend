@@ -31,13 +31,13 @@ export default tseslint.config(
   {
     ignores: [
       'node_modules/',
+      'next.config.ts',
       '.next/',
       'out/',
       'public/build/',
-      '.prettierrc.js', // .prettierrc.js 파일 무시
-      '*.config.js', // 설정 파일들 무시
-      '*.config.mjs', // 설정 파일들 무시
-      // 필요한 경우 빌드 결과물이나 자동 생성 파일 추가
+      '.prettierrc.js',
+      '*.config.js',
+      '*.config.mjs',
     ],
     languageOptions: {
       globals: {
@@ -82,13 +82,18 @@ export default tseslint.config(
     },
   },
 
-  // --- 2. ESLint 공식 추천 규칙 ---
+  // --- 2. next.config.ts 파일 명시적 제외 ---
+  {
+    ignores: ['next.config.ts'],
+  },
+
+  // --- 3. ESLint 공식 추천 규칙 ---
   tseslint.configs.recommended,
 
-  // --- 3. TypeScript ESLint 플러그인 추천 규칙 ---
+  // --- 4. TypeScript ESLint 플러그인 추천 규칙 ---
   ...tseslint.configs.recommendedTypeChecked,
 
-  // --- 4. React 플러그인 추천 규칙 ---
+  // --- 5. React 플러그인 추천 규칙 ---
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
     rules: {
@@ -109,7 +114,7 @@ export default tseslint.config(
     },
   },
 
-  // --- 5. React Hooks 플러그인 추천 규칙 ---
+  // --- 6. React Hooks 플러그인 추천 규칙 ---
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
     rules: {
@@ -118,7 +123,7 @@ export default tseslint.config(
     },
   },
 
-  // --- 6. JSX Accessibility 플러그인 추천 규칙 ---
+  // --- 7. JSX Accessibility 플러그인 추천 규칙 ---
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
     rules: {
@@ -132,14 +137,14 @@ export default tseslint.config(
     },
   },
 
-  // --- 7. Next.js 코어 웹 바이탈 규칙 ---
+  // --- 8. Next.js 코어 웹 바이탈 규칙 ---
   // `eslint-config-next/core-web-vitals`를 FlatCompat으로 가져옴
   // 이 설정은 React, Hooks, JSX-A11y, Next.js 특화 규칙 등을 포함하며,
   // 위에서 직접 추가한 플러그인 추천 설정과 일부 중복될 수 있습니다.
   // 일반적으로 나중에 선언된 규칙이 우선하므로, Next.js 최적화 설정을 유지합니다.
   ...compat.extends('next/core-web-vitals'),
 
-  // --- 8. 사용자 정의 컨벤션 규칙 (가장 높은 우선순위) ---
+  // --- 9. 사용자 정의 컨벤션 규칙 (가장 높은 우선순위) ---
   // 이전에 논의된 네이밍, 주석, import 순서 등을 여기에 정의하여
   // 위에서 적용한 추천 규칙들을 덮어쓰거나 보완합니다.
   {
@@ -259,7 +264,7 @@ export default tseslint.config(
     },
   },
 
-  // --- 9. 특정 파일 타입에 대한 규칙 (예: 설정 파일, 선택적) ---
+  // --- 10. 특정 파일 타입에 대한 규칙 (예: 설정 파일, 선택적) ---
   {
     files: ['*.js', '*.cjs', '*.mjs', '*.ts'],
     ignores: ['eslint.config.mjs'],
@@ -270,6 +275,6 @@ export default tseslint.config(
     },
   },
 
-  // --- 10. Prettier와의 충돌 방지 (반드시 가장 마지막에 위치) ---
+  // --- 11. Prettier와의 충돌 방지 (반드시 가장 마지막에 위치) ---
   eslintConfigPrettier
 );
