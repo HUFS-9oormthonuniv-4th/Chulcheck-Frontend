@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 
 import { Settings, Calendar } from "lucide-react";
 
+import { mockAttendanceRecords, mockMembers } from "@/mocks/admin";
 import { AttendanceRecord, Member } from "@/types/admin";
 
 import { AttendanceGraph } from "./components/admin-main/AttendanceGraph";
@@ -20,46 +21,10 @@ export default function AdminPage() {
   const [activeTab, setActiveTab] = useState<
     "memberManagement" | "attendanceManagement"
   >("memberManagement");
-  const [members, setMembers] = useState<Member[]>([
-    {
-      id: 1,
-      name: "이예림",
-      department: "컴퓨터공학부",
-      joinDate: "2025. 5. 1.",
-      role: "대표",
-    },
-    {
-      id: 2,
-      name: "이예림2",
-      department: "컴퓨터공학부",
-      joinDate: "2025. 5. 1.",
-      role: "운영진",
-    },
-    {
-      id: 3,
-      name: "이예림3",
-      department: "컴퓨터공학부",
-      joinDate: "2025. 5. 1.",
-      role: "미르미",
-    },
-  ]);
-
-  const [attendanceRecords] = useState<AttendanceRecord[]>([
-    {
-      id: 1,
-      date: "2023-10-23",
-      time: "14:00",
-      attendanceRate: 75,
-      method: "QR코드 스캔",
-    },
-    {
-      id: 2,
-      date: "2023-10-24",
-      time: "10:30",
-      attendanceRate: 80,
-      method: "QR코드 스캔",
-    },
-  ]);
+  const [members, setMembers] = useState<Member[]>(mockMembers);
+  const [attendanceRecords] = useState<AttendanceRecord[]>(
+    mockAttendanceRecords,
+  );
 
   const handleRoleChange = (memberId: number, newRole: Member["role"]) => {
     setMembers((prevMembers) =>
