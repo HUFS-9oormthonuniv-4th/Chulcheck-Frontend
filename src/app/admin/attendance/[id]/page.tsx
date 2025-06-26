@@ -10,7 +10,7 @@ import { attendanceDates, attendanceRecords } from "@/mocks/admin";
 import AttendanceInfo from "../../components/attendance/AttendanceInfo";
 import Calendar from "../../components/attendance/Calendar";
 import CalendarHeader from "../../components/attendance/CalendarHeader";
-import AttendanceModal from "../../components/AttendanceBottomSheet";
+import AttendanceBottomSheet from "../../components/AttendanceBottomSheet";
 
 export default function AttendancePage() {
   const [currentDate, setCurrentDate] = useState(new Date("2025-05-11"));
@@ -64,7 +64,7 @@ export default function AttendancePage() {
       />
 
       {selectedStudent && (
-        <AttendanceModal
+        <AttendanceBottomSheet
           selected={selectedStudent}
           onClose={() => setSelectedStudent(null)}
         />

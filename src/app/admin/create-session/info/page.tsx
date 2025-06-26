@@ -8,10 +8,10 @@ import { FolderPlus } from "lucide-react";
 
 import Header from "@/components/ui/Header";
 
-import { FormButton } from "../components/Button";
-import FormInput from "../components/create-session/FormInput";
-import FormTextarea from "../components/create-session/FormTextarea";
-import TimeInput from "../components/create-session/TimeInput";
+import { FormButton } from "../../components/Button";
+import FormInput from "../../components/create-session/FormInput";
+import FormTextarea from "../../components/create-session/FormTextarea";
+import TimeInput from "../../components/create-session/TimeInput";
 
 export default function CreateSessionForm() {
   const router = useRouter();
@@ -101,6 +101,7 @@ export default function CreateSessionForm() {
             variant="primary"
             icon={<FolderPlus className="w-5 h-5 mr-2" />}
             type="submit"
+            onClick={() => router.push("/admin/create-session/check-qr")}
           >
             출석 QR 생성하기
           </FormButton>
