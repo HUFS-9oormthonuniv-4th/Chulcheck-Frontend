@@ -8,7 +8,7 @@ export default function SettingsPage() {
   const router = useRouter();
 
   return (
-    <div className="min-h-screen bg-[#F9FAFB]  max-w-md mx-auto">
+    <div className="min-h-screen   max-w-md mx-auto">
       <Header variant="back" />
       <h2 className="text-xl font-bold text-[#0F172A] mb-1">설정</h2>
       <p className="text-sm text-[#666666] mb-6">구름톤 유니브 한국외대</p>

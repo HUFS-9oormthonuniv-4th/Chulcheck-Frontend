@@ -13,7 +13,7 @@ export default function EditClubPage() {
   const router = useRouter();
 
   return (
-    <div className="min-h-screen bg-[#F9FAFB] pb-10 max-w-md mx-auto">
+    <div className="min-h-screen  pb-10 max-w-md mx-auto">
       <Header variant="back" />
 
       <h2 className="text-xl font-bold text-[#0F172A] mb-1">
