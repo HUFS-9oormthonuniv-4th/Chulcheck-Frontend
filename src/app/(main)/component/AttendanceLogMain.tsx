@@ -2,9 +2,7 @@ import React from "react";
 
 import { TitleAndDescription } from "@/components/TitleAndDescription";
 
-import AttendanceLogCard, {
-  AttendanceStatus,
-} from "./component/AttendanceLogCard";
+import AttendanceLogCard, { AttendanceStatus } from "./AttendanceLogCard";
 
 // 타입 정의를 더 명확하게
 interface AttendanceLog {

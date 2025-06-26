@@ -2,9 +2,9 @@
 
 import React, { useState } from "react";
 
-import AttendanceCheckSystemModal from "../(attendance)/check/AttendancdCheckSystemModal";
-import AttendanceQrScan from "../(attendance)/check/AttendanceQrScan";
-import QrCard from "../(attendance)/check/QrCard";
+import AttendanceCheckSystemModal from "@/app/(attendance)/check/AttendancdCheckSystemModal";
+import AttendanceQrScan from "@/app/(attendance)/check/AttendanceQrScan";
+import QrCard from "@/app/(attendance)/check/QrCard";
 
 export default function AttendanceMain() {
   const pin = "0000-0000";
