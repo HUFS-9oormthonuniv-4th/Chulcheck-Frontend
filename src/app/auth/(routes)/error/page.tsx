@@ -2,11 +2,13 @@
 
 import { Suspense } from "react";
 
+import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 
 function ErrorContent() {
   const searchParams = useSearchParams();
   const error = searchParams.get("error");
+  const router = useRouter();
 
   const getErrorMessage = (error: string | null) => {
     switch (error) {
@@ -27,7 +29,7 @@ function ErrorContent() {
       <p className="text-red-500 mb-4">{getErrorMessage(error)}</p>
       <p className="text-sm text-gray-600 mb-4">에러 코드: {error}</p>
       <button
-        onClick={() => (window.location.href = "/auth/login")}
+        onClick={() => router.push("/auth/login")}
         className="px-4 py-2 bg-blue-500 text-white rounded"
       >
         다시 로그인하기

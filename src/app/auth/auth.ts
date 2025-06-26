@@ -11,7 +11,7 @@ import type { DefaultSession } from "next-auth";
 import type { JWT } from "next-auth/jwt";
 
 if (!process.env.AUTH_SECRET) {
-  throw new Error("NEXTAUTH_SECRET is required");
+  throw new Error("AUTH_SECRET is required");
 }
 
 const SESSION_MAX_AGE = 60 * 60 * 8;

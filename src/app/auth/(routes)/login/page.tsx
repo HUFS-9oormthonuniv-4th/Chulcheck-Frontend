@@ -30,9 +30,34 @@ function ErrorMessageFromURL() {
   return errorMessage ? <ErrorAlert message={errorMessage} /> : null;
 }
 
-export default function LoginPage() {
-  const { isLoading, serverError, form, onSubmit } = useLoginForm();
+// callbackUrl을 가져오는 컴포넌트
+function LoginFormWithCallback() {
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl");
+  const { isLoading, serverError, form, onSubmit } = useLoginForm(callbackUrl);
 
+  return (
+    <>
+      <LoginForm
+        isLoading={isLoading}
+        onSubmit={onSubmit}
+        serverError={serverError}
+        form={form}
+      />
+
+      {/* 구분선 */}
+      <div className="flex items-center justify-center my-4 relative">
+        <Separator className="absolute w-full bg-[#E2E8F0]" />
+        <span className="bg-white px-4 z-10 text-xs text-[#94A3B8]">또는</span>
+      </div>
+
+      {/* 소셜 로그인 버튼 컴포넌트 */}
+      <SocialLoginButtons isLoading={isLoading} />
+    </>
+  );
+}
+
+export default function LoginPage() {
   return (
     <div className="flex flex-col items-center bg-white">
       <div className="w-full h-10" />
@@ -49,23 +74,10 @@ export default function LoginPage() {
           <ErrorMessageFromURL />
         </Suspense>
 
-        <LoginForm
-          isLoading={isLoading}
-          onSubmit={onSubmit}
-          serverError={serverError}
-          form={form}
-        />
-
-        {/* 구분선 */}
-        <div className="flex items-center justify-center my-4 relative">
-          <Separator className="absolute w-full bg-[#E2E8F0]" />
-          <span className="bg-white px-4 z-10 text-xs text-[#94A3B8]">
-            또는
-          </span>
-        </div>
-
-        {/* 소셜 로그인 버튼 컴포넌트 */}
-        <SocialLoginButtons isLoading={isLoading} />
+        {/* 로그인 폼과 소셜 로그인을 함께 Suspense로 감싸기 */}
+        <Suspense fallback={<div>로딩중...</div>}>
+          <LoginFormWithCallback />
+        </Suspense>
       </div>
     </div>
   );

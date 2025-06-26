@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 
 import { loginSchema, LoginFormData } from "@/app/auth/_lib";
 
-export function useLoginForm() {
+export function useLoginForm(callbackUrl?: string | null) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
@@ -52,9 +52,8 @@ export function useLoginForm() {
       }
 
       // 성공 시 callbackUrl이 있으면 해당 페이지로, 없으면 기본 페이지로 이동
-      const urlParams = new URLSearchParams(window.location.search);
-      const callbackUrl = urlParams.get("callbackUrl") || "/admin";
-      router.push(callbackUrl);
+      const redirectUrl = callbackUrl || "/admin";
+      router.push(redirectUrl);
     } catch (error) {
       console.error("Login error:", error);
       setServerError(
