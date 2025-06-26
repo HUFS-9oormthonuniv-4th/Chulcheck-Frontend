@@ -1,11 +1,15 @@
 import { useState } from "react";
 
+import { useRouter } from "next/navigation";
+
 import { zodResolver } from "@hookform/resolvers/zod";
+import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
 
-import { loginSchema, LoginFormData } from "@/validation/auth-validation";
+import { loginSchema, LoginFormData } from "@/app/auth/_lib";
 
 export function useLoginForm() {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
 
@@ -23,28 +27,37 @@ export function useLoginForm() {
     setServerError(null);
 
     try {
-      // API 예시
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      console.log("로그인 시도:", data);
+      const result = await signIn("credentials", {
+        redirect: false,
+        userId: data.email,
+        password: data.password,
+      });
 
-      // TODO: 실제 로그인 API 연동
-      // const response = await fetch('/api/auth/login', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(data),
-      // });
+      if (result?.error) {
+        const errorMessage = (() => {
+          switch (result.error) {
+            case "CredentialsSignin":
+              return "이메일 또는 비밀번호가 올바르지 않습니다.";
+            case "CallbackRouteError":
+              return "로그인 처리 중 오류가 발생했습니다.";
+            case "Configuration":
+              return "시스템 설정 오류가 발생했습니다.";
+            default:
+              return result.error;
+          }
+        })();
 
-      // if (!response.ok) {
-      //   throw new Error('로그인에 실패했습니다. 이메일과 비밀번호를 확인해주세요.');
-      // }
+        setServerError(errorMessage);
+        return;
+      }
 
-      // window.location.href = '/dashboard';
+      router.push("/admin");
     } catch (error) {
-      console.error("로그인 실패:", error);
+      console.error("Login error:", error);
       setServerError(
         error instanceof Error
           ? error.message
-          : "로그인 중 오류가 발생했습니다.",
+          : "로그인 중 예기치 못한 오류가 발생했습니다.",
       );
     } finally {
       setIsLoading(false);

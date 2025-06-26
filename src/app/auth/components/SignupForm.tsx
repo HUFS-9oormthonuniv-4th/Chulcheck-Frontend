@@ -2,6 +2,8 @@ import React from "react";
 
 import { UseFormReturn } from "react-hook-form";
 
+import { SignUpFormData } from "@/app/auth/_lib";
+import { ErrorAlert } from "@/app/auth/components/ErrorAlert";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -11,13 +13,13 @@ import {
   FormControl,
   FormMessage,
 } from "@/components/ui/form";
-import { SignUpFormData } from "@/validation/auth-validation";
+import { Input } from "@/components/ui/input";
 
 interface SignupFormProps {
   isLoading: boolean;
   serverError: string | null;
   form: UseFormReturn<SignUpFormData>;
-  onSubmit: (data: SignUpFormData) => Promise<void>;
+  onSubmit: (data: SignUpFormData) => void;
 }
 
 export function SignupForm({
@@ -27,29 +29,35 @@ export function SignupForm({
   onSubmit,
 }: SignupFormProps) {
   return (
-    <div>
+    <>
+      {serverError && <ErrorAlert message={serverError} />}
       <Form {...form}>
         <form
           onSubmit={(e) => {
+            e.preventDefault();
             void form.handleSubmit(onSubmit)(e);
           }}
-          className="space-y-3 mt-5"
+          className="space-y-5"
         >
           <FormField
             control={form.control}
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>이메일</FormLabel>
+                <FormLabel className="text-sm font-medium text-[#0F172A]">
+                  이메일
+                </FormLabel>
                 <FormControl>
-                  <input
+                  <Input
                     type="email"
                     placeholder="이메일을 입력해주세요"
-                    className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm placeholder-gray-400 focus:outline-none focus:border-primary"
+                    className="w-full h-[50px] border border-[#CBD5E1] rounded-md px-3 placeholder:text-[#94A3B8]"
+                    aria-invalid={!!form.formState.errors.email}
+                    disabled={isLoading}
                     {...field}
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-xs text-red-500" />
               </FormItem>
             )}
           />
@@ -59,16 +67,20 @@ export function SignupForm({
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>비밀번호</FormLabel>
+                <FormLabel className="text-sm font-medium text-[#0F172A]">
+                  비밀번호
+                </FormLabel>
                 <FormControl>
-                  <input
+                  <Input
                     type="password"
                     placeholder="비밀번호를 입력해주세요"
-                    className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm placeholder-gray-400 focus:outline-none focus:border-primary"
+                    className="w-full h-[50px] border border-[#CBD5E1] rounded-md px-3 placeholder:text-[#94A3B8]"
+                    aria-invalid={!!form.formState.errors.password}
+                    disabled={isLoading}
                     {...field}
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-xs text-red-500" />
               </FormItem>
             )}
           />
@@ -78,36 +90,33 @@ export function SignupForm({
             name="confirmPassword"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>비밀번호 확인</FormLabel>
+                <FormLabel className="text-sm font-medium text-[#0F172A]">
+                  비밀번호 확인
+                </FormLabel>
                 <FormControl>
-                  <input
+                  <Input
                     type="password"
                     placeholder="비밀번호를 다시 입력해주세요"
-                    className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm placeholder-gray-400 focus:outline-none focus:border-primary"
+                    className="w-full h-[50px] border border-[#CBD5E1] rounded-md px-3 placeholder:text-[#94A3B8]"
+                    aria-invalid={!!form.formState.errors.confirmPassword}
+                    disabled={isLoading}
                     {...field}
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-xs text-red-500" />
               </FormItem>
             )}
           />
 
-          {/* 서버 에러 메시지 */}
-          {serverError && (
-            <div className="text-red-500 text-sm text-center">
-              {serverError}
-            </div>
-          )}
-
           <Button
             type="submit"
-            className="w-full bg-primary hover:bg-primary/80 text-white text-base font-semibold py-4 rounded-lg h-auto"
+            className="w-full bg-primary hover:bg-primary/80 text-white text-base font-semibold py-4 rounded-lg h-13"
             disabled={isLoading}
           >
-            {isLoading ? "로딩 중 " : "회원가입"}
+            {isLoading ? "다음 단계로..." : "다음"}
           </Button>
         </form>
       </Form>
-    </div>
+    </>
   );
 }

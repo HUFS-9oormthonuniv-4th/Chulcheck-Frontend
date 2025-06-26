@@ -1,6 +1,6 @@
 import { useRouter } from "next/navigation";
 
-import { Member } from "@/lib/type/admin";
+import { Member } from "@/lib/types/admin";
 
 import { MemberSelect } from "./MemberListSelect";
 

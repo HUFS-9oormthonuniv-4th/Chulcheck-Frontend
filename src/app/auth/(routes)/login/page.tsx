@@ -14,8 +14,8 @@ export default function LoginPage() {
       <div className="w-full h-10" />
 
       {/* 로고 영역 */}
-      <div className="flex justify-center items-center w-full mt-12">
-        <LogoWordmark />
+      <div className="flex justify-center items-center mt-12">
+        <LogoWordmark className="w-full h-full" />
       </div>
 
       {/* 폼 영역 */}

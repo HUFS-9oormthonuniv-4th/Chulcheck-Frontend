@@ -1,5 +1,6 @@
 import { UseFormReturn } from "react-hook-form";
 
+import { ResetPasswordFormData } from "@/app/auth/_lib";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -10,7 +11,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { ResetPasswordFormData } from "@/validation/auth-validation";
 
 interface ResetPasswordFormProps {
   form: UseFormReturn<ResetPasswordFormData>;
