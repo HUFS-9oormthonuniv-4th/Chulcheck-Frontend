@@ -1,5 +1,6 @@
 import Header from "@/components/ui/Header";
 
+import AttendanceLogMain from "./component/AttendanceLogMain";
 import AttendanceMain from "./component/AttendanceMain";
 
 export default function MainPage() {
@@ -7,7 +8,7 @@ export default function MainPage() {
     <>
       <Header variant="main" />
       <AttendanceMain />
-      {/* <AttendanceLogMain /> */}
+      <AttendanceLogMain />
     </>
   );
 }
