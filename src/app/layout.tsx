@@ -34,7 +34,9 @@ export default function RootLayout({
     <html lang="ko">
       <body className={`${pretendard.variable} antialiased`}>
         <div className="min-h-screen">
-          <div className="px-4 py-6 sm:px-6 lg:px-8">{children}</div>
+          <div className="px-4 py-6 sm:px-6 lg:px-8 bg-[#F9FAFB]">
+            {children}
+          </div>
         </div>
       </body>
     </html>

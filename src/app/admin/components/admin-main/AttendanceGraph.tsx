@@ -16,7 +16,7 @@ export function AttendanceGraph({
   const strokeDashoffset = circumference * (1 - percentage / 100);
 
   return (
-    <section className="rounded-[20px] bg-white px-6 py-8 text-center border border-gray-200">
+    <section className="rounded-[20px] bg-white px-6 py-8 text-center ">
       <div className="text-[16px] font-medium text-[#667085] mb-4">
         전체 <span className="text-[#3282F0] font-bold">{percentage}%</span>{" "}
         만큼 출석했어요!

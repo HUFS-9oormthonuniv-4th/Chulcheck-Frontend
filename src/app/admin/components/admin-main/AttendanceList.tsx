@@ -1,3 +1,7 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+
 import { AttendanceRecord } from "@/lib/type/admin";
 
 interface AttendanceListProps {
@@ -5,6 +9,14 @@ interface AttendanceListProps {
 }
 
 export function AttendanceList({ records }: AttendanceListProps) {
+  const router = useRouter();
+
+  const handleCardClick = (record: AttendanceRecord) => {
+    router.push(
+      `/admin/attendance/${record.id}?date=${record.date}&time=${record.time}`,
+    );
+  };
+
   return (
     <div>
       <h3 className="text-xl font-bold text-gray-900 pt-2">미르미 출석관리</h3>
@@ -16,6 +28,7 @@ export function AttendanceList({ records }: AttendanceListProps) {
         {records.map((record) => (
           <div
             key={record.id}
+            onClick={() => handleCardClick(record)}
             className="bg-gray-50 p-3 rounded-xl border border-gray-100 space-y-1"
           >
             <div className="flex justify-between items-center">
