@@ -7,7 +7,7 @@ import Header from "@/components/ui/Header";
 export default function CheckQrPage() {
   const router = useRouter();
   return (
-    <div className="max-w-md mx-auto min-h-screen pb-10 bg-[#F9FAFB]">
+    <div className="max-w-md mx-auto min-h-screen pb-10 ]">
       <Header variant="back" />
       <header className="flex flex-col gap-2 py-2 bg-white pb-8">
         <h1 className="text-xl font-bold text-gray-900">

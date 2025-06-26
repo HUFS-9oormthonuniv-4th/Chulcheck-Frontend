@@ -36,7 +36,7 @@ export default function AdminPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-[#F9FAFB] text-gray-800  max-w-[480px] mx-auto">
+    <div className="min-h-screen text-gray-800  max-w-[480px] mx-auto">
       <Header variant="main" />
       <header className="flex flex-col gap-2 py-2 bg-white">
         <div className="flex justify-between items-center">

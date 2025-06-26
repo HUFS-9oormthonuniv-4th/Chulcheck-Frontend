@@ -18,8 +18,8 @@ export default function MemberDetailPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#F9FAFB] mb-16  max-w-md mx-auto">
-      <Header variant="main" />
+    <div className="min-h-screen  mb-16  max-w-md mx-auto">
+      <Header variant="back" />
       <section className="mb-6">
         <h1 className="text-2xl font-bold text-[#222] mb-1">이예림</h1>
         <p className="text-sm text-[#667085]">한국외대 컴퓨터공학부</p>

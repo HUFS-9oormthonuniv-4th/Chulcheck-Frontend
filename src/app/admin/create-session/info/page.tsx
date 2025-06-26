@@ -10,7 +10,6 @@ import Header from "@/components/ui/Header";
 
 import { FormButton } from "../../components/Button";
 import FormInput from "../../components/create-session/FormInput";
-import FormTextarea from "../../components/create-session/FormTextarea";
 import TimeInput from "../../components/create-session/TimeInput";
 
 export default function CreateSessionForm() {
@@ -36,7 +35,7 @@ export default function CreateSessionForm() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("제출 내용", form);
-    // router.push("/qr"); // QR 코드 페이지로 이동
+    router.push("/admin/create-session/check-qr");
   };
 
   return (
@@ -64,12 +63,16 @@ export default function CreateSessionForm() {
           value={form.title}
           onChange={handleChange}
         />
-        <FormTextarea
-          label="설명(선택)"
+        <label className="text-[14px] font-medium text-[#1E293B] mb-1 block">
+          설명(선택)
+        </label>
+        <textarea
           name="description"
           placeholder="세션에 대한 간단한 설명을 입력하세요"
           value={form.description}
           onChange={handleChange}
+          rows={4}
+          className="w-full border border-[#E5E7EB] rounded-md px-3 py-3 text-sm resize-none"
         />
         <FormInput
           label="장소"
@@ -101,7 +104,6 @@ export default function CreateSessionForm() {
             variant="primary"
             icon={<FolderPlus className="w-5 h-5 mr-2" />}
             type="submit"
-            onClick={() => router.push("/admin/create-session/check-qr")}
           >
             출석 QR 생성하기
           </FormButton>

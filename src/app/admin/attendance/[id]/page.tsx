@@ -27,7 +27,7 @@ export default function AttendancePage() {
   const time = searchParams.get("time");
 
   return (
-    <div className="max-w-md mx-auto pb-6 bg-[#F9FAFB] min-h-screen">
+    <div className="max-w-md mx-auto pb-6  min-h-screen">
       <Header variant="back" />
       <h1 className="font-bold text-xl text-[#0F172A] mb-1">
         구름톤 유니브 - 출석현황

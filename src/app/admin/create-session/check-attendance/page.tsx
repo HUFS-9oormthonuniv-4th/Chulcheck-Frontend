@@ -16,14 +16,16 @@ export default function MemberDetailPage() {
   } | null>(null);
 
   return (
-    <div className="min-h-screen bg-[#F9FAFB] mb-16  max-w-md mx-auto">
+    <div className="min-h-screen  mb-16  max-w-md mx-auto">
       <Header variant="back" />
       <section className="mb-6">
         <header className="flex flex-col gap-2 py-2 bg-white ">
           <h1 className="text-xl font-bold text-gray-900">
             구름톤 유니브 - 출석받기
           </h1>
-          <p className="text-sm text-gray-700">주변 스크린 밝기를 줄여주세요</p>
+          <p className="text-sm text-gray-700">
+            05-11 일자 세션 출석 현황이에요
+          </p>
         </header>
         <AttendanceGraph percentage={75} total={20} attended={15} />
       </section>
