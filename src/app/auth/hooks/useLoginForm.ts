@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
@@ -10,6 +10,7 @@ import { loginSchema, LoginFormData } from "@/app/auth/_lib";
 
 export function useLoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
 
@@ -51,7 +52,9 @@ export function useLoginForm() {
         return;
       }
 
-      router.push("/admin");
+      // 성공 시 callbackUrl로 리다이렉트하거나 기본 페이지로 이동
+      const callbackUrl = searchParams.get("callbackUrl") || "/admin";
+      router.push(callbackUrl);
     } catch (error) {
       console.error("Login error:", error);
       setServerError(
