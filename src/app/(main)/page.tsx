@@ -5,7 +5,7 @@ export default function MainPage() {
   return (
     <>
       <AttendanceMain />
-      <AttendanceLogMain />
+      {/* <AttendanceLogMain /> */}
     </>
   );
 }
