@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation";
 import { SignupForm } from "@/app/auth/components/SignupForm";
 import { SocialLoginButtons } from "@/app/auth/components/SocialLogin/SocialLoginButtons";
 import { useSignupForm } from "@/app/auth/hooks/useSignupForm";
+import { TitleAndDescription } from "@/components/TitleAndDescription";
 import { Separator } from "@/components/ui/separator";
-import { TitleAndDescription } from "@/components/ui/TitleAndDescription";
 
 export default function SignUpPage() {
   const { isLoading, serverError, form, onSubmit } = useSignupForm();

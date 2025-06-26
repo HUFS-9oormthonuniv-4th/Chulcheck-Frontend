@@ -3,11 +3,13 @@
 import React, { useState } from "react";
 
 import AttendanceCheckSystemModal from "../(attendance)/check/AttendancdCheckSystemModal";
+import AttendanceQrScan from "../(attendance)/check/AttendanceQrScan";
 import QrCard from "../(attendance)/check/QrCard";
 
 export default function AttendanceMain() {
   const pin = "0000-0000";
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [qrScanOpen, setQrScanOpen] = useState(false);
 
   const handleQrCardClick = () => {
     setIsModalOpen(true);
@@ -18,9 +20,17 @@ export default function AttendanceMain() {
   };
 
   const handleModalSelect = (type: "qr" | "pin") => {
-    console.log("선택된 출석 방식:", type);
-    // 여기에 QR 또는 PIN 출석 로직을 추가할 수 있습니다
-    setIsModalOpen(false);
+    if (type === "qr") {
+      setIsModalOpen(false);
+      setQrScanOpen(true);
+    } else {
+      // PIN 출석 로직 등
+      setIsModalOpen(false);
+    }
+  };
+
+  const handleQrScanClose = () => {
+    setQrScanOpen(false);
   };
 
   return (
@@ -33,6 +43,7 @@ export default function AttendanceMain() {
           onClose={handleModalClose}
         />
       )}
+      {qrScanOpen && <AttendanceQrScan onClose={handleQrScanClose} />}
     </div>
   );
 }
