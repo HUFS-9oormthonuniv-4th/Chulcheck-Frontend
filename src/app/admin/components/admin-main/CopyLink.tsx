@@ -14,7 +14,7 @@ export function CopyLink() {
   };
 
   return (
-    <section className="bg-white p-6 rounded-lg border mb-6">
+    <section className="bg-white p-6 rounded-lg border mb-4">
       <div className="flex justify-between items-center mb-3">
         <h2 className="text-xl font-bold text-gray-900">초대 링크</h2>
         <RefreshCw className="h-5 w-5" />

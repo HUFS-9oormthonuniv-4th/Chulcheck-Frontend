@@ -2,7 +2,9 @@
 
 import { useRouter } from "next/navigation";
 
-import { ArrowLeft, FolderMinus } from "lucide-react";
+import { FolderMinus } from "lucide-react";
+
+import Header from "@/components/ui/Header";
 
 import { FormButton } from "../../components/Button";
 
@@ -10,14 +12,8 @@ export default function EditClubPage() {
   const router = useRouter();
 
   return (
-    <div className="min-h-screen bg-[#F9FAFB]  pt-6 pb-10 max-w-md mx-auto">
-      <button
-        onClick={() => router.back()}
-        className="flex items-center space-x-2 mb-8"
-      >
-        <ArrowLeft className="w-5 h-5 text-black" />
-        <span className="text-lg font-bold text-black">돌아가기</span>
-      </button>
+    <div className="min-h-screen pb-10 max-w-md mx-auto">
+      <Header variant="back" />
 
       <h2 className="text-xl font-bold text-[#0F172A] mb-1">동아리 삭제</h2>
       <p className="text-sm text-[#666666] mb-6">
