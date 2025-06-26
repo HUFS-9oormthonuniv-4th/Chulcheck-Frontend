@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-import type { VerifyEmailFormData } from "@/app/auth/hooks/useVerifyEmailForm";
+import type { VerifyEmailFormData } from "@/app/auth/_lib";
 import type { UseFormReturn } from "react-hook-form";
 
 interface VerifyEmailFormProps {

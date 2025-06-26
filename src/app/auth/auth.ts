@@ -10,7 +10,7 @@ import { loginApi } from "@/app/auth/api/login";
 import type { DefaultSession } from "next-auth";
 import type { JWT } from "next-auth/jwt";
 
-if (!process.env.NEXTAUTH_SECRET) {
+if (!process.env.AUTH_SECRET) {
   throw new Error("NEXTAUTH_SECRET is required");
 }
 
