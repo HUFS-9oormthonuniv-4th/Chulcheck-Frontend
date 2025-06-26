@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { BsArrowsAngleContract } from "react-icons/bs";
 import { IoArrowForwardCircleOutline } from "react-icons/io5";
 
 import { Button } from "@/components/ui/button";
+
+import AttendancePinInput from "./AttendancePinInput";
 
 interface AttendanceCheckSystemModalProps {
   onSelect: (type: "qr" | "pin") => void;
@@ -14,6 +16,20 @@ export default function AttendanceCheckSystemModal({
   onSelect,
   onClose,
 }: AttendanceCheckSystemModalProps) {
+  const [selectedType, setSelectedType] = useState<null | "qr" | "pin">(null);
+
+  if (selectedType === "pin") {
+    return (
+      <AttendancePinInput
+        onClose={() => setSelectedType(null)}
+        onSubmit={(pin) => {
+          // 출석 처리 로직
+          // 필요시 onSelect("pin") 호출 등
+        }}
+      />
+    );
+  }
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#8B8F9C]/80">
       <div className="bg-[#F6F8FA] rounded-2xl p-8 w-full max-w-sm mx-4 shadow-xl relative flex flex-col items-center">
@@ -52,7 +68,7 @@ export default function AttendanceCheckSystemModal({
           {/* PIN코드 카드 */}
           <button
             className="w-full bg-[#E6F0FE] hover:bg-[#D6E6FC] transition-colors rounded-2xl p-6 flex flex-col items-start justify-between min-h-[120px] shadow-md relative"
-            onClick={() => onSelect("pin")}
+            onClick={() => setSelectedType("pin")}
           >
             <span className="absolute right-6 top-6 bg-white rounded-full p-2 shadow text-[#B6D2F7]">
               <IoArrowForwardCircleOutline size={24} />
