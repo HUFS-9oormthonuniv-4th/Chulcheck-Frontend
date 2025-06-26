@@ -19,10 +19,8 @@ NEXT_PUBLIC_API_RETRY_ATTEMPTS=3
 
 **주의사항:**
 
-- `.env.local` 파일은 Git에 커밋하지 않습니다 (`.gitignore`에 포함됨)
-- 실제 값은 각 서비스의 개발자 콘솔에서 발급받아 입력하세요
 - 프로덕션 환경에서는 해당 환경의 실제 URL로 변경 필요
-- `NEXTAUTH_SECRET`은 보안이 중요한 랜덤 문자열로 설정하세요
+- `AUTH_SECRET`은 보안이 중요한 랜덤 문자열로 설정하세요
 
 ### 1. 코딩 스타일 및 컨벤션
 
