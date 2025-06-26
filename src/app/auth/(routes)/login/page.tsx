@@ -1,5 +1,7 @@
 "use client";
 
+import { Suspense } from "react";
+
 import { useSearchParams } from "next/navigation";
 
 import { ErrorAlert } from "@/app/auth/components/ErrorAlert";
@@ -9,12 +11,11 @@ import { useLoginForm } from "@/app/auth/hooks/useLoginForm";
 import LogoWordmark from "@/components/svg/logo_wordmark";
 import { Separator } from "@/components/ui/separator";
 
-export default function LoginPage() {
+// useSearchParams를 사용하는 에러 메시지 컴포넌트를 별도로 분리
+function ErrorMessageFromURL() {
   const searchParams = useSearchParams();
-  const { isLoading, serverError, form, onSubmit } = useLoginForm();
-
-  // URL 쿼리 파라미터에서 에러 메시지 가져오기
   const urlError = searchParams.get("error");
+
   const errorMessage = (() => {
     switch (urlError) {
       case "TokenExpired":
@@ -25,6 +26,12 @@ export default function LoginPage() {
         return null;
     }
   })();
+
+  return errorMessage ? <ErrorAlert message={errorMessage} /> : null;
+}
+
+export default function LoginPage() {
+  const { isLoading, serverError, form, onSubmit } = useLoginForm();
 
   return (
     <div className="flex flex-col items-center bg-white">
@@ -37,8 +44,10 @@ export default function LoginPage() {
 
       {/* 폼 영역 */}
       <div className="w-full max-w-[310px] flex flex-col gap-2 mt-10">
-        {/* URL 에러 메시지 표시 */}
-        {errorMessage && <ErrorAlert message={errorMessage} />}
+        {/* URL 에러 메시지 표시 - Suspense로 감싸기 */}
+        <Suspense fallback={null}>
+          <ErrorMessageFromURL />
+        </Suspense>
 
         <LoginForm
           isLoading={isLoading}
