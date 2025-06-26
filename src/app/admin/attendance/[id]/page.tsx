@@ -4,38 +4,14 @@ import { useState } from "react";
 
 import { useSearchParams } from "next/navigation";
 
+import Header from "@/components/ui/Header";
+import { attendanceDates, attendanceRecords } from "@/mocks/admin";
+
 import AttendanceInfo from "../../components/attendance/AttendanceInfo";
-import AttendanceModal from "../../components/attendance/AttendanceModal";
 import Calendar from "../../components/attendance/Calendar";
 import CalendarHeader from "../../components/attendance/CalendarHeader";
+import AttendanceModal from "../../components/AttendanceBottomSheet";
 
-const attendanceDates = [
-  "2025-05-01",
-  "2025-05-02",
-  "2025-05-05",
-  "2025-05-08",
-  "2025-05-09",
-  "2025-05-12",
-  "2025-05-13",
-  "2025-05-14",
-  "2025-05-15",
-  "2025-05-16",
-  "2025-05-19",
-  "2025-05-22",
-  "2025-05-23",
-  "2025-05-26",
-  "2025-05-27",
-  "2025-05-28",
-  "2025-05-29",
-  "2025-05-30",
-];
-
-const attendanceRecords = [
-  { id: 1, name: "이예림", dept: "한국외대 • 컴퓨터공학부", status: "출석" },
-  { id: 2, name: "이예림", dept: "한국외대 • 컴퓨터공학부", status: "결석" },
-  { id: 3, name: "이예림", dept: "한국외대 • 컴퓨터공학부", status: "지각" },
-  { id: 4, name: "이예림", dept: "한국외대 • 컴퓨터공학부", status: "결석" },
-];
 export default function AttendancePage() {
   const [currentDate, setCurrentDate] = useState(new Date("2025-05-11"));
   const [selectedStudent, setSelectedStudent] = useState<{
@@ -51,7 +27,8 @@ export default function AttendancePage() {
   const time = searchParams.get("time");
 
   return (
-    <div className="max-w-md mx-auto py-6 bg-[#F9FAFB] min-h-screen">
+    <div className="max-w-md mx-auto pb-6 bg-[#F9FAFB] min-h-screen">
+      <Header variant="back" />
       <h1 className="font-bold text-xl text-[#0F172A] mb-1">
         구름톤 유니브 - 출석현황
       </h1>

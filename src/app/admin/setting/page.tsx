@@ -10,9 +10,10 @@ export default function SettingsPage() {
   return (
     <div className="min-h-screen   max-w-md mx-auto">
       <Header variant="back" />
-      <h2 className="text-xl font-bold text-[#0F172A] mb-1">설정</h2>
-      <p className="text-sm text-[#666666] mb-6">구름톤 유니브 한국외대</p>
-
+      <header className="flex flex-col gap-2 py-2 bg-white pb-4">
+        <h1 className="text-xl font-bold text-gray-900">설정</h1>
+        <p className="text-sm text-gray-700">구름톤 유니브 한국외대</p>
+      </header>
       <div className="space-y-1">
         <button
           onClick={() => router.push("/admin/setting/edit-club")}

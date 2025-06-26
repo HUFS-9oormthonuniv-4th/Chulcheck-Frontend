@@ -1,61 +1,25 @@
 "use client";
 
+import { useState } from "react";
+
 import { Wrench, Users } from "lucide-react";
 
 import { AttendanceIcon, LateIcon, AbsenceIcon } from "@/assets/icons/index";
+import Header from "@/components/ui/Header";
+import { MemberAttendanceRecord, memberAttendanceRecords } from "@/mocks/admin";
 
 import { AttendanceGraph } from "../../components/admin-main/AttendanceGraph";
 import { InfoBox } from "../../components/admin-main/InfoBox";
-
-interface AttendanceRecord {
-  id: number;
-  date: string;
-  time: string;
-  status: "출석" | "지각" | "결석";
-  method: "QR코드 스캔" | "PIN코드 스캔";
-}
+import AttendanceModal from "../../components/AttendanceBottomSheet";
 
 export default function MemberDetailPage() {
-  const attendance: AttendanceRecord[] = [
-    {
-      id: 1,
-      date: "2023-10-23 14:00",
-      time: "14:05",
-      status: "출석",
-      method: "QR코드 스캔",
-    },
-    {
-      id: 2,
-      date: "2023-10-23 14:00",
-      time: "14:05",
-      status: "출석",
-      method: "QR코드 스캔",
-    },
-    {
-      id: 3,
-      date: "2023-10-23 14:00",
-      time: "14:05",
-      status: "출석",
-      method: "QR코드 스캔",
-    },
-    {
-      id: 4,
-      date: "2023-10-23 14:00",
-      time: "14:05",
-      status: "결석",
-      method: "QR코드 스캔",
-    },
-    {
-      id: 5,
-      date: "2023-10-23 14:00",
-      time: "14:05",
-      status: "지각",
-      method: "PIN코드 스캔",
-    },
-  ];
+  const [selectedRecord, setSelectedRecord] =
+    useState<MemberAttendanceRecord | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#F9FAFB] pb-16 pt-6 max-w-md mx-auto">
+    <div className="min-h-screen bg-[#F9FAFB] mb-16  max-w-md mx-auto">
+      <Header variant="main" />
       <section className="mb-6">
         <h1 className="text-2xl font-bold text-[#222] mb-1">이예림</h1>
         <p className="text-sm text-[#667085]">한국외대 컴퓨터공학부</p>
@@ -85,10 +49,14 @@ export default function MemberDetailPage() {
           얼마나 성실하게 활동에 참여했는지 확인해요
         </p>
         <div className="space-y-2">
-          {attendance.map((record) => (
+          {memberAttendanceRecords.map((record) => (
             <div
               key={record.id}
-              className="bg-white p-4 rounded-xl  text-sm flex flex-col gap-1"
+              className="bg-white p-4 rounded-xl text-sm flex flex-col gap-1 cursor-pointer"
+              onClick={() => {
+                setSelectedRecord(record);
+                setIsModalOpen(true);
+              }}
             >
               <p className="font-bold text-black">{record.date}</p>
               <div className="flex justify-between items-center">
@@ -118,6 +86,12 @@ export default function MemberDetailPage() {
             </div>
           ))}
         </div>
+        {isModalOpen && selectedRecord && (
+          <AttendanceModal
+            selected={{ name: "이예림", status: selectedRecord.status }}
+            onClose={() => setIsModalOpen(false)}
+          />
+        )}
       </section>
     </div>
   );

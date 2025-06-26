@@ -54,7 +54,10 @@ export default function AdminPage() {
 
       <main className="container">
         <div className="mb-6">
-          <button className="w-full h-[83px] bg-[#3282F0] text-white py-3 px-4 rounded-lg flex items-center justify-center space-x-2 ">
+          <button
+            onClick={() => router.push("/admin/create-session")}
+            className="w-full h-[83px] bg-[#3282F0] text-white py-3 px-4 rounded-lg flex items-center justify-center space-x-2 "
+          >
             <Calendar className="h-5 w-5" />
             <span className="text-[20px]">출석 세션 생성</span>
           </button>

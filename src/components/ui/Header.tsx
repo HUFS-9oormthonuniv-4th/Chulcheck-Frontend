@@ -31,7 +31,7 @@ export default function Header({ variant, title = "돌아가기" }: HeaderProps)
 
   if (variant === "back") {
     return (
-      <header className="flex items-center h-14 bg-white mb-2">
+      <header className="flex items-center h-12 bg-white mb-2 border-b">
         <button
           onClick={() => router.back()}
           className="flex items-center space-x-2 "

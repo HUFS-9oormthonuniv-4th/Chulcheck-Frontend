@@ -6,12 +6,15 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import { AttendanceIcon, LateIcon, AbsenceIcon } from "@/assets/icons/index";
 
-interface Props {
+interface AttendanceBottomSheetProps {
   selected: { name: string; status: string };
   onClose: () => void;
 }
 
-export default function AttendanceModal({ selected, onClose }: Props) {
+export default function AttendanceBottomSheet({
+  selected,
+  onClose,
+}: AttendanceBottomSheetProps) {
   const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
