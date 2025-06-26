@@ -1,8 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-
-import { ArrowLeft, Wrench, Users } from "lucide-react";
+import { Wrench, Users } from "lucide-react";
 
 import { AttendanceIcon, LateIcon, AbsenceIcon } from "@/assets/icons/index";
 
@@ -18,8 +16,6 @@ interface AttendanceRecord {
 }
 
 export default function MemberDetailPage() {
-  const router = useRouter();
-
   const attendance: AttendanceRecord[] = [
     {
       id: 1,
@@ -60,18 +56,8 @@ export default function MemberDetailPage() {
 
   return (
     <div className="min-h-screen bg-[#F9FAFB] pb-16 pt-6 max-w-md mx-auto">
-      <header className="mb-6">
-        <button
-          onClick={() => router.back()}
-          className="flex items-center space-x-2"
-        >
-          <ArrowLeft className="w-5 h-5 text-black" />
-          <span className="text-lg font-bold text-black">돌아가기</span>
-        </button>
-      </header>
-
       <section className="mb-6">
-        <h1 className="text-2xl font-bold text-[#222] mb-1">박지민</h1>
+        <h1 className="text-2xl font-bold text-[#222] mb-1">이예림</h1>
         <p className="text-sm text-[#667085]">한국외대 컴퓨터공학부</p>
         <p className="text-sm text-[#667085] mb-4">123456789</p>
 
@@ -102,10 +88,9 @@ export default function MemberDetailPage() {
           {attendance.map((record) => (
             <div
               key={record.id}
-              className="bg-white p-4 rounded-xl border text-sm flex flex-col gap-1"
+              className="bg-white p-4 rounded-xl  text-sm flex flex-col gap-1"
             >
-              {" "}
-              <p className="font-bold text-[#1E293B]">{record.date}</p>
+              <p className="font-bold text-black">{record.date}</p>
               <div className="flex justify-between items-center">
                 <p className="text-[#475569]">출석 시간: {record.time}</p>
                 <div className="flex items-center gap-2 font-md text-[#475569]">
