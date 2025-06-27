@@ -4,9 +4,11 @@ import Image from "next/image";
 
 import { useForm } from "react-hook-form";
 
+import { useCreateClub } from "@/app/(main)/clubs/hooks/useCreateClub";
+
 import { CreateClubForm } from "../components/CreateClubForm";
 
-interface CreateClubForm {
+interface CreateClubFormValues {
   name: string;
   leaderTitle: string;
   memberTitle: string;
@@ -14,18 +16,28 @@ interface CreateClubForm {
 }
 
 export default function CreateClubPage() {
-  const form = useForm<CreateClubForm>();
-
+  const form = useForm<CreateClubFormValues>();
   const {
     handleSubmit,
     formState: { isSubmitting },
   } = form;
 
-  const onSubmit = (data: CreateClubForm) => {
-    console.log("create club", data);
-    // TODO: API 연동 예정 (POST /api/clubs)
-  };
+  const createClub = useCreateClub();
 
+  const onSubmit = async (data: CreateClubFormValues) => {
+    try {
+      await createClub.mutateAsync({
+        name: data.name,
+        representativeAlias: data.leaderTitle,
+        memberAlias: data.memberTitle,
+        description: data.description,
+      });
+
+      alert("동아리 생성이 완료되었습니다.");
+    } catch (error) {
+      alert(error instanceof Error ? error.message : "동아리 생성 실패");
+    }
+  };
   return (
     <div className="flex flex-col items-center bg-white pb-10">
       {/* 헤더 */}
