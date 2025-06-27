@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { Settings, Calendar } from "lucide-react";
 
 import Header from "@/components/ui/Header";
-import { AttendanceRecord, Member } from "@/lib/type/admin";
+import { AttendanceRecord, Member } from "@/lib/types/admin";
 import { mockAttendanceRecords, mockMembers } from "@/mocks/admin";
 
 import { AttendanceGraph } from "./components/admin-main/AttendanceGraph";

@@ -4,23 +4,15 @@ import { useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 
-const schema = z.object({
-  email: z
-    .string()
-    .min(1, "이메일을 입력해주세요.")
-    .email("유효한 이메일 주소를 입력해주세요."),
-});
-
-export type VerifyEmailFormData = z.infer<typeof schema>;
+import { verifyEmailSchema, VerifyEmailFormData } from "@/app/auth/_lib";
 
 export function useVerifyEmailForm() {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const form = useForm<VerifyEmailFormData>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(verifyEmailSchema),
     defaultValues: { email: "" },
   });
 

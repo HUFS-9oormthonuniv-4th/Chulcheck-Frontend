@@ -25,7 +25,7 @@ export function GoogleLoginButton({
         height={18}
         alt="Google"
       />
-      Google로 로그인
+      Google로 시작하기
     </Button>
   );
 }

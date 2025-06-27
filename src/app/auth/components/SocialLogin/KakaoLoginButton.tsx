@@ -25,7 +25,7 @@ export function KakaoLoginButton({
         height={18}
         alt="Kakao"
       />
-      카카오로 로그인
+      카카오로 시작하기
     </Button>
   );
 }

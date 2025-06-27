@@ -1,7 +1,7 @@
 import { Listbox } from "@headlessui/react";
 import { Check, ChevronDown } from "lucide-react";
 
-import { Member } from "@/lib/type/admin";
+import { Member } from "@/lib/types/admin";
 
 interface MemberSelectProps {
   value: Member["role"];
