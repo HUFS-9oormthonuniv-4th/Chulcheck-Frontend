@@ -52,7 +52,7 @@ export function useLoginForm(callbackUrl?: string | null) {
       }
 
       // 성공 시 callbackUrl이 있으면 해당 페이지로, 없으면 기본 페이지로 이동
-      const redirectUrl = callbackUrl || "/admin";
+      const redirectUrl = callbackUrl || "/";
       router.push(redirectUrl);
     } catch (error) {
       console.error("Login error:", error);
