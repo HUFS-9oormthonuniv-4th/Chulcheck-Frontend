@@ -3,10 +3,10 @@
 import { useState } from "react";
 
 import Header from "@/components/ui/Header";
-import { Member } from "@/lib/type/admin";
-import { mockAttendanceRecordsList, mockMembers } from "@/mocks/admin";
+import { Member } from "@/lib/types/admin";
+import { mockMembers } from "@/mocks/admin";
 
-import ApprovalBottomSheet from "../../components/setting/BottomSheet";
+import ApprovalBottomSheet from "../../components/setting/ApprovalBottomSheet";
 
 export default function SettingsPage() {
   const [selectedMember, setSelectedMember] = useState<Member | null>(null);

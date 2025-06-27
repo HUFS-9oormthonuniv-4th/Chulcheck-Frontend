@@ -21,7 +21,7 @@ export default function ApprovalBottomSheet({
       <p className="text-sm text-[#666666] mb-4 font-semibold">
         {selected.name}님의 가입 요청을 처리하세요.
       </p>
-      <div className="space-y-3 divide-y divide-gray-200">
+      <div className="space-y-3 divide-y divide-gray-200 mb-4">
         <button
           onClick={() => {
             onApprove();
