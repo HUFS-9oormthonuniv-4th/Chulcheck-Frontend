@@ -1,9 +1,9 @@
 import React from "react";
 
 import Image from "next/image";
+import Link from "next/link";
 
 import { FaCircleArrowRight } from "react-icons/fa6";
-import { IoArrowForwardCircleOutline } from "react-icons/io5";
 
 import { TitleAndDescription } from "@/components/TitleAndDescription";
 import { Button } from "@/components/ui/button";
@@ -30,7 +30,6 @@ const BADGES = [
 ];
 
 export default function AttendanceBadge() {
-  // 예시 데이터 (실제 데이터로 교체 필요)
   const userName = "홍다오";
   const attendanceRate = 87;
 
@@ -67,13 +66,15 @@ export default function AttendanceBadge() {
           </div>
         ))}
       </div>
-      <Button
-        className="w-full h-12 text-lg font-semibold bg-blue-100 text-blue-600 hover:bg-blue-200 mt-4 flex items-center justify-center gap-2"
-        style={{ borderRadius: 12 }}
-      >
-        나의 뱃지 보러가기
-        <FaCircleArrowRight size={20} />
-      </Button>
+      <Link href="/my-badges" className="w-full">
+        <Button
+          className="w-full h-12 text-lg font-semibold bg-blue-100 text-blue-600 hover:bg-blue-200 mt-4 flex items-center justify-center gap-2"
+          style={{ borderRadius: 12 }}
+        >
+          나의 뱃지 보러가기
+          <FaCircleArrowRight size={20} />
+        </Button>
+      </Link>
     </div>
   );
 }

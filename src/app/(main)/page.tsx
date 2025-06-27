@@ -7,10 +7,12 @@ import AttendanceMain from "./component/AttendanceMain";
 export default function MainPage() {
   return (
     <>
-      <Header variant="main" />
-      <AttendanceMain />
-      <AttendanceLogMain />
-      <AttendanceBadge />
+      <div className="flex flex-col gap-4 items-left w-full max-w-xl mx-auto py-4">
+        <Header variant="main" />
+        <AttendanceMain />
+        <AttendanceLogMain />
+        <AttendanceBadge />
+      </div>
     </>
   );
 }
