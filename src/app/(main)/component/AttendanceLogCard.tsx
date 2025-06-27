@@ -16,7 +16,6 @@ export default function AttendanceLogCard({
   date: string;
   time: string;
 }) {
-  // 상태별 이미지 및 라벨 정보
   const getStatusInfo = (status: AttendanceStatus) => {
     switch (status) {
       case "success":
@@ -35,9 +34,8 @@ export default function AttendanceLogCard({
           label: "지각",
         };
       default:
-        // 기본값 설정 (예: 알 수 없는 상태)
         return {
-          imageSrc: "", // 혹은 기본 이미지 경로
+          imageSrc: "",
           label: "알 수 없음",
         };
     }
@@ -55,8 +53,8 @@ export default function AttendanceLogCard({
           <Image
             src={statusInfo.imageSrc}
             alt={statusInfo.label}
-            width={40} // 이미지 크기 조절 (tailwind class w-12)
-            height={40} // 이미지 크기 조절 (tailwind class h-12)
+            width={40}
+            height={40}
           />
         )}
       </div>

@@ -1,7 +1,6 @@
 import React from "react";
 
 import { FaCircleArrowRight } from "react-icons/fa6";
-import { IoArrowForwardCircleOutline } from "react-icons/io5";
 import { LuQrCode } from "react-icons/lu";
 
 import { TitleAndDescription } from "@/components/TitleAndDescription";
