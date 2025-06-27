@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 
-import { AttendanceRecord } from "@/lib/type/admin";
+import { AttendanceRecord } from "@/lib/types/admin";
 
 interface AttendanceListProps {
   records: AttendanceRecord[];

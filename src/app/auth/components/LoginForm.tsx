@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { UseFormReturn } from "react-hook-form";
 
+import { LoginFormData } from "@/app/auth/_lib";
 import { ErrorAlert } from "@/app/auth/components/ErrorAlert";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,7 +14,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { LoginFormData } from "@/validation/auth-validation";
 
 interface LoginFormProps {
   isLoading: boolean;
