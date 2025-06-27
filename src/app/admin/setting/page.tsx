@@ -16,6 +16,12 @@ export default function SettingsPage() {
       </header>
       <div className="space-y-1">
         <button
+          onClick={() => router.push("/admin/setting/approval")}
+          className="w-full pl-2 text-left text-[#64748B] text-base py-2.5 border-b border-[#c0c6ce]"
+        >
+          대기 중인 가입 요청
+        </button>
+        <button
           onClick={() => router.push("/admin/setting/edit-club")}
           className="w-full pl-2 text-left text-[#64748B] text-base py-2.5 border-b border-[#c0c6ce]"
         >

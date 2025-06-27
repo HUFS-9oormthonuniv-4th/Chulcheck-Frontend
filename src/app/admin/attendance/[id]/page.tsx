@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 import Header from "@/components/ui/Header";
-import { attendanceDates, attendanceRecords } from "@/mocks/admin";
+import { attendanceDates, mockAttendanceRecordsList } from "@/mocks/admin";
 
 import AttendanceInfo from "../../components/attendance/AttendanceInfo";
 import Calendar from "../../components/attendance/Calendar";
@@ -59,7 +59,7 @@ export default function AttendancePage() {
       </div>
 
       <AttendanceInfo
-        records={attendanceRecords}
+        records={mockAttendanceRecordsList}
         onClick={(r) => setSelectedStudent(r)}
       />
 
