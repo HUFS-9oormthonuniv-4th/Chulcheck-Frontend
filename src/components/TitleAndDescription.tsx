@@ -2,7 +2,7 @@ import React from "react";
 
 interface TitleAndDescriptionProps {
   title: string;
-  description: string;
+  description: React.ReactNode;
 }
 
 export function TitleAndDescription({

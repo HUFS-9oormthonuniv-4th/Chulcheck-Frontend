@@ -1,5 +1,6 @@
 import React from "react";
 
+import { FaCircleArrowRight } from "react-icons/fa6";
 import { IoArrowForwardCircleOutline } from "react-icons/io5";
 import { LuQrCode } from "react-icons/lu";
 
@@ -24,11 +25,11 @@ export default function QrCard({ pin, onClick }: QrCardProps) {
         </div>
         <div className="text-lg font-medium text-[#334155] mb-6">PIN {pin}</div>
         <Button
-          className="w-[calc(100%-80px)] h-12 font-semibold rounded-xl bg-[#0F172A] hover:bg-[#0F172A]/90"
+          className="w-[calc(100%-80px)] text-lg h-12 font-semibold rounded-xl bg-[#0F172A] hover:bg-[#0F172A]/90"
           onClick={onClick}
         >
           출첵하러가기
-          <IoArrowForwardCircleOutline size={20} />
+          <FaCircleArrowRight size={20} />
         </Button>
       </div>
     </div>
