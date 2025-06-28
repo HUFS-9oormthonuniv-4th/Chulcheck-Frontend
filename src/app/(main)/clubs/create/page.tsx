@@ -13,6 +13,7 @@ interface CreateClubFormValues {
   leaderTitle: string;
   memberTitle: string;
   description: string;
+  ownerId: string;
 }
 
 export default function CreateClubPage() {
@@ -31,6 +32,7 @@ export default function CreateClubPage() {
         representativeAlias: data.leaderTitle,
         memberAlias: data.memberTitle,
         description: data.description,
+        ownerId: "",
       });
 
       alert("동아리 생성이 완료되었습니다.");

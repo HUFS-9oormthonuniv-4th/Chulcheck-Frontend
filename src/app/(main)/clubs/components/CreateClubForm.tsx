@@ -18,6 +18,7 @@ interface CreateClubFormValues {
   leaderTitle: string;
   memberTitle: string;
   description: string;
+  ownerId: string;
 }
 
 interface Props {

@@ -5,7 +5,7 @@ export interface CreateClubRequest {
   representativeAlias: string;
   memberAlias: string;
   description: string;
-  // ❌ ownerId: string; 제거됨
+  ownerId: string;
 }
 
 export interface CreateClubResponse {
