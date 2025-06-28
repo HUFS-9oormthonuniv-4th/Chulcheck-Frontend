@@ -8,7 +8,7 @@ interface TabCardProps {
   title: string;
   clubId: number;
   description: string;
-  role: "관리자" | "멤버";
+  role?: "관리자" | "멤버";
   memberCount: number;
   showDetailButton?: boolean;
   buttonLabel?: string;
@@ -34,16 +34,18 @@ export function TabCard({
         <h3 className="text-lg font-bold leading-[18px] text-[#0F172A]">
           {title}
         </h3>
-        <span
-          className={clsx(
-            "flex justify-center items-center gap-[10px] rounded-full px-[10px] py-[5px] text-sm font-bold leading-[20px] font-pretendard",
-            role === "관리자"
-              ? "bg-[#3282F0] text-[#D6E6FC]"
-              : "bg-[#D6E6FC] text-[#3282F0]",
-          )}
-        >
-          {role}
-        </span>
+        {role && (
+          <span
+            className={clsx(
+              "flex justify-center items-center gap-[10px] rounded-full px-[10px] py-[5px] text-sm font-bold leading-[20px] font-pretendard",
+              role === "관리자"
+                ? "bg-[#3282F0] text-[#D6E6FC]"
+                : "bg-[#D6E6FC] text-[#3282F0]",
+            )}
+          >
+            {role}
+          </span>
+        )}
       </div>
 
       {/* 설명 */}

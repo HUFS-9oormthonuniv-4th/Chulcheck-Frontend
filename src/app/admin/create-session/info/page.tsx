@@ -39,9 +39,9 @@ export default function CreateSessionForm() {
   };
 
   return (
-    <div className="max-w-md mx-auto pb-6 bg-white min-h-screen">
+    <div className="max-w-md mx-auto pb-6  min-h-screen">
       <Header variant="back" />
-      <header className="flex flex-col gap-2 py-2 bg-white pb-4">
+      <header className="flex flex-col gap-2 py-2 pb-4">
         <h1 className="text-xl font-bold text-gray-900">출석 세션 정보</h1>
         <p className="text-sm text-gray-700">
           출석 체크를 위한 세션 정보를 입력하세요
@@ -72,7 +72,7 @@ export default function CreateSessionForm() {
           value={form.description}
           onChange={handleChange}
           rows={4}
-          className="w-full border border-[#E5E7EB] rounded-md px-3 py-3 text-sm resize-none"
+          className="w-full border bg-white border-[#E5E7EB] rounded-md px-3 py-3 text-sm resize-none"
         />
         <FormInput
           label="장소"
