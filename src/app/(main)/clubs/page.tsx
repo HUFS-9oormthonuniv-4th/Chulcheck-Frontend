@@ -46,7 +46,7 @@ export default function MyClubs() {
     if (role === "관리자") {
       router.push(`/admin?clubId=${clubId}`);
     } else {
-      router.push(`/clubs?clubId=${clubId}`);
+      router.push(`/clubs/${clubId}`);
     }
   };
 
