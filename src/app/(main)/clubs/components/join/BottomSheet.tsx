@@ -39,7 +39,8 @@ export function BottomSheet({
             transition={{ type: "tween", duration: 0.3 }}
             className={clsx(
               "fixed bottom-0 left-1/2 z-50 transform -translate-x-1/2",
-              "w-[375px] h-[283px] rounded-t-[50px] bg-white shadow-[0px_2px_80px_rgba(0,0,0,0.25)] px-8 pt-13",
+              "w-full",
+              "h-[283px] rounded-t-[50px] bg-white shadow-[0px_2px_80px_rgba(0,0,0,0.25)] px-8 pt-13",
             )}
           >
             <div className="flex flex-col w-[288px] gap-[10px]">

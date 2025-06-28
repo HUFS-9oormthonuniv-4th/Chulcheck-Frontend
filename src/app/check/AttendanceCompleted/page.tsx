@@ -10,7 +10,7 @@ import { MemberList } from "@/app/admin/components/admin-main/MemberList";
 import { AttendanceIcon, LateIcon, AbsenceIcon } from "@/assets/icons/index";
 import { TitleAndDescription } from "@/components/TitleAndDescription";
 import Header from "@/components/ui/Header";
-import { memberAttendanceRecords, mockMembers } from "@/mocks/admin";
+import { memberAttendanceRecords, mockMembers } from "@/mocks/admin/admin";
 
 import TemporaryManageMyAttendance from "./component/TemporaryManageMyAttendance";
 import { TemporaryMemberList } from "./component/TemporaryMemberList";
