@@ -16,20 +16,24 @@ export default function CheckQrPage() {
       />
       <div className="bg-[#F1F5F9] p-5 rounded-xl shadow-sm ">
         <h2 className="text-[18px] font-bold text-[#1E293B] mb-1">
-          2023-10-23 세션
+          2025-06-28 세션
         </h2>
         <p className="text-sm text-[#64748B] mb-4">
           QR 코드를 통해 출석하거나 PIN 번호를 통해 출석해요
         </p>
 
         <div className="flex justify-center">
-          <div className="w-[200px] h-[200px] mb-4 flex items-center justify-center rounded-2xl border-2 border-dashed border-[#3B82F6] bg-[#F8FAFC]">
-            {/* QR 코드 */}
+          <div className="w-[200px] h-[200px] mb-4 flex items-center justify-center rounded-2xl border-2 border-dashed border-[#3B82F6] bg-[#F8FAFC] overflow-hidden">
+            <img
+              src="/qr.jpg"
+              alt="QR 코드"
+              className="w-full h-full object-contain rounded-xl"
+            />
           </div>
         </div>
 
         <p className="text-center text-[#1E293B] text-sm font-medium mb-6">
-          PIN 0000-0000
+          PIN 6354-4354
         </p>
 
         <div className="flex gap-3">

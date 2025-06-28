@@ -1,6 +1,6 @@
 import { NcubeMockMember } from "@/lib/types/admin";
 
-import { MemberAttendanceRecord } from "./admin";
+import { MemberAttendanceRecord } from "./admin/admin";
 
 export const ncubeMockMembers: NcubeMockMember[] = [
   {

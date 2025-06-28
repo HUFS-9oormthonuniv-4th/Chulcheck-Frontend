@@ -25,14 +25,13 @@ export function MemberList({ members, onRoleChange }: MemberListProps) {
             onClick={() => router.push(`/admin/member/${member.id}`)}
             className="flex items-center space-x-2 bg-white p-4 rounded-lg border border-gray-200"
           >
-            {/* TODO: 소셜로그인 프로필 사진으로 변경 */}
-            <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-[#3282F0] font-bold text-lg">
+            <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-[#3282F0] font-bold text-lg shrink-0">
               {member.name.charAt(0)}
             </div>
             <div className="flex-grow">
               <p className="font-semibold text-gray-900">{member.name}</p>
               <p className="text-sm text-gray-600 whitespace-nowrap">
-                {member.department} • 가입일: {member.joinDate}
+                {member.department} • {member.joinDate}
               </p>
             </div>
             <div className="relative" onClick={(e) => e.stopPropagation()}>

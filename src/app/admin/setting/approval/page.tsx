@@ -5,7 +5,7 @@ import { useState } from "react";
 import { TitleAndDescription } from "@/components/TitleAndDescription";
 import Header from "@/components/ui/Header";
 import { Member } from "@/lib/types/admin";
-import { mockMembers } from "@/mocks/admin";
+import { dummyMembers } from "@/mocks/admin/dummy-members";
 
 import ApprovalBottomSheet from "../../components/setting/ApprovalBottomSheet";
 
@@ -37,7 +37,7 @@ export default function SettingsPage() {
       />
 
       <section className="space-y-3 mt-4">
-        {mockMembers.map((member) => (
+        {dummyMembers.map((member) => (
           <div
             key={member.id}
             onClick={() => handleClick(member)}

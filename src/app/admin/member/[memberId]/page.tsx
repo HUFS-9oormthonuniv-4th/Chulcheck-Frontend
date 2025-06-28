@@ -2,16 +2,19 @@
 
 import { useState } from "react";
 
+import Image from "next/image";
+
 import { Wrench, Users } from "lucide-react";
 
 import { AttendanceIcon, LateIcon, AbsenceIcon } from "@/assets/icons/index";
-import { TitleAndDescription } from "@/components/TitleAndDescription";
 import Header from "@/components/ui/Header";
-import { MemberAttendanceRecord, memberAttendanceRecords } from "@/mocks/admin";
+import {
+  MemberAttendanceRecord,
+  memberAttendanceRecords,
+} from "@/mocks/admin/admin";
 
 import { AttendanceGraph } from "../../components/admin-main/AttendanceGraph";
 import { InfoBox } from "../../components/admin-main/InfoBox";
-import AttendanceModal from "../../components/AttendanceBottomSheet";
 
 export default function MemberDetailPage() {
   const [selectedRecord, setSelectedRecord] =
@@ -22,16 +25,11 @@ export default function MemberDetailPage() {
     <div className="min-h-screen  mb-16  max-w-md mx-auto">
       <Header variant="back" />
       <section className="mb-6">
-        <TitleAndDescription
-          title="이예림"
-          description={
-            <>
-              한국외대 컴퓨터공학부 <br />
-              123456789
-            </>
-          }
-        />
-        <AttendanceGraph percentage={75} total={20} attended={15} />
+        <h1 className="text-2xl font-bold text-[#222] mb-1">김준호</h1>
+        <p className="text-sm text-[#667085]">소프트웨어학과</p>
+        <p className="text-sm text-[#667085] mb-4">252251285</p>
+
+        <AttendanceGraph percentage={100} total={5} attended={5} />
       </section>
 
       <section className="grid grid-cols-2 gap-3 text-sm  mb-6">
@@ -44,7 +42,7 @@ export default function MemberDetailPage() {
         <InfoBox
           title="지각 및 결석"
           icon={<Users className="h-6 w-6 text-black" />}
-          value="2"
+          value="0회"
           description="지각 및 결석 현황"
         />
       </section>
@@ -71,19 +69,34 @@ export default function MemberDetailPage() {
                   {record.status === "출석" && (
                     <>
                       <span>출석</span>
-                      <AttendanceIcon />
+                      <Image
+                        src="/assets/badge/states/success-badge.svg"
+                        alt="성공 뱃지"
+                        width={25}
+                        height={25}
+                      />
                     </>
                   )}
                   {record.status === "결석" && (
                     <>
                       <span>결석</span>
-                      <AbsenceIcon />
+                      <Image
+                        src="/assets/badge/states/fail-badge.svg"
+                        alt="실패 뱃지"
+                        width={25}
+                        height={25}
+                      />
                     </>
                   )}
                   {record.status === "지각" && (
                     <>
                       <span>지각</span>
-                      <LateIcon />
+                      <Image
+                        src="/assets/badge/states/late-badge.svg"
+                        alt="지각 뱃지"
+                        width={25}
+                        height={25}
+                      />
                     </>
                   )}
                 </div>
@@ -92,12 +105,6 @@ export default function MemberDetailPage() {
             </div>
           ))}
         </div>
-        {isModalOpen && selectedRecord && (
-          <AttendanceModal
-            selected={{ name: "이예림", status: selectedRecord.status }}
-            onClose={() => setIsModalOpen(false)}
-          />
-        )}
       </section>
     </div>
   );

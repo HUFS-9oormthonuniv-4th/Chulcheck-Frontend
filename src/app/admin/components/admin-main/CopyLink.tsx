@@ -5,7 +5,9 @@ import { RefreshCw, Copy } from "lucide-react";
 export function CopyLink() {
   const handleCopyLink = async () => {
     try {
-      await navigator.clipboard.writeText("https://fclub-log.vercel.app/");
+      await navigator.clipboard.writeText(
+        "https://fclub-log.vercel.app/9oormthon",
+      );
       alert("링크가 복사되었습니다!");
     } catch (err) {
       console.error("Failed to copy: ", err);

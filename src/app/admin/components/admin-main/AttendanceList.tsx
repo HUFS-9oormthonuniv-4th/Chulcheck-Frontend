@@ -29,7 +29,7 @@ export function AttendanceList({ records }: AttendanceListProps) {
           <div
             key={record.id}
             onClick={() => handleCardClick(record)}
-            className="bg-gray-50 p-3 rounded-xl border border-gray-100 space-y-1"
+            className=" p-4 rounded-xl border border-gray-200 bg-white space-y-1"
           >
             <div className="flex justify-between items-center">
               <p className="text-md font-bold">

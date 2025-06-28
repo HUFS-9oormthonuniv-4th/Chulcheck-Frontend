@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { AttendanceIcon, LateIcon, AbsenceIcon } from "@/assets/icons/index";
 
 interface AttendanceRecord {
@@ -19,11 +21,32 @@ export default function AttendanceInfo({
   const getIcon = (status: string) => {
     switch (status) {
       case "출석":
-        return <AttendanceIcon />;
+        return (
+          <Image
+            src="/assets/badge/states/success-badge.svg"
+            alt="성공 뱃지"
+            width={25}
+            height={25}
+          />
+        );
       case "결석":
-        return <AbsenceIcon />;
+        return (
+          <Image
+            src="/assets/badge/states/fail-badge.svg"
+            alt="실패 뱃지"
+            width={25}
+            height={25}
+          />
+        );
       case "지각":
-        return <LateIcon />;
+        return (
+          <Image
+            src="/assets/badge/states/late-badge.svg"
+            alt="지각 뱃지"
+            width={25}
+            height={25}
+          />
+        );
     }
   };
 

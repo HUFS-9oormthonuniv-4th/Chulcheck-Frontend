@@ -9,7 +9,6 @@ import Header from "@/components/ui/Header";
 import { NcubeMockMember } from "@/lib/types/admin";
 import { memberAttendanceRecords, ncubeMockMembers } from "@/mocks/member";
 
-
 import { AttendanceCard } from "../components/detail/AttendanceCard";
 import ManageMyAttendance from "../components/detail/ManageMyAttendance";
 import MemberList from "../components/detail/MemberList";

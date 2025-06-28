@@ -1,14 +1,11 @@
 "use client";
 
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 import { Calendar } from "lucide-react";
 
-import { MemberAttendanceRecord } from "@/mocks/admin";
-
-import FailBadge from "./../../../../../../public/assets/badge/states/fail-badge.svg";
-import LateBadge from "./../../../../../../public/assets/badge/states/late-badge.svg";
-import SuccessBadge from "./../../../../../../public/assets/badge/states/success-badge.svg";
+import { MemberAttendanceRecord } from "@/mocks/admin/admin";
 interface AttendanceListProps {
   records: MemberAttendanceRecord[];
   onSelectRecord?: (record: MemberAttendanceRecord) => void;
@@ -48,19 +45,34 @@ export default function ManageMyAttendance({
                 {record.status === "출석" && (
                   <>
                     <span>출석</span>
-                    <SuccessBadge />
+                    <Image
+                      src="/assets/badge/states/success-badge.svg"
+                      alt="성공 뱃지"
+                      width={25}
+                      height={25}
+                    />
                   </>
                 )}
                 {record.status === "결석" && (
                   <>
                     <span>결석</span>
-                    <FailBadge />
+                    <Image
+                      src="/assets/badge/states/fail-badge.svg"
+                      alt="실패 뱃지"
+                      width={25}
+                      height={25}
+                    />
                   </>
                 )}
                 {record.status === "지각" && (
                   <>
                     <span>지각</span>
-                    <LateBadge />
+                    <Image
+                      src="/assets/badge/states/late-badge.svg"
+                      alt="지각 뱃지"
+                      width={25}
+                      height={25}
+                    />
                   </>
                 )}
               </div>
