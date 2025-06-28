@@ -75,7 +75,12 @@ export const attendanceDates = [
   "2025-06-28",
 ];
 
-export const attendanceRecords = [
+export const mockAttendanceRecordsList: {
+  id: number;
+  name: string;
+  dept: string;
+  status: string;
+}[] = [
   { id: 1, name: "이예림", dept: "한국외대 • 컴퓨터공학부", status: "출석" },
   { id: 2, name: "이예림", dept: "한국외대 • 컴퓨터공학부", status: "결석" },
   { id: 3, name: "이예림", dept: "한국외대 • 컴퓨터공학부", status: "지각" },

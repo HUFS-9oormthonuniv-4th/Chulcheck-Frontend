@@ -7,11 +7,7 @@ import { ManagementTabs } from "@/app/admin/components/admin-main/ManageTabs";
 import { TitleAndDescription } from "@/components/TitleAndDescription";
 import Header from "@/components/ui/Header";
 import { Member } from "@/lib/types/admin";
-import {
-  memberAttendanceRecords,
-  mockAttendanceRecords,
-  mockMembers,
-} from "@/mocks/admin/admin";
+import { memberAttendanceRecords, mockMembers } from "@/mocks/admin/admin";
 
 import { AttendanceCard } from "../components/detail/AttendanceCard";
 import ManageMyAttendance from "../components/detail/ManageMyAttendance";
@@ -21,7 +17,7 @@ type TabKey = "memberManagement" | "attendanceManagement";
 
 export default function ClubDetail() {
   const [activeTab, setActiveTab] = useState<TabKey>("memberManagement");
-  const [members, setMembers] = useState<Member[]>(mockMembers);
+  const [members] = useState<Member[]>(mockMembers);
   return (
     <div>
       <Header variant="main" />

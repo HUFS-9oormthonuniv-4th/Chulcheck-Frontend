@@ -2,8 +2,6 @@
 
 import { useState, useEffect, useMemo } from "react";
 
-import { useRouter } from "next/navigation";
-
 import { TitleAndDescription } from "@/components/TitleAndDescription";
 import Header from "@/components/ui/Header";
 import { Separator } from "@/components/ui/separator";
@@ -56,7 +54,6 @@ export default function JoinClub() {
     clubId: number;
     title: string;
   }>(null);
-  const router = useRouter();
 
   const filteredClubs = useMemo(() => {
     return clubs.filter((club) =>

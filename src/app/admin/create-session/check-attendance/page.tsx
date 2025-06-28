@@ -3,7 +3,6 @@
 import { useState } from "react";
 
 import Header from "@/components/ui/Header";
-import { attendanceRecords } from "@/mocks/admin/admin";
 import { dummyMembers } from "@/mocks/admin/dummy-members";
 
 import { AttendanceGraph } from "../../components/admin-main/AttendanceGraph";

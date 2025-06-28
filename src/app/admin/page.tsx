@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 
 import { Settings, Calendar } from "lucide-react";
 
+import { TitleAndDescription } from "@/components/TitleAndDescription";
 import Header from "@/components/ui/Header";
 import { AttendanceRecord, Member } from "@/lib/types/admin";
 import { mockAttendanceRecords } from "@/mocks/admin/admin";
@@ -37,21 +38,23 @@ export default function AdminPage() {
   };
 
   return (
-    <div className="min-h-screen text-gray-800  max-w-[480px] mx-auto">
+    <div className="min-h-screen text-gray-800  max-w-[375px] mx-auto">
       <Header variant="main" />
-      <header className="flex flex-col gap-2 py-2 bg-white">
-        <div className="flex justify-between items-center">
-          <h1 className="text-xl font-bold text-gray-900">구름톤 유니브</h1>
+      <TitleAndDescription
+        title="구름톤 유니브"
+        description={
+          <>
+            카카오와 구름, 그리고 벚꽃과 단풍이 함께하는
+            <br />
+            전국 대학 IT 연합 동아리입니다.
+          </>
+        }
+        rightElement={
           <button onClick={() => router.push("/admin/setting")}>
             <Settings className="h-6 w-6 text-black" />
           </button>
-        </div>
-        <p className="text-sm text-gray-700">
-          카카오와 구름, 그리고 벚꽃과 단풍이 함께하는
-          <br />
-          전국 대학 IT 연합 동아리입니다.
-        </p>
-      </header>
+        }
+      />
 
       <main className="container">
         <div className="mb-6">
