@@ -53,7 +53,7 @@ function getRandomBool() {
 }
 
 export default function MyBadgesPage() {
-  const userName = "홍다오";
+  const userName = "이예림 ";
   const attendanceRate = 87;
 
   return (
