@@ -133,7 +133,7 @@ export default function MyClubs() {
                 role={club.role}
                 memberCount={club.memberCount}
                 showDetailButton={index % 2 === 0}
-                onDetailClick={() => handleDetailClick(club.role, club.clubId)}
+                onButtonClick={() => handleDetailClick(club.role, club.clubId)}
               />
             ))}
           </div>
