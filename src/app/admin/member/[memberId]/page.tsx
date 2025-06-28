@@ -90,12 +90,6 @@ export default function MemberDetailPage() {
             </div>
           ))}
         </div>
-        {isModalOpen && selectedRecord && (
-          <AttendanceModal
-            selected={{ name: "이예림", status: selectedRecord.status }}
-            onClose={() => setIsModalOpen(false)}
-          />
-        )}
       </section>
     </div>
   );

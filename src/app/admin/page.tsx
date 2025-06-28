@@ -66,7 +66,7 @@ export default function AdminPage() {
             <span className="text-[20px]">출석 세션 생성</span>
           </button>
         </div>
-        <AttendanceGraph percentage={100} total={5} attended={5} />
+        <AttendanceGraph percentage={96} total={5} attended={5} />
         <InfoGrid />
         <CopyLink />
 

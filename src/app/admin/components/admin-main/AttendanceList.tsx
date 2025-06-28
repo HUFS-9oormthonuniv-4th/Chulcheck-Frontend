@@ -36,7 +36,10 @@ export function AttendanceList({ records }: AttendanceListProps) {
                 {record.date} {record.time}
               </p>
               <span className="text-sm text-gray-500 font-semibold">
-                출석률 <span className="text-[#3282F0] font-bold">100%</span>
+                출석률{" "}
+                <span className="text-[#3282F0] font-bold">
+                  {record.attendanceRate}%
+                </span>
               </span>
             </div>
             <p className="text-md text-gray-600">출석 시간: {record.time}</p>

@@ -3,13 +3,15 @@ import { AttendanceIcon, LateIcon, AbsenceIcon } from "@/assets/icons/index";
 import BottomSheetWrapper from "./BottomSheetWrapper";
 
 interface AttendanceBottomSheetProps {
-  selected: { name: string; status: string };
+  selected: { id: number; name: string; status: string };
   onClose: () => void;
+  onChange: (id: number, newStatus: string) => void;
 }
 
 export default function AttendanceBottomSheet({
   selected,
   onClose,
+  onChange,
 }: AttendanceBottomSheetProps) {
   const statusOptions = [
     { label: "출석", icon: <AttendanceIcon /> },
@@ -28,8 +30,7 @@ export default function AttendanceBottomSheet({
           <button
             key={item.label}
             onClick={() => {
-              console.log(`${selected.name} → ${item.label}`);
-              onClose();
+              onChange(selected.id, item.label);
             }}
             className="w-full flex justify-between items-center text-md font-md text-[#666666] px-3 py-2 rounded-lg hover:bg-gray-100"
           >
