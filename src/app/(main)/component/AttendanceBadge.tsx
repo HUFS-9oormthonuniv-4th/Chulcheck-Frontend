@@ -30,7 +30,7 @@ const BADGES = [
 ];
 
 export default function AttendanceBadge() {
-  const userName = "홍다오";
+  const userName = "이예림";
   const attendanceRate = 87;
 
   return (
