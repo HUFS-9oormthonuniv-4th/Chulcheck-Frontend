@@ -2,7 +2,7 @@
 
 import ResetPasswordForm from "@/archive/reset-password/ResetPasswordForm";
 import { useResetPasswordForm } from "@/archive/reset-password/useResetPasswordForm";
-import { TitleAndDescription } from "@/components/ui/TitleAndDescription";
+import { TitleAndDescription } from "@/components/TitleAndDescription";
 
 export default function ResetPasswordPage() {
   const { form, isLoading, onSubmit } = useResetPasswordForm();

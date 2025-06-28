@@ -5,7 +5,7 @@ import Link from "next/link";
 
 import { VerifyEmailForm } from "@/app/auth/components/VerifyEmailForm";
 import { useVerifyEmailForm } from "@/app/auth/hooks/useVerifyEmailForm";
-import { TitleAndDescription } from "@/components/ui/TitleAndDescription";
+import { TitleAndDescription } from "@/components/TitleAndDescription";
 
 export default function VerifyEmailPage() {
   const { form, isLoading, onSubmit } = useVerifyEmailForm();

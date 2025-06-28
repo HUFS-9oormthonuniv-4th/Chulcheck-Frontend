@@ -6,8 +6,8 @@ import { useRouter } from "next/navigation";
 
 import { Settings, Calendar } from "lucide-react";
 
+import { TitleAndDescription } from "@/components/TitleAndDescription";
 import Header from "@/components/ui/Header";
-import { TitleAndDescription } from "@/components/ui/TitleAndDescription";
 import { AttendanceRecord, Member } from "@/lib/types/admin";
 import { mockAttendanceRecords, mockMembers } from "@/mocks/admin";
 
@@ -69,7 +69,12 @@ export default function AdminPage() {
         <InfoGrid />
         <CopyLink />
 
-        <ManagementTabs activeTab={activeTab} setActiveTab={setActiveTab} />
+        <ManagementTabs
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          labels={{ first: "회원 관리", second: "출석 관리" }}
+          keys={{ first: "memberManagement", second: "attendanceManagement" }}
+        />
         {activeTab === "memberManagement" && (
           <>
             <MemberList members={members} onRoleChange={handleRoleChange} />

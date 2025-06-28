@@ -3,8 +3,8 @@ import { useState, useEffect, useMemo } from "react";
 
 import { useRouter } from "next/navigation";
 
+import { TitleAndDescription } from "@/components/TitleAndDescription";
 import Header from "@/components/ui/Header";
-import { TitleAndDescription } from "@/components/ui/TitleAndDescription";
 
 import { ClubActionButton } from "./components/ClubsActionButton";
 import { EmptyClubList } from "./components/EmptyClubList";
@@ -133,7 +133,7 @@ export default function MyClubs() {
                 role={club.role}
                 memberCount={club.memberCount}
                 showDetailButton={index % 2 === 0}
-                onDetailClick={() => handleDetailClick(club.role, club.clubId)}
+                onButtonClick={() => handleDetailClick(club.role, club.clubId)}
               />
             ))}
           </div>

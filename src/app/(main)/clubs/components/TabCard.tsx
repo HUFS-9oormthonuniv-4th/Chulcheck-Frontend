@@ -11,7 +11,8 @@ interface TabCardProps {
   role: "관리자" | "멤버";
   memberCount: number;
   showDetailButton?: boolean;
-  onDetailClick?: () => void;
+  buttonLabel?: string;
+  onButtonClick?: () => void;
 }
 
 export function TabCard({
@@ -20,7 +21,8 @@ export function TabCard({
   role,
   memberCount,
   showDetailButton = true,
-  onDetailClick,
+  buttonLabel = "상세보기",
+  onButtonClick,
 }: TabCardProps) {
   return (
     <div className="flex flex-col items-start gap-5 rounded-md border border-[#E2E8F0] bg-white p-[25px]">
@@ -51,10 +53,10 @@ export function TabCard({
         {showDetailButton ? (
           <>
             <button
-              onClick={onDetailClick}
+              onClick={onButtonClick}
               className="rounded-md bg-[#3B82F0] px-4 py-2 text-sm font-semibold text-white font-pretendard"
             >
-              상세보기
+              {buttonLabel}
             </button>
             <div className="flex items-center gap-1 text-sm text-[#475569] font-pretendard">
               <MemberIcon width={20} height={20} />
