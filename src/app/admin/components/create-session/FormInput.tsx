@@ -26,7 +26,7 @@ export default function FormInput({
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        className="w-full border border-[#E5E7EB] rounded-md px-3 py-3 text-sm"
+        className="w-full border bg-white border-[#E5E7EB] rounded-md px-3 py-3 text-sm"
       />
     </div>
   );

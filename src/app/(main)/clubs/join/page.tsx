@@ -101,7 +101,6 @@ export default function JoinClub() {
                     clubId={club.clubId}
                     title={club.title}
                     description={club.description}
-                    role={club.role}
                     memberCount={club.memberCount}
                     buttonLabel={isRequested ? "대기 중.." : "가입 요청"}
                     onButtonClick={
