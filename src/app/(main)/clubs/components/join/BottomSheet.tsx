@@ -53,7 +53,7 @@ export function BottomSheet({
               <Separator />
               <button
                 onClick={onConfirm}
-                className="flex justify-between items-center w-[311px] text-left text-base font-medium text-slate-700"
+                className="flex justify-between items-center text-left text-base font-medium text-slate-700"
               >
                 네, 가입하고 싶어요
                 <CheckCircle className="text-green-500" size={25} />
@@ -61,7 +61,7 @@ export function BottomSheet({
               <Separator />
               <button
                 onClick={onCancel}
-                className="flex justify-between items-center w-[311px] text-left text-base font-medium text-slate-500"
+                className="flex justify-between items-center text-left text-base font-medium text-slate-500"
               >
                 아니요, 조금 더 둘러볼게요
                 <XCircle className="text-red-500" size={25} />

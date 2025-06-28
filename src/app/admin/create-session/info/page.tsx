@@ -52,7 +52,7 @@ export default function CreateSessionForm() {
           label="동아리 이름"
           name="clubName"
           type="text"
-          value={form.clubName}
+          value="구름톤 유니브"
           onChange={handleChange}
         />
         <FormInput
