@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Calendar } from "lucide-react";
 
 import { AttendanceIcon, LateIcon, AbsenceIcon } from "@/assets/icons/index";
-import { MemberAttendanceRecord } from "@/mocks/admin";
+import { MemberAttendanceRecord } from "@/mocks/admin/admin";
 interface AttendanceListProps {
   records: MemberAttendanceRecord[];
   onSelectRecord?: (record: MemberAttendanceRecord) => void;

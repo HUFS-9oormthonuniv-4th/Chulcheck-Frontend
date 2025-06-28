@@ -8,7 +8,8 @@ import { Settings, Calendar } from "lucide-react";
 
 import Header from "@/components/ui/Header";
 import { AttendanceRecord, Member } from "@/lib/types/admin";
-import { mockAttendanceRecords, mockMembers } from "@/mocks/admin";
+import { mockAttendanceRecords } from "@/mocks/admin/admin";
+import { dummyMembers } from "@/mocks/admin/dummy-members";
 
 import { AttendanceGraph } from "./components/admin-main/AttendanceGraph";
 import { AttendanceList } from "./components/admin-main/AttendanceList";
@@ -22,10 +23,10 @@ export default function AdminPage() {
   const [activeTab, setActiveTab] = useState<
     "memberManagement" | "attendanceManagement"
   >("memberManagement");
-  const [members, setMembers] = useState<Member[]>(mockMembers);
   const [attendanceRecords] = useState<AttendanceRecord[]>(
     mockAttendanceRecords,
   );
+  const [members, setMembers] = useState<Member[]>(dummyMembers);
 
   const handleRoleChange = (memberId: number, newRole: Member["role"]) => {
     setMembers((prevMembers) =>
@@ -62,7 +63,7 @@ export default function AdminPage() {
             <span className="text-[20px]">출석 세션 생성</span>
           </button>
         </div>
-        <AttendanceGraph percentage={75} total={20} attended={15} />
+        <AttendanceGraph percentage={100} total={5} attended={5} />
         <InfoGrid />
         <CopyLink />
 

@@ -9,14 +9,14 @@ export function InfoGrid() {
         <InfoBox
           title="멤버"
           icon={<Users className="h-6 w-6 text-black" />}
-          value="2"
+          value="6"
           description="가입한 멤버 수"
           className="col-span-2"
         />
         <InfoBox
           title="출석 세션"
           icon={<CalendarDays className="h-6 w-6" />}
-          value="2"
+          value="5"
           description="생성된 출석 세션 수"
           className="col-span-3"
         />
@@ -33,7 +33,7 @@ export function InfoGrid() {
         <InfoBox
           title="통계"
           icon={<BarChart2 className="h-6 w-6" />}
-          value="Top 3"
+          value="Top 2"
           description="개근자 및 결석자"
           className="col-span-2"
         />

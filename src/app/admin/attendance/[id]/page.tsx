@@ -5,7 +5,8 @@ import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 import Header from "@/components/ui/Header";
-import { attendanceDates, attendanceRecords } from "@/mocks/admin";
+import { attendanceDates } from "@/mocks/admin/admin";
+import { dummyMembers } from "@/mocks/admin/dummy-members";
 
 import AttendanceInfo from "../../components/attendance/AttendanceInfo";
 import Calendar from "../../components/attendance/Calendar";
@@ -13,12 +14,17 @@ import CalendarHeader from "../../components/attendance/CalendarHeader";
 import AttendanceBottomSheet from "../../components/AttendanceBottomSheet";
 
 export default function AttendancePage() {
-  const [currentDate, setCurrentDate] = useState(new Date("2025-05-11"));
+  const [currentDate, setCurrentDate] = useState(new Date("2025-06-11"));
   const [selectedStudent, setSelectedStudent] = useState<{
     name: string;
     status: string;
   } | null>(null);
-
+  const attendanceRecords = dummyMembers.slice(0, 5).map((member, index) => ({
+    id: Number(member.id),
+    name: member.name,
+    dept: member.department,
+    status: "출석",
+  }));
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
 
@@ -54,7 +60,7 @@ export default function AttendancePage() {
           {date} {time}
         </h2>
         <span className="text-sm text-[#666666] font-semibold">
-          출석률 <span className="text-[#3282F0] ">75%</span>
+          출석률 <span className="text-[#3282F0] ">100%</span>
         </span>
       </div>
 

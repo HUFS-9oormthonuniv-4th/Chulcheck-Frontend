@@ -6,7 +6,10 @@ import { Wrench, Users } from "lucide-react";
 
 import { AttendanceIcon, LateIcon, AbsenceIcon } from "@/assets/icons/index";
 import Header from "@/components/ui/Header";
-import { MemberAttendanceRecord, memberAttendanceRecords } from "@/mocks/admin";
+import {
+  MemberAttendanceRecord,
+  memberAttendanceRecords,
+} from "@/mocks/admin/admin";
 
 import { AttendanceGraph } from "../../components/admin-main/AttendanceGraph";
 import { InfoBox } from "../../components/admin-main/InfoBox";
@@ -21,11 +24,11 @@ export default function MemberDetailPage() {
     <div className="min-h-screen  mb-16  max-w-md mx-auto">
       <Header variant="back" />
       <section className="mb-6">
-        <h1 className="text-2xl font-bold text-[#222] mb-1">이예림</h1>
-        <p className="text-sm text-[#667085]">한국외대 컴퓨터공학부</p>
-        <p className="text-sm text-[#667085] mb-4">123456789</p>
+        <h1 className="text-2xl font-bold text-[#222] mb-1">김준호</h1>
+        <p className="text-sm text-[#667085]">소프트웨어학과</p>
+        <p className="text-sm text-[#667085] mb-4">202401285</p>
 
-        <AttendanceGraph percentage={75} total={20} attended={15} />
+        <AttendanceGraph percentage={100} total={5} attended={5} />
       </section>
 
       <section className="grid grid-cols-2 gap-3 text-sm  mb-6">
@@ -38,7 +41,7 @@ export default function MemberDetailPage() {
         <InfoBox
           title="지각 및 결석"
           icon={<Users className="h-6 w-6 text-black" />}
-          value="2"
+          value="0회"
           description="지각 및 결석 현황"
         />
       </section>

@@ -45,7 +45,7 @@ export default function Header({ variant, title = "돌아가기" }: HeaderProps)
     );
   }
   return (
-    <header className="flex justify-between items-center h-12 bg-white border-b mb-2 max-w-[375px] mx-auto">
+    <header className="flex justify-between items-center h-12 bg-white border-b mb-2 max-w-[375px]">
       <div className="flex items-center">
         <Logo className="w-[150px]" />
       </div>
@@ -56,7 +56,9 @@ export default function Header({ variant, title = "돌아가기" }: HeaderProps)
           <span>내 동아리</span>
         </button>
         {/* 소셜로그인 프로필사진으로 가져오기 */}
-        <span className="rounded-full bg-gray-500 text-white text-sm font-semibold w-8 h-8 flex items-center justify-center" />
+        <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-[#3282F0] font-bold text-lg shrink-0">
+          이
+        </div>
         <MenuIcon className="w-6 h-6 text-[#64748B]" />
       </div>
     </header>

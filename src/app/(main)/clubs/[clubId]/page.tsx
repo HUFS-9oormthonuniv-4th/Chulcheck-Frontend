@@ -11,7 +11,7 @@ import {
   memberAttendanceRecords,
   mockAttendanceRecords,
   mockMembers,
-} from "@/mocks/admin";
+} from "@/mocks/admin/admin";
 
 import { AttendanceCard } from "../components/detail/AttendanceCard";
 import ManageMyAttendance from "../components/detail/ManageMyAttendance";

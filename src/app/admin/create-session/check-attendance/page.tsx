@@ -3,7 +3,8 @@
 import { useState } from "react";
 
 import Header from "@/components/ui/Header";
-import { attendanceRecords } from "@/mocks/admin";
+import { attendanceRecords } from "@/mocks/admin/admin";
+import { dummyMembers } from "@/mocks/admin/dummy-members";
 
 import { AttendanceGraph } from "../../components/admin-main/AttendanceGraph";
 import AttendanceInfo from "../../components/attendance/AttendanceInfo";
@@ -14,6 +15,12 @@ export default function MemberDetailPage() {
     name: string;
     status: string;
   } | null>(null);
+  const attendanceRecords = dummyMembers.slice(1, 5).map((member, index) => ({
+    id: Number(member.id), // string → number 변환
+    name: member.name,
+    dept: member.department,
+    status: "출석",
+  }));
 
   return (
     <div className="min-h-screen  mb-16  max-w-md mx-auto">
@@ -24,10 +31,10 @@ export default function MemberDetailPage() {
             구름톤 유니브 - 출석받기
           </h1>
           <p className="text-sm text-gray-700">
-            05-11 일자 세션 출석 현황이에요
+            06-28 일자 세션 출석 현황이에요
           </p>
         </header>
-        <AttendanceGraph percentage={75} total={20} attended={15} />
+        <AttendanceGraph percentage={100} total={3} attended={3} />
       </section>
       <h2 className="text-lg font-bold text-[#1E293B] mb-1">출석 멤버 목록</h2>
       <p className="text-sm text-[#475569] mb-3">
