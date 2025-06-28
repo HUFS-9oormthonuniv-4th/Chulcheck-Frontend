@@ -3,18 +3,17 @@
 import { useRouter } from "next/navigation";
 
 import Header from "@/components/ui/Header";
+import { TitleAndDescription } from "@/components/ui/TitleAndDescription";
 
 export default function CheckQrPage() {
   const router = useRouter();
   return (
     <div className="max-w-md mx-auto min-h-screen pb-10 ]">
       <Header variant="back" />
-      <header className="flex flex-col gap-2 py-2 bg-white pb-8">
-        <h1 className="text-xl font-bold text-gray-900">
-          구름톤 유니브 - 출석받기
-        </h1>
-        <p className="text-sm text-gray-700">주변 스크린 밝기를 줄여주세요</p>
-      </header>
+      <TitleAndDescription
+        title=" 구름톤 유니브 - 출석받기"
+        description={<> 주변 스크린 밝기를 줄여주세요</>}
+      />
       <div className="bg-[#F1F5F9] p-5 rounded-xl shadow-sm ">
         <h2 className="text-[18px] font-bold text-[#1E293B] mb-1">
           2023-10-23 세션

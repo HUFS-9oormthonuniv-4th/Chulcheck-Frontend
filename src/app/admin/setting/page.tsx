@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 
 import Header from "@/components/ui/Header";
+import { TitleAndDescription } from "@/components/ui/TitleAndDescription";
 
 export default function SettingsPage() {
   const router = useRouter();
@@ -10,10 +11,10 @@ export default function SettingsPage() {
   return (
     <div className="min-h-screen   max-w-md mx-auto">
       <Header variant="back" />
-      <header className="flex flex-col gap-2 py-2 bg-white pb-4">
-        <h1 className="text-xl font-bold text-gray-900">설정</h1>
-        <p className="text-sm text-gray-700">구름톤 유니브 한국외대</p>
-      </header>
+      <TitleAndDescription
+        title="설정"
+        description={<>구름톤 유니브 한국외대</>}
+      />
       <div className="space-y-1">
         <button
           onClick={() => router.push("/admin/setting/approval")}

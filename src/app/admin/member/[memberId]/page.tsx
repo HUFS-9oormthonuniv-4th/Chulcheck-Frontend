@@ -6,6 +6,7 @@ import { Wrench, Users } from "lucide-react";
 
 import { AttendanceIcon, LateIcon, AbsenceIcon } from "@/assets/icons/index";
 import Header from "@/components/ui/Header";
+import { TitleAndDescription } from "@/components/ui/TitleAndDescription";
 import { MemberAttendanceRecord, memberAttendanceRecords } from "@/mocks/admin";
 
 import { AttendanceGraph } from "../../components/admin-main/AttendanceGraph";
@@ -21,10 +22,15 @@ export default function MemberDetailPage() {
     <div className="min-h-screen  mb-16  max-w-md mx-auto">
       <Header variant="back" />
       <section className="mb-6">
-        <h1 className="text-2xl font-bold text-[#222] mb-1">이예림</h1>
-        <p className="text-sm text-[#667085]">한국외대 컴퓨터공학부</p>
-        <p className="text-sm text-[#667085] mb-4">123456789</p>
-
+        <TitleAndDescription
+          title="이예림"
+          description={
+            <>
+              한국외대 컴퓨터공학부 <br />
+              123456789
+            </>
+          }
+        />
         <AttendanceGraph percentage={75} total={20} attended={15} />
       </section>
 

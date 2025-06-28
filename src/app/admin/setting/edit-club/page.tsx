@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { FolderPlus } from "lucide-react";
 
 import Header from "@/components/ui/Header";
+import { TitleAndDescription } from "@/components/ui/TitleAndDescription";
 
 import { FormButton } from "../../components/Button";
 import { FormField } from "../../components/setting/FormField";
@@ -15,14 +16,10 @@ export default function EditClubPage() {
   return (
     <div className="min-h-screen  pb-10 max-w-md mx-auto">
       <Header variant="back" />
-
-      <h2 className="text-xl font-bold text-[#0F172A] mb-1">
-        동아리 정보 수정
-      </h2>
-      <p className="text-sm text-[#666666] mb-6">
-        구름톤 유니브 한국외대의 정보를 입력하세요
-      </p>
-
+      <TitleAndDescription
+        title="동아리 정보 수정"
+        description={<> 구름톤 유니브 한국외대의 정보를 입력하세요</>}
+      />
       <form className="space-y-5 pt-6">
         <FormField
           label="동아리 이름"
