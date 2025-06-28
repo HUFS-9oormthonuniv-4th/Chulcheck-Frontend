@@ -1,5 +1,6 @@
 "use client";
-import { useState, useEffect, useMemo } from "react";
+
+import { useState } from "react";
 
 import { useRouter } from "next/navigation";
 
@@ -22,71 +23,22 @@ const mockData = [
   },
   {
     clubId: 2,
-    title: "구름톤 유니브2",
+    title: "NCUBE",
     description:
-      "카카오와 구름, 그리고 벚꽃과 단풍이 함께하는 전국 대학 IT 연합 동아리입니다.",
+      "차세대 개발자를 위한 기술 공유와 협업 중심의 대학 연합 IT 학회입니다.",
     role: "멤버" as const,
-    memberCount: 8,
-  },
-  {
-    clubId: 3,
-    title: "구름톤 유니브",
-    description:
-      "카카오와 구름, 그리고 벚꽃과 단풍이 함께하는 전국 대학 IT 연합 동아리입니다.",
-    role: "멤버" as const,
-    memberCount: 8,
-  },
-  {
-    clubId: 4,
-    title: "구름톤 유니브3",
-    description:
-      "카카오와 구름, 그리고 벚꽃과 단풍이 함께하는 전국 대학 IT 연합 동아리입니다.",
-    role: "관리자" as const,
-    memberCount: 8,
+    memberCount: 12,
   },
 ];
 
 export default function MyClubs() {
-  const [clubs, setClubs] = useState(mockData);
-  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
-  const filteredClubs = useMemo(
-    () =>
-      clubs.filter((club) =>
-        club.title.toLowerCase().includes(searchQuery.toLowerCase()),
-      ),
-    [searchQuery, clubs],
+  const router = useRouter();
+
+  const filteredClubs = mockData.filter((club) =>
+    club.title.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
-  // 무한 스크롤로 추가 데이터 로딩 (더미)
-  const loadMoreClubs = () => {
-    setClubs((prevClubs) => {
-      const startId = prevClubs.length + 1;
-      const newItems = mockData.map((club, index) => ({
-        ...club,
-        clubId: startId + index,
-        title: `${club.title} ${startId + index}`,
-      }));
-      return [...prevClubs, ...newItems];
-    });
-  };
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      const scrollHeight = document.documentElement.scrollHeight;
-      const clientHeight = window.innerHeight;
-
-      if (scrollTop + clientHeight >= scrollHeight - 100) {
-        loadMoreClubs();
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [clubs]);
-
-  // 버튼 클릭 핸들러
   const handleCreateClick = () => router.push("/clubs/create");
   const handleJoinClick = () => router.push("/clubs/join");
 
@@ -120,19 +72,20 @@ export default function MyClubs() {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
+
         {filteredClubs.length === 0 ? (
           <EmptyClubList />
         ) : (
           <div className="flex flex-col gap-[22px]">
             {filteredClubs.map((club, index) => (
               <TabCard
-                key={index}
+                key={club.clubId}
                 clubId={club.clubId}
                 title={club.title}
                 description={club.description}
                 role={club.role}
                 memberCount={club.memberCount}
-                showDetailButton={index % 2 === 0}
+                showDetailButton={true}
                 onButtonClick={() => handleDetailClick(club.role, club.clubId)}
               />
             ))}

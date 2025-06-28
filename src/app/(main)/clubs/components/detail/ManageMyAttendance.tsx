@@ -4,8 +4,11 @@ import { useRouter } from "next/navigation";
 
 import { Calendar } from "lucide-react";
 
-import { AttendanceIcon, LateIcon, AbsenceIcon } from "@/assets/icons/index";
 import { MemberAttendanceRecord } from "@/mocks/admin";
+
+import FailBadge from "./../../../../../../public/assets/badge/states/fail-badge.svg";
+import LateBadge from "./../../../../../../public/assets/badge/states/late-badge.svg";
+import SuccessBadge from "./../../../../../../public/assets/badge/states/success-badge.svg";
 interface AttendanceListProps {
   records: MemberAttendanceRecord[];
   onSelectRecord?: (record: MemberAttendanceRecord) => void;
@@ -45,19 +48,19 @@ export default function ManageMyAttendance({
                 {record.status === "출석" && (
                   <>
                     <span>출석</span>
-                    <AttendanceIcon />
+                    <SuccessBadge />
                   </>
                 )}
                 {record.status === "결석" && (
                   <>
                     <span>결석</span>
-                    <AbsenceIcon />
+                    <FailBadge />
                   </>
                 )}
                 {record.status === "지각" && (
                   <>
                     <span>지각</span>
-                    <LateIcon />
+                    <LateBadge />
                   </>
                 )}
               </div>
