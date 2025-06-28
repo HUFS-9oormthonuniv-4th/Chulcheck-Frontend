@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 
+import { TitleAndDescription } from "@/components/TitleAndDescription";
 import Header from "@/components/ui/Header";
-import { attendanceRecords } from "@/mocks/admin";
+import { mockAttendanceRecordsList } from "@/mocks/admin";
 
 import { AttendanceGraph } from "../../components/admin-main/AttendanceGraph";
 import AttendanceInfo from "../../components/attendance/AttendanceInfo";
@@ -19,14 +20,10 @@ export default function MemberDetailPage() {
     <div className="min-h-screen  mb-16  max-w-md mx-auto">
       <Header variant="back" />
       <section className="mb-6">
-        <header className="flex flex-col gap-2 py-2 bg-white ">
-          <h1 className="text-xl font-bold text-gray-900">
-            구름톤 유니브 - 출석받기
-          </h1>
-          <p className="text-sm text-gray-700">
-            05-11 일자 세션 출석 현황이에요
-          </p>
-        </header>
+        <TitleAndDescription
+          title=" 구름톤 유니브 - 출석받기"
+          description={<> 05-11 일자 세션 출석 현황이에요</>}
+        />
         <AttendanceGraph percentage={75} total={20} attended={15} />
       </section>
       <h2 className="text-lg font-bold text-[#1E293B] mb-1">출석 멤버 목록</h2>
@@ -34,7 +31,7 @@ export default function MemberDetailPage() {
         오늘 구름톤 유니브 한국외대에 출석한 미르미에요
       </p>
       <AttendanceInfo
-        records={attendanceRecords}
+        records={mockAttendanceRecordsList}
         onClick={(r) => setSelectedStudent(r)}
       />
       {selectedStudent && (

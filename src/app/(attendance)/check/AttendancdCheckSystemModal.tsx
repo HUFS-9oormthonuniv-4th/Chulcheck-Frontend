@@ -3,8 +3,6 @@ import React, { useState } from "react";
 import { BsArrowsAngleContract } from "react-icons/bs";
 import { IoArrowForwardCircleOutline } from "react-icons/io5";
 
-import { Button } from "@/components/ui/button";
-
 import AttendancePinInput from "./AttendancePinInput";
 
 interface AttendanceCheckSystemModalProps {

@@ -44,9 +44,9 @@ export default function MyClubs() {
 
   const handleDetailClick = (role: "관리자" | "멤버", clubId: number) => {
     if (role === "관리자") {
-      router.push(`/admin/${clubId}`);
+      router.push(`/admin?clubId=${clubId}`);
     } else {
-      router.push(`/clubs/${clubId}`);
+      router.push(`/clubs?clubId=${clubId}`);
     }
   };
 
