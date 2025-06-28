@@ -43,12 +43,6 @@ export default function MemberDetailPage() {
         records={attendanceRecords}
         onClick={(r) => setSelectedStudent(r)}
       />
-      {selectedStudent && (
-        <AttendanceBottomSheet
-          selected={selectedStudent}
-          onClose={() => setSelectedStudent(null)}
-        />
-      )}
     </div>
   );
 }

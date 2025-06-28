@@ -13,3 +13,11 @@ export interface AttendanceRecord {
   attendanceRate: number;
   method: string;
 }
+
+export interface NcubeMockMember {
+  id: number;
+  name: string;
+  department: string;
+  joinedAt: string;
+  status: "대표" | "멤버";
+}

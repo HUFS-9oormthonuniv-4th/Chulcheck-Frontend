@@ -3,10 +3,10 @@
 import { useRouter } from "next/navigation";
 
 import { TitleAndDescription } from "@/components/TitleAndDescription";
-import { Member } from "@/lib/types/admin";
+import { NcubeMockMember } from "@/lib/types/admin";
 
 interface MemberListProps {
-  members: Member[];
+  members: NcubeMockMember[];
 }
 
 export default function MemberList({ members }: MemberListProps) {
@@ -32,10 +32,10 @@ export default function MemberList({ members }: MemberListProps) {
             <div className="flex-grow">
               <p className="font-semibold text-gray-900">{member.name}</p>
               <p className="text-sm text-gray-600 whitespace-nowrap">
-                {member.department} • 가입일: {member.joinDate}
+                {member.department} • 가입일: {member.joinedAt}
               </p>
             </div>
-            <p className="text-sm text-gray-500 font-medium">{member.role}</p>
+            <p className="text-sm text-gray-500 font-medium">{member.status}</p>
           </div>
         ))}
       </div>

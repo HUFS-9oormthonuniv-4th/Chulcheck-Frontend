@@ -6,8 +6,8 @@ import { AttendanceGraph } from "@/app/admin/components/admin-main/AttendanceGra
 import { ManagementTabs } from "@/app/admin/components/admin-main/ManageTabs";
 import { TitleAndDescription } from "@/components/TitleAndDescription";
 import Header from "@/components/ui/Header";
-import { Member } from "@/lib/types/admin";
-import { memberAttendanceRecords, mockMembers } from "@/mocks/admin/admin";
+import { NcubeMockMember } from "@/lib/types/admin";
+import { memberAttendanceRecords, ncubeMockMembers } from "@/mocks/member";
 
 import { AttendanceCard } from "../components/detail/AttendanceCard";
 import ManageMyAttendance from "../components/detail/ManageMyAttendance";
@@ -17,23 +17,24 @@ type TabKey = "memberManagement" | "attendanceManagement";
 
 export default function ClubDetail() {
   const [activeTab, setActiveTab] = useState<TabKey>("memberManagement");
-  const [members] = useState<Member[]>(mockMembers);
+  const [members, setMembers] = useState<NcubeMockMember[]>(ncubeMockMembers);
+
   return (
     <div>
       <Header variant="main" />
       <main className="flex flex-col w-full max-w-[375px] mx-auto mt-4">
         <TitleAndDescription
-          title="구름톤 유니브"
-          description="카카오와 구름, 그리고 벚꽃과 단풍이 함께하는 전국 대학 IT 연합 동아리입니다."
+          title="NCUBE"
+          description="차세대 개발자를 위한 기술 공유와 협업 중심의 대학 연합 IT 학회입니다."
         />
         <div className="flex flex-col items-center gap-2 mb-4">
-          <AttendanceGraph percentage={75} total={20} attended={15} />
+          <AttendanceGraph percentage={100} total={5} attended={5} />
           <span className="text-sm text-[#666666]">
             00번만 더 성실히 출석하면 00뱃지를 얻어요!
           </span>
         </div>
         <div className="mb-[31px]">
-          <AttendanceCard count={2} />
+          <AttendanceCard count={5} />
         </div>
 
         <ManagementTabs

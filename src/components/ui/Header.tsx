@@ -51,7 +51,10 @@ export default function Header({ variant, title = "돌아가기" }: HeaderProps)
       </div>
 
       <div className="flex items-center space-x-2">
-        <button className="flex items-center space-x-1 text-[15px] font-semibold text-[#64748B]">
+        <button
+          onClick={() => router.push("/clubs")}
+          className="flex items-center space-x-1 text-[15px] font-semibold text-[#64748B]"
+        >
           <FolderHeart className="w-5 h-5" />
           <span>내 동아리</span>
         </button>
