@@ -66,7 +66,12 @@ export default function AdminPage() {
         <InfoGrid />
         <CopyLink />
 
-        <ManagementTabs activeTab={activeTab} setActiveTab={setActiveTab} />
+        <ManagementTabs
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          labels={{ first: "회원 관리", second: "출석 관리" }}
+          keys={{ first: "memberManagement", second: "attendanceManagement" }}
+        />
         {activeTab === "memberManagement" && (
           <>
             <MemberList members={members} onRoleChange={handleRoleChange} />
