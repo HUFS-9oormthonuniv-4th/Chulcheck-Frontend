@@ -12,16 +12,19 @@ interface TabCardProps {
   memberCount: number;
   showDetailButton?: boolean;
   buttonLabel?: string;
+  buttonDisabled?: boolean;
   onButtonClick?: () => void;
 }
 
 export function TabCard({
   title,
+  clubId,
   description,
   role,
   memberCount,
   showDetailButton = true,
   buttonLabel = "상세보기",
+  buttonDisabled = false,
   onButtonClick,
 }: TabCardProps) {
   return (
@@ -54,7 +57,13 @@ export function TabCard({
           <>
             <button
               onClick={onButtonClick}
-              className="rounded-md bg-[#3B82F0] px-4 py-2 text-sm font-semibold text-white font-pretendard"
+              disabled={buttonDisabled}
+              className={clsx(
+                "rounded-md px-4 py-2 text-sm font-semibold font-pretendard",
+                buttonDisabled
+                  ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                  : "bg-[#3B82F0] text-white hover:bg-[#2563EB]",
+              )}
             >
               {buttonLabel}
             </button>
