@@ -27,9 +27,9 @@ export default function CreateClubPage() {
   };
 
   return (
-    <div className="flex flex-col items-center bg-white pb-10">
+    <div className="flex flex-col items-center  pb-10">
       {/* 헤더 */}
-      <div className="w-full max-w-[375px] px-3 py-5">
+      <div className="w-full max-w-[375px] py-5">
         <div className="inline-flex items-center gap-1">
           <Image
             src="/assets/icons/arrow-up.svg"
@@ -43,7 +43,7 @@ export default function CreateClubPage() {
         </div>
       </div>
 
-      <div className="w-full max-w-[375px] flex flex-col mt-[27px] px-4">
+      <div className="w-full max-w-[375px] flex flex-col mt-[27px] ">
         <div className="flex flex-col items-start gap-[12px] self-stretch mb-[44px]">
           <h2 className="text-[#0F172A] text-[18px] font-bold leading-[18px] font-inter">
             동아리 정보

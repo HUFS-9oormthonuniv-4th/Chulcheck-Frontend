@@ -72,7 +72,7 @@ export default function JoinClub() {
   return (
     <>
       <Header variant="main" />
-      <main className="flex flex-col w-full max-w-[375px] mx-auto mt-4 gap-[15px]">
+      <main className="flex flex-col w-full max-w-[375px] mx-auto mt-4 gap-[10px]">
         <TitleAndDescription
           title="동아리 참여하기"
           description="내가 함께하고 싶은 동아리를 참여해요"

@@ -2,6 +2,8 @@
 
 import { useRouter } from "next/navigation";
 
+import { Calendar } from "lucide-react";
+
 import { TitleAndDescription } from "@/components/TitleAndDescription";
 import { NcubeMockMember } from "@/lib/types/admin";
 
@@ -14,11 +16,12 @@ export default function MemberList({ members }: MemberListProps) {
 
   return (
     <div>
-      <TitleAndDescription
-        title="멤버 목록"
-        description="나와 함께 구름톤 유니브 한국외대에서 활동하는 미르미에요"
-      />
-
+      <div className="flex justify-between">
+        <h2 className="text-lg font-bold text-black">멤버 목록</h2>{" "}
+      </div>
+      <p className="text-sm text-[#666]">
+        나와 함께 구름톤 유니브 한국외대에서 활동하는 미르미에요
+      </p>
       <div className="space-y-4 mt-4">
         {members.map((member) => (
           <div

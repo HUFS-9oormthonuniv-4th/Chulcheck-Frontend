@@ -17,7 +17,7 @@ export function AttendanceCard({ count }: AttendanceCardProps) {
         />
       </div>
 
-      <div className="text-[#666] text-sm font-medium leading-[20px]">
+      <div className="text-[#666] text-lg font-medium leading-[20px]">
         {count}
       </div>
 

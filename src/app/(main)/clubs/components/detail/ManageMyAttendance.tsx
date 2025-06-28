@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 import { Calendar } from "lucide-react";
 
+import { TitleAndDescription } from "@/components/TitleAndDescription";
 import { MemberAttendanceRecord } from "@/mocks/admin/admin";
 interface AttendanceListProps {
   records: MemberAttendanceRecord[];
@@ -22,7 +23,7 @@ export default function ManageMyAttendance({
         <div className="flex justify-between">
           <h2 className="text-lg font-bold text-black">내 출석관리</h2>{" "}
           <Calendar
-            className="size-[18px]"
+            className="size-[18px] mr-4"
             onClick={() => router.push("/clubs/check-attendance")}
           />
         </div>
