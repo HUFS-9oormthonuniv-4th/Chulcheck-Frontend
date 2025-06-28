@@ -2,8 +2,8 @@
 
 import { useRouter } from "next/navigation";
 
+import { TitleAndDescription } from "@/components/TitleAndDescription";
 import Header from "@/components/ui/Header";
-import { TitleAndDescription } from "@/components/ui/TitleAndDescription";
 
 export default function SettingsPage() {
   const router = useRouter();

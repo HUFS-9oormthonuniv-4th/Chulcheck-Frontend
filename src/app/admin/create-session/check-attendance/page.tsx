@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 
+import { TitleAndDescription } from "@/components/TitleAndDescription";
 import Header from "@/components/ui/Header";
-import { TitleAndDescription } from "@/components/ui/TitleAndDescription";
 import { mockAttendanceRecordsList } from "@/mocks/admin";
 
 import { AttendanceGraph } from "../../components/admin-main/AttendanceGraph";

@@ -5,8 +5,8 @@ import { useState } from "react";
 import { Wrench, Users } from "lucide-react";
 
 import { AttendanceIcon, LateIcon, AbsenceIcon } from "@/assets/icons/index";
+import { TitleAndDescription } from "@/components/TitleAndDescription";
 import Header from "@/components/ui/Header";
-import { TitleAndDescription } from "@/components/ui/TitleAndDescription";
 import { MemberAttendanceRecord, memberAttendanceRecords } from "@/mocks/admin";
 
 import { AttendanceGraph } from "../../components/admin-main/AttendanceGraph";

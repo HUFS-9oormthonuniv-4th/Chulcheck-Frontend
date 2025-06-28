@@ -4,8 +4,8 @@ import { useState } from "react";
 
 import { useSearchParams } from "next/navigation";
 
+import { TitleAndDescription } from "@/components/TitleAndDescription";
 import Header from "@/components/ui/Header";
-import { TitleAndDescription } from "@/components/ui/TitleAndDescription";
 import { attendanceDates, mockAttendanceRecordsList } from "@/mocks/admin";
 
 import AttendanceInfo from "../../components/attendance/AttendanceInfo";

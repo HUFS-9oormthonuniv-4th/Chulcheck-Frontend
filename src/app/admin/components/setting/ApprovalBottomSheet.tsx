@@ -1,3 +1,5 @@
+import { AttendanceIcon, LateIcon, AbsenceIcon } from "@/assets/icons/index";
+
 import BottomSheetWrapper from "../BottomSheetWrapper";
 
 interface ApprovalBottomSheetProps {
@@ -19,7 +21,7 @@ export default function ApprovalBottomSheet({
         가입 요청 처리
       </h3>
       <p className="text-sm text-[#666666] mb-4 font-semibold">
-        {selected.name}님의 가입 요청을 처리하세요.
+        {selected.name}님의 가입 요청을 처리하세요
       </p>
       <div className="space-y-3 divide-y divide-gray-200 mb-4">
         <button
@@ -27,18 +29,20 @@ export default function ApprovalBottomSheet({
             onApprove();
             onClose();
           }}
-          className="w-full text-md font-medium px-3 py-2 rounded-lg text-start"
+          className="w-full flex justify-between items-center text-md font-medium px-3 py-2 rounded-lg text-start"
         >
           승인합니다
+          <AttendanceIcon />
         </button>
         <button
           onClick={() => {
             onReject();
             onClose();
           }}
-          className="w-full text-md font-medium px-3 py-2 rounded-lg text-start"
+          className="w-full flex justify-between items-center text-md font-medium px-3 py-2 rounded-lg text-start"
         >
           거절합니다
+          <AbsenceIcon />
         </button>
       </div>
     </BottomSheetWrapper>
