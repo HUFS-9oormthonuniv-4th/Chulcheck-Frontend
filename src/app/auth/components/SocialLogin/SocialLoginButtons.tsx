@@ -8,7 +8,9 @@ interface SocialLoginButtonsProps {
 
 export function SocialLoginButtons({ isLoading }: SocialLoginButtonsProps) {
   const handleKakaoLogin = (): void => {
-    // console.log("카카오 로그인");
+    console.log("카카오 로그인");
+    window.location.href =
+      "https://api.chulcheck.klr.kr/oauth2/authorization/kakao";
   };
 
   const handleNaverLogin = (): void => {
@@ -21,7 +23,7 @@ export function SocialLoginButtons({ isLoading }: SocialLoginButtonsProps) {
 
   return (
     <div className="flex flex-col gap-3">
-      <KakaoLoginButton isLoading={isLoading} onClick={handleKakaoLogin} />
+      <KakaoLoginButton />
       <NaverLoginButton isLoading={isLoading} onClick={handleNaverLogin} />
       <GoogleLoginButton isLoading={isLoading} onClick={handleGoogleLogin} />
     </div>
