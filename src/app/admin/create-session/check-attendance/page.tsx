@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 import Header from "@/components/ui/Header";
-import { attendanceRecords } from "@/mocks/admin";
+import { mockAttendanceRecordsList } from "@/mocks/admin";
 
 import { AttendanceGraph } from "../../components/admin-main/AttendanceGraph";
 import AttendanceInfo from "../../components/attendance/AttendanceInfo";
@@ -34,7 +34,7 @@ export default function MemberDetailPage() {
         오늘 구름톤 유니브 한국외대에 출석한 미르미에요
       </p>
       <AttendanceInfo
-        records={attendanceRecords}
+        records={mockAttendanceRecordsList}
         onClick={(r) => setSelectedStudent(r)}
       />
       {selectedStudent && (
