@@ -3,8 +3,8 @@ import { useState, useEffect, useMemo } from "react";
 
 import { useRouter } from "next/navigation";
 
+import { TitleAndDescription } from "@/components/TitleAndDescription";
 import Header from "@/components/ui/Header";
-import { TitleAndDescription } from "@/components/ui/TitleAndDescription";
 
 import { ClubActionButton } from "./components/ClubsActionButton";
 import { EmptyClubList } from "./components/EmptyClubList";

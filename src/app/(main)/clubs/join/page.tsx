@@ -4,9 +4,9 @@ import { useState, useEffect, useMemo } from "react";
 
 import { useRouter } from "next/navigation";
 
+import { TitleAndDescription } from "@/components/TitleAndDescription";
 import Header from "@/components/ui/Header";
 import { Separator } from "@/components/ui/separator";
-import { TitleAndDescription } from "@/components/ui/TitleAndDescription";
 
 import { BottomSheet } from "../components/join/BottomSheet";
 import { EmptyClub } from "../components/join/EmptyClub";

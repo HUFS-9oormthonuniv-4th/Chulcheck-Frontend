@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 
-import { TitleAndDescription } from "@/components/ui/TitleAndDescription";
+import { TitleAndDescription } from "@/components/TitleAndDescription";
 import { Member } from "@/lib/types/admin";
 
 interface MemberListProps {

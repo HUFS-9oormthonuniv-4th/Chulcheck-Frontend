@@ -4,8 +4,8 @@ import { useState } from "react";
 
 import { AttendanceGraph } from "@/app/admin/components/admin-main/AttendanceGraph";
 import { ManagementTabs } from "@/app/admin/components/admin-main/ManageTabs";
+import { TitleAndDescription } from "@/components/TitleAndDescription";
 import Header from "@/components/ui/Header";
-import { TitleAndDescription } from "@/components/ui/TitleAndDescription";
 import { Member } from "@/lib/types/admin";
 import {
   memberAttendanceRecords,

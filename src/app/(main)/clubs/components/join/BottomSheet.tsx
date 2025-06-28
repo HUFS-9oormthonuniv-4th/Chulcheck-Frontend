@@ -4,8 +4,8 @@ import clsx from "clsx";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle, XCircle } from "lucide-react";
 
+import { TitleAndDescription } from "@/components/TitleAndDescription";
 import { Separator } from "@/components/ui/separator";
-import { TitleAndDescription } from "@/components/ui/TitleAndDescription";
 
 interface JoinRequestSheetProps {
   open: boolean;

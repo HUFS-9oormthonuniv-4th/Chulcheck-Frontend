@@ -2,6 +2,7 @@ import React from "react";
 
 import { BasicInfoFormData } from "@/app/auth/_lib";
 import { ErrorAlert } from "@/app/auth/components/ErrorAlert";
+import { TitleAndDescription } from "@/components/TitleAndDescription";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -12,7 +13,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { TitleAndDescription } from "@/components/ui/TitleAndDescription";
 
 import type { UseFormReturn } from "react-hook-form";
 
