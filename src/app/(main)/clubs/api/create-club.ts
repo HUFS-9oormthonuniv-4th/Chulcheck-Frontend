@@ -8,7 +8,7 @@ interface ErrorResponse {
 export async function createClubApi(
   data: CreateClubRequest,
 ): Promise<CreateClubResponse> {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/clubs`, {
+  const res = await fetch("/api/v1/clubs", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

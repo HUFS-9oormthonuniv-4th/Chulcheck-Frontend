@@ -11,6 +11,16 @@ const nextConfig: NextConfig = {
       },
     },
   },
+
+  // API 프록시 설정
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path((?!auth).*)", // login 제외
+        destination: "https://api.chulcheck.klr.kr/api/:path*", // 실제 API
+      },
+    ];
+  },
   // 프로덕션 빌드용
   webpack(config) {
     config.module.rules.push({
