@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { Settings, Calendar } from "lucide-react";
 
 import Header from "@/components/ui/Header";
-import { AttendanceRecord, Member } from "@/lib/type/admin";
+import { AttendanceRecord, Member } from "@/lib/types/admin";
 import { mockAttendanceRecords, mockMembers } from "@/mocks/admin";
 
 import { AttendanceGraph } from "./components/admin-main/AttendanceGraph";
@@ -36,7 +36,7 @@ export default function AdminPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-[#F9FAFB] text-gray-800  max-w-[480px] mx-auto">
+    <div className="min-h-screen text-gray-800  max-w-[480px] mx-auto">
       <Header variant="main" />
       <header className="flex flex-col gap-2 py-2 bg-white">
         <div className="flex justify-between items-center">
@@ -54,7 +54,10 @@ export default function AdminPage() {
 
       <main className="container">
         <div className="mb-6">
-          <button className="w-full h-[83px] bg-[#3282F0] text-white py-3 px-4 rounded-lg flex items-center justify-center space-x-2 ">
+          <button
+            onClick={() => router.push("/admin/create-session/info")}
+            className="w-full h-[83px] bg-[#3282F0] text-white py-3 px-4 rounded-lg flex items-center justify-center space-x-2 "
+          >
             <Calendar className="h-5 w-5" />
             <span className="text-[20px]">출석 세션 생성</span>
           </button>
@@ -63,7 +66,12 @@ export default function AdminPage() {
         <InfoGrid />
         <CopyLink />
 
-        <ManagementTabs activeTab={activeTab} setActiveTab={setActiveTab} />
+        <ManagementTabs
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          labels={{ first: "회원 관리", second: "출석 관리" }}
+          keys={{ first: "memberManagement", second: "attendanceManagement" }}
+        />
         {activeTab === "memberManagement" && (
           <>
             <MemberList members={members} onRoleChange={handleRoleChange} />

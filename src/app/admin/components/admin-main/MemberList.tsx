@@ -1,4 +1,6 @@
-import { Member } from "@/lib/type/admin";
+import { useRouter } from "next/navigation";
+
+import { Member } from "@/lib/types/admin";
 
 import { MemberSelect } from "./MemberListSelect";
 
@@ -8,6 +10,7 @@ interface MemberListProps {
 }
 
 export function MemberList({ members, onRoleChange }: MemberListProps) {
+  const router = useRouter();
   return (
     <div>
       <h3 className="text-xl font-bold text-gray-900 pt-2">미르미 목록</h3>
@@ -19,6 +22,7 @@ export function MemberList({ members, onRoleChange }: MemberListProps) {
         {members.map((member) => (
           <div
             key={member.id}
+            onClick={() => router.push(`/admin/member/${member.id}`)}
             className="flex items-center space-x-2 bg-white p-4 rounded-lg border border-gray-200"
           >
             {/* TODO: 소셜로그인 프로필 사진으로 변경 */}
@@ -31,7 +35,7 @@ export function MemberList({ members, onRoleChange }: MemberListProps) {
                 {member.department} • 가입일: {member.joinDate}
               </p>
             </div>
-            <div className="relative">
+            <div className="relative" onClick={(e) => e.stopPropagation()}>
               <MemberSelect
                 value={member.role}
                 onChange={(newRole) => onRoleChange(member.id, newRole)}

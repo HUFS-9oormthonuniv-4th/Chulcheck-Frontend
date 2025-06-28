@@ -25,7 +25,7 @@ export function NaverLoginButton({
         height={16}
         alt="Naver"
       />
-      네이버 로그인
+      네이버 시작하기
     </Button>
   );
 }

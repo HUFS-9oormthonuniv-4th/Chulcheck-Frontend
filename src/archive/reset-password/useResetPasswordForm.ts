@@ -5,10 +5,7 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import {
-  resetPasswordSchema,
-  ResetPasswordFormData,
-} from "@/validation/auth-validation";
+import { resetPasswordSchema, ResetPasswordFormData } from "@/app/auth/_lib";
 
 export function useResetPasswordForm() {
   const [isLoading, setIsLoading] = useState(false);

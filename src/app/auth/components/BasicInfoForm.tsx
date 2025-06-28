@@ -1,5 +1,7 @@
 import React from "react";
 
+import { BasicInfoFormData } from "@/app/auth/_lib";
+import { ErrorAlert } from "@/app/auth/components/ErrorAlert";
 import { TitleAndDescription } from "@/components/TitleAndDescription";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,7 +14,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-import type { BasicInfoFormData } from "@/app/auth/hooks/useBasicInfoForm";
 import type { UseFormReturn } from "react-hook-form";
 
 interface BasicInfoFormProps {
@@ -35,14 +36,7 @@ export function BasicInfoForm({
         description="서비스 이용을 위해 정보를 입력해주세요."
       />
 
-      {serverError && (
-        <div
-          className="p-3 bg-red-50 border border-red-200 rounded-md text-red-600 text-sm"
-          role="alert"
-        >
-          {serverError}
-        </div>
-      )}
+      {serverError && <ErrorAlert message={serverError} />}
 
       <Form {...form}>
         <form
