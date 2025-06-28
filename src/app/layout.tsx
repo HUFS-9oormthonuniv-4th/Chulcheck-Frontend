@@ -32,9 +32,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={`${pretendard.variable} antialiased`}>
-        <div className="min-h-screen">
-          <div className="px-4 py-6 sm:px-6 lg:px-8">{children}</div>
+      <body className={`${pretendard.variable} antialiased `}>
+        <div className="min-h-screen flex justify-center">
+          <div className="w-full max-w-md bg-[#F9FAFB] min-h-screen px-4 py-6 sm:px-6 lg:px-8">
+            {children}
+          </div>
         </div>
       </body>
     </html>

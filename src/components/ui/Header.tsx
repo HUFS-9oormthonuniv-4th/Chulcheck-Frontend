@@ -45,7 +45,7 @@ export default function Header({ variant, title = "돌아가기" }: HeaderProps)
     );
   }
   return (
-    <header className="flex justify-between items-center h-12 bg-white border-b mb-2 max-w-[375px] mx-auto">
+    <header className="flex justify-between items-center h-12 border-b mb-2 max-w-[375px]">
       <div className="flex items-center">
         <Logo className="w-[150px]" />
       </div>

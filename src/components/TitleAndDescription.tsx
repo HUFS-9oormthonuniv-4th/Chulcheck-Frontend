@@ -2,17 +2,21 @@ import React from "react";
 
 interface TitleAndDescriptionProps {
   title: string;
-  description: React.ReactNode;
+  description?: React.ReactNode;
+  rightElement?: React.ReactNode;
 }
-
 export function TitleAndDescription({
   title,
   description,
+  rightElement,
 }: TitleAndDescriptionProps) {
   return (
-    <div className="mb-2">
-      <h2 className="text-lg font-extrabold text-[#1E293B] mb-1">{title}</h2>
-      <p className="text-sm text-[#64748B]">{description}</p>
+    <div className="my-4">
+      <div className="flex justify-between items-center">
+        <h2 className="text-2xl font-extrabold text-[#1E293B]">{title}</h2>
+        {rightElement && <div>{rightElement}</div>}
+      </div>
+      <p className="text-base text-[#64748B] mt-1">{description}</p>
     </div>
   );
 }

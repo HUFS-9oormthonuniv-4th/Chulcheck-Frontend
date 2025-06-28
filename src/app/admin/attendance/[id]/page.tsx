@@ -4,8 +4,9 @@ import { useState } from "react";
 
 import { useSearchParams } from "next/navigation";
 
+import { TitleAndDescription } from "@/components/TitleAndDescription";
 import Header from "@/components/ui/Header";
-import { attendanceDates, attendanceRecords } from "@/mocks/admin";
+import { attendanceDates, mockAttendanceRecordsList } from "@/mocks/admin";
 
 import AttendanceInfo from "../../components/attendance/AttendanceInfo";
 import Calendar from "../../components/attendance/Calendar";
@@ -29,13 +30,15 @@ export default function AttendancePage() {
   return (
     <div className="max-w-md mx-auto pb-6  min-h-screen">
       <Header variant="back" />
-      <h1 className="font-bold text-xl text-[#0F172A] mb-1">
-        구름톤 유니브 - 출석현황
-      </h1>
-      <p className="text-sm text-[#666666] mb-6">
-        카카오와 구름, 그리고 벚꽃과 단풍이 함께하는 <br />
-        전국 대학 IT 연합 동아리입니다.
-      </p>
+      <TitleAndDescription
+        title=" 구름톤 유니브 - 출석현황"
+        description={
+          <>
+            카카오와 구름, 그리고 벚꽃과 단풍이 함께하는 <br />
+            전국 대학 IT 연합 동아리입니다.
+          </>
+        }
+      />
 
       <CalendarHeader
         currentDate={currentDate}
@@ -59,7 +62,7 @@ export default function AttendancePage() {
       </div>
 
       <AttendanceInfo
-        records={attendanceRecords}
+        records={mockAttendanceRecordsList}
         onClick={(r) => setSelectedStudent(r)}
       />
 

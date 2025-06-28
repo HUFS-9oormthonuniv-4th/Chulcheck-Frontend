@@ -48,7 +48,7 @@ function LoginFormWithCallback() {
       {/* 구분선 */}
       <div className="flex items-center justify-center my-4 relative">
         <Separator className="absolute w-full bg-[#E2E8F0]" />
-        <span className="bg-white px-4 z-10 text-xs text-[#94A3B8]">또는</span>
+        <span className=" px-4 z-10 text-xs text-[#94A3B8]">또는</span>
       </div>
 
       {/* 소셜 로그인 버튼 컴포넌트 */}
@@ -59,7 +59,7 @@ function LoginFormWithCallback() {
 
 export default function LoginPage() {
   return (
-    <div className="flex flex-col items-center bg-white">
+    <div className="flex flex-col items-center">
       <div className="w-full h-10" />
 
       {/* 로고 영역 */}
