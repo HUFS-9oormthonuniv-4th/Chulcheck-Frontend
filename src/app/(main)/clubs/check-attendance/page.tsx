@@ -5,8 +5,8 @@ import { useState } from "react";
 import Calendar from "@/app/admin/components/attendance/Calendar";
 import CalendarHeader from "@/app/admin/components/attendance/CalendarHeader";
 import { AttendanceIcon, LateIcon, AbsenceIcon } from "@/assets/icons/index";
+import { TitleAndDescription } from "@/components/TitleAndDescription";
 import Header from "@/components/ui/Header";
-import { TitleAndDescription } from "@/components/ui/TitleAndDescription";
 import { memberAttendanceRecords } from "@/mocks/admin"; // ✅ 여기서 import
 import { MemberAttendanceRecord } from "@/mocks/admin";
 
