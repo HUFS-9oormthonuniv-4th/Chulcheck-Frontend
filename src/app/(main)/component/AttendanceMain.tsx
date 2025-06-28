@@ -34,7 +34,7 @@ export default function AttendanceMain() {
   };
 
   return (
-    <div className="flex flex-col gap-4 items-left w-full max-w-xl mx-auto py-4">
+    <div className="flex flex-col gap-4 items-left w-full max-w-xl mx-auto pb-4">
       <QrCard pin={pin} onClick={handleQrCardClick} />
 
       {isModalOpen && (
