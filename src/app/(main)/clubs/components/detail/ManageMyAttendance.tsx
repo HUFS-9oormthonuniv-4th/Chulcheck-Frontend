@@ -1,5 +1,7 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 import { Calendar } from "lucide-react";
 
 import { AttendanceIcon, LateIcon, AbsenceIcon } from "@/assets/icons/index";
@@ -13,12 +15,16 @@ export default function ManageMyAttendance({
   records,
   onSelectRecord,
 }: AttendanceListProps) {
+  const router = useRouter();
   return (
     <div>
       <div className="mb-4">
         <div className="flex justify-between">
           <h2 className="text-lg font-bold text-black">내 출석관리</h2>{" "}
-          <Calendar className="size-[18px]" />
+          <Calendar
+            className="size-[18px]"
+            onClick={() => router.push("/clubs/check-attendance")}
+          />
         </div>
         <p className="text-sm text-[#666]">
           내가 동아리에서 얼마나 열심히 참여했는지 확인해요
