@@ -11,7 +11,7 @@ export default function VerifyEmailPage() {
   const { form, isLoading, onSubmit } = useVerifyEmailForm();
 
   return (
-    <div className="flex flex-col items-center bg-white">
+    <div className="flex flex-col items-center">
       {/* 뒤로가기 버튼 */}
       <div className="w-full px-3 max-w-[375px]">
         <Link

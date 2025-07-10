@@ -13,7 +13,7 @@ export default function SignUpPage() {
   const router = useRouter();
 
   return (
-    <div className="flex flex-col items-center bg-white">
+    <div className="flex flex-col items-center">
       <div className="w-full max-w-[310px] flex flex-col gap-2 mt-10">
         {/* 타이틀 영역 */}
         <TitleAndDescription

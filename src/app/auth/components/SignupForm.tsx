@@ -19,7 +19,7 @@ interface SignupFormProps {
   isLoading: boolean;
   serverError: string | null;
   form: UseFormReturn<SignUpFormData>;
-  onSubmit: (data: SignUpFormData) => void;
+  onSubmit: (data: SignUpFormData) => Promise<void>;
 }
 
 export function SignupForm({
