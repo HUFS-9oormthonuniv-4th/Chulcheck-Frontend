@@ -3,7 +3,7 @@ import { z } from "zod";
 import {
   PASSWORD_MIN_LENGTH,
   STUDENT_ID_MAX_LENGTH,
-  PASSWORD_REGEX,
+  FORM_PASSWORD_REGEX,
   ERROR_MESSAGES,
 } from "@/app/auth/_lib/constants";
 
@@ -17,7 +17,7 @@ export const loginSchema = z.object({
     .string()
     .min(1, ERROR_MESSAGES.REQUIRED_PASSWORD)
     .min(PASSWORD_MIN_LENGTH, ERROR_MESSAGES.PASSWORD_TOO_SHORT)
-    .regex(PASSWORD_REGEX, ERROR_MESSAGES.PASSWORD_PATTERN),
+    .regex(FORM_PASSWORD_REGEX, ERROR_MESSAGES.PASSWORD_PATTERN),
 });
 
 // 회원가입 폼 검증 스키마
@@ -30,7 +30,7 @@ export const signupSchema = z
     password: z
       .string()
       .min(PASSWORD_MIN_LENGTH, ERROR_MESSAGES.PASSWORD_TOO_SHORT)
-      .regex(PASSWORD_REGEX, ERROR_MESSAGES.PASSWORD_PATTERN),
+      .regex(FORM_PASSWORD_REGEX, ERROR_MESSAGES.PASSWORD_PATTERN),
     confirmPassword: z
       .string()
       .min(PASSWORD_MIN_LENGTH, ERROR_MESSAGES.PASSWORD_MISMATCH),
@@ -46,7 +46,7 @@ export const resetPasswordSchema = z
     password: z
       .string()
       .min(PASSWORD_MIN_LENGTH, ERROR_MESSAGES.PASSWORD_TOO_SHORT)
-      .regex(PASSWORD_REGEX, ERROR_MESSAGES.PASSWORD_PATTERN),
+      .regex(FORM_PASSWORD_REGEX, ERROR_MESSAGES.PASSWORD_PATTERN),
     confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {
@@ -65,8 +65,8 @@ export const basicInfoSchema = z.object({
     .max(STUDENT_ID_MAX_LENGTH, ERROR_MESSAGES.STUDENT_ID_LENGTH),
 });
 
-// 이메일 인증 폼 검증 스키마
-export const verifyEmailSchema = z.object({
+// 비밀번호 재설정 폼 검증 스키마
+export const passwordResetSchema = z.object({
   email: z
     .string()
     .min(1, ERROR_MESSAGES.REQUIRED_EMAIL)

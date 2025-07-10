@@ -11,7 +11,7 @@ const AUTH_PATHS = [
   "/auth/login",
   "/auth/signup",
   "/auth/signup/basic-info",
-  "/auth/verify-email",
+  "/auth/password-reset",
 ];
 
 // 완전 공개 경로들

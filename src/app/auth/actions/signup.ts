@@ -96,14 +96,15 @@ export async function completeSignup(basicInfo: BasicInfoFormData) {
       );
     }
 
-    // 전체 회원가입 데이터 조합
+    // 전체 회원가입 데이터 조합 (이메일을 userId로 그대로 사용)
     const signupData: SignupRequest = {
-      userId: tempData.email,
+      userId: tempData.email, // 이메일을 그대로 userId로 사용
       password: tempData.password,
-      name: basicInfo.name,
-      school: basicInfo.school,
-      major: basicInfo.department,
-      studentNum: basicInfo.studentId,
+      // optional 필드들은 값이 있을 때만 포함
+      ...(basicInfo.name && { name: basicInfo.name }),
+      ...(basicInfo.school && { school: basicInfo.school }),
+      ...(basicInfo.department && { major: basicInfo.department }),
+      ...(basicInfo.studentId && { studentNum: basicInfo.studentId }),
     };
 
     // 회원가입 API 호출

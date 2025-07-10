@@ -12,14 +12,12 @@ const TIMEOUT_DURATION = 10000; // 10초 타임아웃
 export async function signupApi(data: SignupRequest): Promise<SignupResponse> {
   const apiUrl = getApiBaseUrl();
   const fullUrl = `${apiUrl}/api/auth/signup`;
-
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), TIMEOUT_DURATION);
 
   try {
     // 요청 데이터 검증
     const validatedData = SignupRequestSchema.parse(data);
-
     const response = await fetch(fullUrl, {
       method: "POST",
       headers: {
@@ -37,9 +35,9 @@ export async function signupApi(data: SignupRequest): Promise<SignupResponse> {
 
       let errorMessage: string;
       try {
-        const validatedError = ApiErrorResponseSchema.safeParse(
-          JSON.parse(errorText),
-        );
+        const errorData = JSON.parse(errorText) as unknown;
+
+        const validatedError = ApiErrorResponseSchema.safeParse(errorData);
         if (validatedError.success) {
           errorMessage =
             validatedError.data.message ||
@@ -48,7 +46,7 @@ export async function signupApi(data: SignupRequest): Promise<SignupResponse> {
         } else {
           errorMessage = `회원가입 실패 (${response.status})`;
         }
-      } catch {
+      } catch (parseError) {
         errorMessage = `HTTP ${response.status}: ${response.statusText}`;
       }
 
@@ -56,9 +54,9 @@ export async function signupApi(data: SignupRequest): Promise<SignupResponse> {
     }
 
     // Zod를 사용한 응답 데이터 검증
-    const validationResult = SignupResponseSchema.safeParse(
-      await response.json(),
-    );
+    const responseData = (await response.json()) as unknown;
+
+    const validationResult = SignupResponseSchema.safeParse(responseData);
     if (validationResult.success) {
       return validationResult.data;
     } else {

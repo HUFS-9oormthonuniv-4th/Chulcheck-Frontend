@@ -3,12 +3,12 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { VerifyEmailForm } from "@/app/auth/components/VerifyEmailForm";
-import { useVerifyEmailForm } from "@/app/auth/hooks/useVerifyEmailForm";
+import { PasswordResetForm } from "@/app/auth/components/PasswordResetForm";
+import { usePasswordResetForm } from "@/app/auth/hooks/usePasswordResetForm";
 import { TitleAndDescription } from "@/components/TitleAndDescription";
 
-export default function VerifyEmailPage() {
-  const { form, isLoading, onSubmit } = useVerifyEmailForm();
+export default function PasswordResetPage() {
+  const { form, isLoading, onSubmit } = usePasswordResetForm();
 
   return (
     <div className="flex flex-col items-center">
@@ -35,9 +35,9 @@ export default function VerifyEmailPage() {
           description="가입한 이메일로 재설정 링크를 보내드려요"
         />
 
-        {/* 이메일인증 폼 */}
+        {/* 비밀번호 재설정 폼 */}
         <div className="w-full max-w-[310px]">
-          <VerifyEmailForm
+          <PasswordResetForm
             form={form}
             isLoading={isLoading}
             onSubmit={onSubmit}
