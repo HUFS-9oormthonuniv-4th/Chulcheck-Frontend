@@ -4,17 +4,21 @@ import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 
-export function KakaoLoginButton() {
-  const handleLogin = () => {
-    window.location.href =
-      "https://api.chulcheck.klr.kr/oauth2/authorization/kakao";
-  };
+interface KakaoLoginButtonProps {
+  isLoading: boolean;
+  onClick: () => void;
+}
 
+export function KakaoLoginButton({
+  isLoading,
+  onClick,
+}: KakaoLoginButtonProps) {
   return (
     <Button
       variant="outline"
       className="w-full h-[50px] bg-[#FFDE32] hover:bg-[#FFDE32]/80 border-none text-[#1A1A1A] text-base flex items-center justify-center gap-2 rounded-lg font-normal"
-      onClick={handleLogin}
+      disabled={isLoading}
+      onClick={onClick}
       type="button"
     >
       <Image

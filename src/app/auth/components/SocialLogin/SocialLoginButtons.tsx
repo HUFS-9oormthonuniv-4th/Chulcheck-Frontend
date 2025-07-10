@@ -1,3 +1,5 @@
+"use client";
+
 import { GoogleLoginButton } from "@/app/auth/components/SocialLogin/GoogleLoginButton";
 import { KakaoLoginButton } from "@/app/auth/components/SocialLogin/KakaoLoginButton";
 import { NaverLoginButton } from "@/app/auth/components/SocialLogin/NaverLoginButton";
@@ -8,7 +10,8 @@ interface SocialLoginButtonsProps {
 
 export function SocialLoginButtons({ isLoading }: SocialLoginButtonsProps) {
   const handleKakaoLogin = (): void => {
-    // console.log("카카오 로그인");
+    window.location.href =
+      "https://api.chulcheck.klr.kr/oauth2/authorization/kakao";
   };
 
   const handleNaverLogin = (): void => {

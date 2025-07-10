@@ -77,6 +77,7 @@ export class HttpService {
 
   constructor(baseUrl?: string) {
     this.baseUrl = baseUrl || getApiBaseUrl() || "";
+    // this.baseUrl = '';
     if (!this.baseUrl) {
       throw new Error("Base URL이 설정되지 않았습니다");
     }
@@ -156,7 +157,21 @@ export class HttpService {
           options.body = JSON.stringify(config.body);
         }
 
-        const response = await fetch(`${this.baseUrl}${endpoint}`, options);
+        let apiPath: string;
+        if (endpoint.startsWith("/")) {
+          apiPath = endpoint;
+        } else if (endpoint.startsWith("auth/")) {
+          apiPath = `/api/${endpoint}`;
+        } else if (endpoint.startsWith("test/")) {
+          apiPath = `/api/${endpoint}`;
+        } else if (endpoint.startsWith("save/")) {
+          apiPath = `/${endpoint}`;
+        } else {
+          apiPath = `/api/v1/${endpoint}`;
+        }
+
+        const response = await fetch(apiPath, options);
+
         clearTimeout(timeoutId);
 
         return await this.handleResponse<T>(response);
