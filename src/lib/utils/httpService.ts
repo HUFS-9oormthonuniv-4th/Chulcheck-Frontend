@@ -71,20 +71,49 @@ function shouldRetry(
   return false;
 }
 
+// 환경 감지 함수
+function isServerEnvironment(): boolean {
+  return typeof window === "undefined";
+}
+
 export class HttpService {
-  private readonly baseUrl: string;
   private headerInterceptor?: () => Record<string, string>;
 
-  constructor(baseUrl?: string) {
-    this.baseUrl = baseUrl || getApiBaseUrl() || "";
-    // this.baseUrl = '';
-    if (!this.baseUrl) {
-      throw new Error("Base URL이 설정되지 않았습니다");
-    }
+  constructor() {
+    // 환경별 설정을 생성자에서 제거하고 동적으로 처리
   }
 
   setHeaderInterceptor(interceptor: () => Record<string, string>) {
     this.headerInterceptor = interceptor;
+  }
+
+  // 환경별 URL 생성
+  private createUrl(endpoint: string): string {
+    let apiPath: string;
+
+    if (endpoint.startsWith("/")) {
+      apiPath = endpoint;
+    } else if (endpoint.startsWith("auth/")) {
+      apiPath = `/api/${endpoint}`;
+    } else if (endpoint.startsWith("test/")) {
+      apiPath = `/api/${endpoint}`;
+    } else if (endpoint.startsWith("save/")) {
+      apiPath = `/${endpoint}`;
+    } else {
+      apiPath = `/api/v1/${endpoint}`;
+    }
+
+    if (isServerEnvironment()) {
+      // 서버 환경: 백엔드 직접 호출
+      const backendUrl = getApiBaseUrl();
+      if (!backendUrl) {
+        throw new Error("백엔드 URL이 설정되지 않았습니다");
+      }
+      return `${backendUrl}${apiPath}`;
+    } else {
+      // 클라이언트 환경: Next.js 프록시 사용
+      return apiPath;
+    }
   }
 
   private getHeaders(
@@ -157,20 +186,9 @@ export class HttpService {
           options.body = JSON.stringify(config.body);
         }
 
-        let apiPath: string;
-        if (endpoint.startsWith("/")) {
-          apiPath = endpoint;
-        } else if (endpoint.startsWith("auth/")) {
-          apiPath = `/api/${endpoint}`;
-        } else if (endpoint.startsWith("test/")) {
-          apiPath = `/api/${endpoint}`;
-        } else if (endpoint.startsWith("save/")) {
-          apiPath = `/${endpoint}`;
-        } else {
-          apiPath = `/api/v1/${endpoint}`;
-        }
-
-        const response = await fetch(apiPath, options);
+        // 환경별 URL 처리
+        const url = this.createUrl(endpoint);
+        const response = await fetch(url, options);
 
         clearTimeout(timeoutId);
 
