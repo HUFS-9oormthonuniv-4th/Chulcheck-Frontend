@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import { useRouter } from "next/navigation";
 
@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { basicInfoSchema, BasicInfoFormData } from "@/app/auth/_lib";
-import { completeSignup, getTempSignupData } from "@/app/auth/actions/signup";
+import { completeSignup } from "@/app/auth/actions/signup";
 
 // 상수 정의
 const STUDENT_ID_MAX_LENGTH = 9;
@@ -27,23 +27,7 @@ export function useBasicInfoForm() {
     mode: "onSubmit",
   });
 
-  useEffect(() => {
-    // 첫 번째 단계 데이터가 있는지 확인
-    const checkTempData = async () => {
-      try {
-        const tempData = await getTempSignupData();
-        if (!tempData) {
-          // 첫 번째 단계를 거치지 않은 경우 리다이렉트
-          router.push("/auth/signup");
-        }
-      } catch (error) {
-        console.error("임시 데이터 조회 오류:", error);
-        router.push("/auth/signup");
-      }
-    };
-
-    void checkTempData();
-  }, [router]);
+  // 미들웨어에서 임시 데이터 검증을 처리하므로 useEffect 제거
 
   const onSubmit = async (data: BasicInfoFormData) => {
     setIsLoading(true);
