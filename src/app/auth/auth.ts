@@ -1,11 +1,8 @@
 import NextAuth from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
+import Credentials from "next-auth/providers/credentials";
 
 import { LoginRequestSchema } from "@/app/auth/_lib";
 import { loginApi } from "@/app/auth/api/login";
-
-// TODO: refresh API 구현 후 활성화
-// import { refreshTokenApi } from './api/refresh-token';
 
 import type { DefaultSession } from "next-auth";
 import type { JWT } from "next-auth/jwt";
@@ -14,11 +11,9 @@ if (!process.env.AUTH_SECRET) {
   throw new Error("AUTH_SECRET is required");
 }
 
-const SESSION_MAX_AGE = 60 * 60 * 8;
-const SESSION_UPDATE_AGE = 30 * 60;
+const SESSION_MAX_AGE = 60 * 60 * 8; // 8시간
+const SESSION_UPDATE_AGE = 30 * 60; // 30분
 const PROVIDER_NAME = "credentials";
-// TODO: refresh API 구현 후 활성화
-// const TOKEN_REFRESH_THRESHOLD = 2 * 60 * 60;
 
 declare module "next-auth" {
   interface User {
@@ -55,33 +50,6 @@ declare module "next-auth/jwt" {
   }
 }
 
-// TODO: refresh API 구현 후 활성화
-// 토큰 갱신 함수
-/*
-async function refreshAccessToken(token: JWT): Promise<JWT> {
-  try {
-    if (!token.refreshToken) {
-      throw new Error('No refresh token available');
-    }
-    const refreshedTokens = await refreshTokenApi(token.refreshToken);
-
-    return {
-      ...token,
-      accessToken: refreshedTokens.token,
-      refreshToken: refreshedTokens.refreshToken ?? token.refreshToken,
-      tokenExpiry:
-        refreshedTokens.tokenExpiry ?? Date.now() / 1000 + SESSION_MAX_AGE,
-      error: undefined,
-    };
-  } catch (error) {
-    return {
-      ...token,
-      error: 'RefreshAccessTokenError',
-    };
-  }
-}
-*/
-
 export const {
   handlers,
   signIn,
@@ -89,24 +57,21 @@ export const {
   auth,
   unstable_update: update,
 } = NextAuth({
-  debug: process.env.NODE_ENV === "development",
-
   providers: [
-    CredentialsProvider({
-      name: "Credentials",
+    Credentials({
       credentials: {
-        userId: { label: "이메일", type: "email" },
-        password: { label: "비밀번호", type: "password" },
+        userId: { type: "text" },
+        password: { type: "password" },
       },
 
       async authorize(credentials) {
-        // 입력값 검증 강화 - Zod 사용
         try {
           const validatedCredentials = LoginRequestSchema.parse(credentials);
-
           const user = await loginApi(validatedCredentials);
 
-          // 필수 필드 검증 강화
+          console.log("user", user);
+
+          // 필수 필드 검증
           if (!user.userId || !user.nickname || !user.role || !user.token) {
             console.error("Invalid user data from API:", {
               userId: !!user.userId,
@@ -128,7 +93,6 @@ export const {
               user.tokenExpiry ?? Date.now() / 1000 + SESSION_MAX_AGE,
           };
         } catch (error) {
-          // Zod 검증 에러나 API 에러 처리
           if (error instanceof Error) {
             console.error("Authentication failed:", error.message);
             if (error.message.includes("유효한 이메일")) {
@@ -150,73 +114,37 @@ export const {
   },
 
   callbacks: {
-    // JWT 콜백 - 토큰 갱신 로직 비활성화
-    jwt({ token, user, trigger }) {
-      // 새 로그인 시에만 user 정보 업데이트
-      if (user && (trigger === "signIn" || trigger === "signUp")) {
-        token.id = user.id;
-        token.name = user.name;
-        token.email = user.email;
-        token.role = user.role;
-        token.accessToken = user.accessToken;
-        token.refreshToken = user.refreshToken;
-        token.tokenExpiry = user.tokenExpiry;
-        token.error = undefined;
+    jwt({ token, user }) {
+      // 최초 로그인 시 user 객체를 JWT token에 저장
+      if (user) {
+        return {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+          accessToken: user.accessToken,
+          refreshToken: user.refreshToken,
+          tokenExpiry: user.tokenExpiry,
+        };
       }
-
-      // TODO: refresh API 구현 후 활성화
-      /*
-      // 토큰 만료 체크 및 갱신
-      if (token.tokenExpiry && token.refreshToken) {
-        const nowTimestamp = Math.floor(Date.now() / 1000);
-        const shouldRefreshTime = token.tokenExpiry - TOKEN_REFRESH_THRESHOLD;
-
-        // 토큰이 곧 만료되거나 이미 만료된 경우 갱신 시도
-        if (nowTimestamp >= shouldRefreshTime) {
-          console.log(
-            '🕒 토큰 갱신 필요 - 현재:',
-            nowTimestamp,
-            '만료:',
-            token.tokenExpiry
-          );
-          return await refreshAccessToken(token);
-        }
-      }
-      */
-
       return token;
     },
 
-    // 세션 콜백 - 타입 안전성 개선 및 에러 처리
     session({ session, token }) {
-      // 토큰 갱신 에러가 있는 경우 세션에 포함
+      // JWT 토큰의 정보를 세션에 전달
+      session.user.id = token.id as string;
+      session.user.name = token.name as string;
+      session.user.email = token.email as string;
+      session.user.role = token.role as string;
+      session.accessToken = token.accessToken as string;
+
       if (token.error) {
         session.error = token.error;
-      }
-
-      // 모든 필수 필드가 있는지 확인 후 할당
-      if (
-        token.id &&
-        token.name &&
-        token.email &&
-        token.role &&
-        token.accessToken &&
-        !token.error
-      ) {
-        session.user = {
-          ...session.user,
-          id: token.id,
-          name: token.name,
-          email: token.email,
-          role: token.role,
-        };
-        session.accessToken = token.accessToken;
       }
 
       return session;
     },
 
-    // signIn 콜백 - 검증 강화
     signIn({ user, account }) {
       // Credentials 제공자에서만 추가 검증
       if (account?.provider === PROVIDER_NAME) {
@@ -232,6 +160,20 @@ export const {
       }
       return true;
     },
+
+    redirect: ({ url, baseUrl }) => {
+      if (url.startsWith("/")) return `${baseUrl}${url}`;
+      if (url) {
+        const { search, origin } = new URL(url);
+        const callbackUrl = new URLSearchParams(search).get("callbackUrl");
+        if (callbackUrl)
+          return callbackUrl.startsWith("/")
+            ? `${baseUrl}${callbackUrl}`
+            : callbackUrl;
+        if (origin === baseUrl) return url;
+      }
+      return baseUrl;
+    },
   },
 
   pages: {
@@ -239,13 +181,12 @@ export const {
     error: "/auth/error",
   },
 
-  // 보안 설정 강화
   cookies: {
     sessionToken: {
-      name: `authjs.session-token`,
+      name: "Authorization",
       options: {
         httpOnly: true,
-        sameSite: "lax" as const,
+        sameSite: "lax",
         path: "/",
         secure: process.env.NODE_ENV === "production",
       },

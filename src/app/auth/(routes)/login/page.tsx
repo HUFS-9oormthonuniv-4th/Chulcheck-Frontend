@@ -69,12 +69,10 @@ export default function LoginPage() {
 
       {/* 폼 영역 */}
       <div className="w-full max-w-[310px] flex flex-col gap-2 mt-10">
-        {/* URL 에러 메시지 표시 - Suspense로 감싸기 */}
         <Suspense fallback={null}>
           <ErrorMessageFromURL />
         </Suspense>
 
-        {/* 로그인 폼과 소셜 로그인을 함께 Suspense로 감싸기 */}
         <Suspense fallback={<div>로딩중...</div>}>
           <LoginFormWithCallback />
         </Suspense>

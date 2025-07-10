@@ -10,6 +10,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@auth/core": "^0.40.0",
     "@headlessui/react": "^2.2.4",
     "@hookform/resolvers": "^5.0.1",
     "@radix-ui/react-label": "^2.1.6",

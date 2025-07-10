@@ -5,23 +5,23 @@ import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import { verifyEmailSchema, VerifyEmailFormData } from "@/app/auth/_lib";
+import { passwordResetSchema, PasswordResetFormData } from "@/app/auth/_lib";
 
-export function useVerifyEmailForm() {
+export function usePasswordResetForm() {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  const form = useForm<VerifyEmailFormData>({
-    resolver: zodResolver(verifyEmailSchema),
+  const form = useForm<PasswordResetFormData>({
+    resolver: zodResolver(passwordResetSchema),
     defaultValues: { email: "" },
   });
 
-  const onSubmit = async (data: VerifyEmailFormData) => {
+  const onSubmit = async (data: PasswordResetFormData) => {
     setIsLoading(true);
     try {
-      // TODO: 이메일 인증 확인 로직 필요, 인증 완료 후 라우터 이동처리
+      // TODO: 비밀번호 재설정 이메일 전송 로직 필요, 완료 후 라우터 이동처리
       await new Promise((resolve) => setTimeout(resolve, 100));
-      router.push("/auth/reset-password");
+      router.push("/auth/password-reset/confirmation");
     } finally {
       setIsLoading(false);
     }

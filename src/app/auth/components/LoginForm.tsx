@@ -95,7 +95,10 @@ export function LoginForm({
             >
               회원가입
             </Link>
-            <Link href="/auth/verify-email" className="text-xs text-[#94A3B8]">
+            <Link
+              href="/auth/password-reset"
+              className="text-xs text-[#94A3B8]"
+            >
               비밀번호 재설정
             </Link>
           </div>

@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -9,9 +9,9 @@
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: #3282F0;
+  --primary: #3282f0;
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: #D6E6FC;
+  --secondary: #d6e6fc;
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
@@ -45,9 +45,9 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: #3282F0;
+  --primary: #3282f0;
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: #D6E6FC;
+  --secondary: #d6e6fc;
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.269 0 0);
   --muted-foreground: oklch(0.708 0 0);
@@ -112,11 +112,12 @@
   --radius-xl: calc(var(--radius) + 4px);
 
   /* 메인컬러와 서브컬러 추가 */
-  --color-main: #3282F0;
-  --color-sub: #D6E6FC;
+  --color-main: #3282f0;
+  --color-sub: #d6e6fc;
 }
 
-html, body {
+html,
+body {
   padding: 0;
   margin: 0;
   height: 100%;

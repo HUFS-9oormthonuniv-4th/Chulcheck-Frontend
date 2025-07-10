@@ -6,8 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { signupSchema, SignUpFormData } from "@/app/auth/_lib";
-
-const SIGNUP_TEMP_DATA_KEY = "chulcheck_signup_temp_data";
+import { saveTempSignupData } from "@/app/auth/actions/signup";
 
 export function useSignupForm() {
   const router = useRouter();
@@ -24,29 +23,20 @@ export function useSignupForm() {
     mode: "onSubmit",
   });
 
-  const onSubmit = (data: SignUpFormData) => {
+  const onSubmit = async (data: SignUpFormData) => {
     setIsLoading(true);
     setServerError(null);
 
     try {
-      // 임시 회원가입 데이터를 로컬스토리지에 저장
-      const tempSignupData = {
-        email: data.email,
-        password: data.password,
-        timestamp: Date.now(),
-      };
+      // 서버 액션을 통해 임시 데이터 저장
+      const result = await saveTempSignupData(data);
 
-      localStorage.setItem(
-        SIGNUP_TEMP_DATA_KEY,
-        JSON.stringify(tempSignupData),
-      );
+      if (!result.success) {
+        throw new Error(result.message);
+      }
 
-      // 약간의 지연을 주어 로딩 상태를 사용자가 볼 수 있도록 함
-      setTimeout(() => {
-        setIsLoading(false);
-        // basic-info 페이지로 이동
-        router.push("/auth/signup/basic-info");
-      }, 300);
+      // 성공 시 기본정보 페이지로 이동
+      router.push("/auth/signup/basic-info");
     } catch (error) {
       console.error("회원가입 단계 이동 실패:", error);
       setServerError(
@@ -54,6 +44,7 @@ export function useSignupForm() {
           ? error.message
           : "회원가입 중 오류가 발생했습니다.",
       );
+    } finally {
       setIsLoading(false);
     }
   };
