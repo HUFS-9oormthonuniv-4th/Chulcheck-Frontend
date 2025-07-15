@@ -1,23 +1,55 @@
+import { signOut } from "next-auth/react";
+
 import { LogoutResponse } from "@/app/auth/_lib/types/api";
-import { API_CONFIG } from "@/lib/config/api";
+import { httpService, HttpError } from "@/lib/utils/httpService";
 
 type ApiError = { message?: string };
 
 export async function logoutApi(token: string): Promise<LogoutResponse> {
-  const res = await fetch(`${API_CONFIG.BASE_URL}/api/auth/logout`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  try {
+    const response = await httpService.post<LogoutResponse>(
+      "auth/logout",
+      undefined,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
 
-  if (!res.ok) {
-    const error = (await res
-      .json()
-      .catch(() => ({ message: undefined }))) as ApiError;
-    throw new Error(error.message || "로그아웃 실패");
+    return response;
+  } catch (error) {
+    if (error instanceof HttpError) {
+      // HttpError에서 에러 메시지 추출
+      let errorMessage = "로그아웃 실패";
+
+      if (error.responseBody && typeof error.responseBody === "object") {
+        const errorBody = error.responseBody as ApiError;
+        errorMessage = errorBody.message || "로그아웃 실패";
+      }
+
+      throw new Error(errorMessage);
+    }
+
+    if (error instanceof Error) {
+      throw error;
+    }
+
+    throw new Error("로그아웃 실패");
+  }
+}
+
+export async function logout(token: string): Promise<void> {
+  try {
+    // 1. 백엔드 API 호출 - 토큰 블랙리스트 추가
+    await logoutApi(token);
+  } catch (error) {
+    console.error("Backend logout failed:", error);
   }
 
-  return (await res.json()) as LogoutResponse;
+  // 2. 쿠키 정리
+  await signOut({
+    callbackUrl: "/auth/login",
+    redirect: true,
+  });
 }

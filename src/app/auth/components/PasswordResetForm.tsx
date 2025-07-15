@@ -11,20 +11,20 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-import type { VerifyEmailFormData } from "@/app/auth/_lib";
+import type { PasswordResetFormData } from "@/app/auth/_lib";
 import type { UseFormReturn } from "react-hook-form";
 
-interface VerifyEmailFormProps {
-  form: UseFormReturn<VerifyEmailFormData>;
+interface PasswordResetFormProps {
+  form: UseFormReturn<PasswordResetFormData>;
   isLoading: boolean;
-  onSubmit: (data: VerifyEmailFormData) => Promise<void>;
+  onSubmit: (data: PasswordResetFormData) => Promise<void>;
 }
 
-export function VerifyEmailForm({
+export function PasswordResetForm({
   form,
   isLoading,
   onSubmit,
-}: VerifyEmailFormProps) {
+}: PasswordResetFormProps) {
   return (
     <Form {...form}>
       <form

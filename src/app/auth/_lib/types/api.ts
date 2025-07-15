@@ -5,6 +5,7 @@ import {
   LoginResponseSchema,
   SignupRequestSchema,
   SignupResponseSchema,
+  AdditionalInfoRequestSchema,
   LogoutResponseSchema,
   ApiErrorResponseSchema,
 } from "@/app/auth/_lib/schemas/api";
@@ -14,6 +15,7 @@ export type LoginRequest = z.infer<typeof LoginRequestSchema>;
 export type LoginResponse = z.infer<typeof LoginResponseSchema>;
 export type SignupRequest = z.infer<typeof SignupRequestSchema>;
 export type SignupResponse = z.infer<typeof SignupResponseSchema>;
+export type AdditionalInfoRequest = z.infer<typeof AdditionalInfoRequestSchema>;
 export type LogoutResponse = z.infer<typeof LogoutResponseSchema>;
 export type ApiErrorResponse = z.infer<typeof ApiErrorResponseSchema>;
 
