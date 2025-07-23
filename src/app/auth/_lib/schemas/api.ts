@@ -84,3 +84,14 @@ export const ApiErrorResponseSchema = z.object({
   code: z.string().optional(),
   error: z.string().optional(),
 });
+
+export const NewPasswordRequestSchema = z.object({
+  token: z.string().min(1, "토큰이 필요합니다"),
+  newPassword: z.string().min(8, "비밀번호는 최소 8자 이상이어야 합니다"),
+});
+
+export const NewPasswordResponseSchema = z.object({
+  status: z.number(),
+  message: z.string(),
+  data: z.object({}),
+});

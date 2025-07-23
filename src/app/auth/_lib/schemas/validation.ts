@@ -73,11 +73,16 @@ export const passwordResetSchema = z.object({
     .email(ERROR_MESSAGES.INVALID_EMAIL),
 });
 
-// // 비밀번호 재설정 폼 검증 스키마
-// export const passwordResetSchema = z.object({
-//   password: z
-//     .string()
-//     .min(PASSWORD_MIN_LENGTH, ERROR_MESSAGES.PASSWORD_TOO_SHORT)
-//     .regex(FORM_PASSWORD_REGEX, ERROR_MESSAGES.PASSWORD_PATTERN),
-//   confirmPassword: z.string(),
-// });
+// 비밀번호 재설정 폼 검증 스키마
+export const newPasswordSchema = z
+  .object({
+    password: z
+      .string()
+      .min(PASSWORD_MIN_LENGTH, ERROR_MESSAGES.PASSWORD_TOO_SHORT)
+      .regex(FORM_PASSWORD_REGEX, ERROR_MESSAGES.PASSWORD_PATTERN),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: ERROR_MESSAGES.PASSWORD_MISMATCH,
+    path: ["confirmPassword"],
+  });
