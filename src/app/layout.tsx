@@ -2,6 +2,8 @@ import localFont from "next/font/local";
 
 import { SessionProvider } from "next-auth/react";
 
+import { QueryClientProvider } from "@/lib/providers/query-client-provider";
+
 import type { Metadata } from "next";
 // import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -37,7 +39,9 @@ export default function RootLayout({
       <body className={`${pretendard.variable} antialiased `}>
         <div className="min-h-screen flex justify-center">
           <div className="w-full max-w-md bg-[#F9FAFB] min-h-screen px-4 py-6 sm:px-6 lg:px-8">
-            <SessionProvider>{children}</SessionProvider>
+            <SessionProvider>
+              <QueryClientProvider>{children}</QueryClientProvider>
+            </SessionProvider>
           </div>
         </div>
       </body>
