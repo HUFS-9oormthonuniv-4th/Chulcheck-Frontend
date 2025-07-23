@@ -8,6 +8,8 @@ import {
   AdditionalInfoRequestSchema,
   LogoutResponseSchema,
   ApiErrorResponseSchema,
+  PasswordResetRequestSchema,
+  PasswordResetResponseSchema,
 } from "@/app/auth/_lib/schemas/api";
 
 // API 스키마에서 타입 추출
@@ -18,6 +20,8 @@ export type SignupResponse = z.infer<typeof SignupResponseSchema>;
 export type AdditionalInfoRequest = z.infer<typeof AdditionalInfoRequestSchema>;
 export type LogoutResponse = z.infer<typeof LogoutResponseSchema>;
 export type ApiErrorResponse = z.infer<typeof ApiErrorResponseSchema>;
+export type PasswordResetRequest = z.infer<typeof PasswordResetRequestSchema>;
+export type PasswordResetResponse = z.infer<typeof PasswordResetResponseSchema>;
 
 // 토큰 갱신 관련 타입
 export interface TokenRefreshRequest {

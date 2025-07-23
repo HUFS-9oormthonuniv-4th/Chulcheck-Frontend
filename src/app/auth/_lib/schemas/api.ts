@@ -64,6 +64,19 @@ export const LogoutResponseSchema = z.object({
   message: z.string(),
 });
 
+export const PasswordResetRequestSchema = z.object({
+  email: z
+    .string()
+    .min(1, "이메일은 필수입니다")
+    .email("유효한 이메일을 입력해주세요"),
+});
+
+export const PasswordResetResponseSchema = z.object({
+  status: z.number(),
+  message: z.string(),
+  data: z.object({}),
+});
+
 // API 에러 응답 스키마
 export const ApiErrorResponseSchema = z.object({
   message: z.string().optional(),
