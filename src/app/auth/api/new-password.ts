@@ -12,8 +12,6 @@ export async function newPasswordApi(
       "auth/password-reset/confirm",
       { token, newPassword },
     );
-    console.log(response);
-
     return response;
   } catch (error) {
     if (error instanceof HttpError) {
@@ -25,8 +23,6 @@ export async function newPasswordApi(
       }
       throw new Error(errorMessage);
     }
-    console.log(error);
-
     if (error instanceof Error) {
       throw error;
     }

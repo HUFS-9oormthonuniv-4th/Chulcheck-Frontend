@@ -57,6 +57,7 @@ export function NewPasswordForm({
                 </FormLabel>
                 <FormControl>
                   <Input
+                    type="password"
                     placeholder="새로운 비밀번호를 입력해주세요"
                     className="w-full h-[52px] border border-[#CBD5E1] rounded-md px-3 placeholder:text-[#94A3B8] text-base"
                     aria-invalid={!!form.formState.errors.password}
@@ -79,6 +80,7 @@ export function NewPasswordForm({
                 </FormLabel>
                 <FormControl>
                   <Input
+                    type="password"
                     placeholder="변경할 비밀번호를 한번 더 입력 해주세요"
                     className="w-full h-[52px] border border-[#CBD5E1] rounded-md px-3 placeholder:text-[#94A3B8] text-base"
                     aria-invalid={!!form.formState.errors.confirmPassword}

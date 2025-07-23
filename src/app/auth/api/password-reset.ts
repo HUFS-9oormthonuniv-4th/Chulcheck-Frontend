@@ -11,7 +11,6 @@ export async function passwordResetApi(
       "auth/password-reset/request",
       { email },
     );
-    console.log(response);
 
     return response;
   } catch (error) {
@@ -24,7 +23,6 @@ export async function passwordResetApi(
       }
       throw new Error(errorMessage);
     }
-    console.log(error);
 
     if (error instanceof Error) {
       throw error;
@@ -39,5 +37,6 @@ export async function passwordReset(email: string): Promise<void> {
     await passwordResetApi(email);
   } catch (error) {
     console.error("비밀번호 재설정 실패:", error);
+    throw error;
   }
 }
