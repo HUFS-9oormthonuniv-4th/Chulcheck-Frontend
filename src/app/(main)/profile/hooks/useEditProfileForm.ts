@@ -9,8 +9,8 @@ import { useForm } from "react-hook-form";
 import {
   UpdateUserInfoFormData,
   updateUserInfoSchema,
-} from "@/app/profile/_lib";
-import { editProfile } from "@/app/profile/api/EditProfile";
+} from "@/app/(main)/profile/_lib";
+import { editProfile } from "@/app/(main)/profile/api/EditProfile";
 import { useUser } from "@/lib/hooks/useUser";
 
 export function useEditProfileForm() {

@@ -1,7 +1,7 @@
 "use client";
 
-import { EditProfileForm } from "@/app/profile/components/EditProfileForm";
-import { useEditProfileForm } from "@/app/profile/hooks/useEditProfileForm";
+import { EditProfileForm } from "@/app/(main)/profile/components/EditProfileForm";
+import { useEditProfileForm } from "@/app/(main)/profile/hooks/useEditProfileForm";
 
 export default function EditProfilePage() {
   const { form, isLoading, serverError, onSubmit } = useEditProfileForm();

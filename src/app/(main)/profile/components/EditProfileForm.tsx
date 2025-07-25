@@ -2,8 +2,8 @@ import React from "react";
 
 // import { useUser } from '@/lib/hooks/useUser';
 
+import { UpdateUserInfoFormData } from "@/app/(main)/profile/_lib";
 import { ErrorAlert } from "@/app/auth/components/ErrorAlert";
-import { UpdateUserInfoFormData } from "@/app/profile/_lib";
 import { TitleAndDescription } from "@/components/TitleAndDescription";
 import { Button } from "@/components/ui/button";
 import {

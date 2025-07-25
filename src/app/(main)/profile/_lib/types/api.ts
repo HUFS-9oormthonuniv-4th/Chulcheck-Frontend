@@ -3,7 +3,7 @@ import { z } from "zod";
 import {
   UpdateUserInfoRequestSchema,
   UpdateUserInfoResponseSchema,
-} from "@/app/profile/_lib/schemas/api";
+} from "@/app/(main)/profile/_lib/schemas/api";
 
 // API 스키마에서 타입 추출
 export type UpdateUserInfoRequest = z.infer<typeof UpdateUserInfoRequestSchema>;

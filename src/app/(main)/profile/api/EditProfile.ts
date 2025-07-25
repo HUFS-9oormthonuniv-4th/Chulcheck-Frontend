@@ -1,9 +1,9 @@
-import { ApiErrorResponseSchema } from "@/app/auth/_lib";
 import {
   UpdateUserInfoRequest,
   UpdateUserInfoResponse,
   UpdateUserInfoResponseSchema,
-} from "@/app/profile/_lib";
+} from "@/app/(main)/profile/_lib";
+import { ApiErrorResponseSchema } from "@/app/auth/_lib";
 import { httpService } from "@/lib/utils/httpService";
 import { HttpError } from "@/lib/utils/httpService";
 
@@ -22,7 +22,10 @@ export async function editProfile(
       ),
     ) as UpdateUserInfoRequest;
 
-    const response = await httpService.patch<unknown>("user/me", cleanedData);
+    const response = await httpService.patch<UpdateUserInfoResponse>(
+      "user/me",
+      cleanedData,
+    );
 
     // Zod를 사용한 응답 데이터 검증
     const validationResult = UpdateUserInfoResponseSchema.safeParse(response);
