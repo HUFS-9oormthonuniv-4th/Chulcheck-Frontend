@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 import {
   UpdateUserInfoFormData,
@@ -59,6 +60,9 @@ export function useEditProfileForm() {
         // image는 현재 폼에 없으므로 제외
       });
 
+      // 성공 시 토스트 띄우기
+      toast.success("프로필 수정이 완료되었어요");
+
       // 성공 시 사용자 데이터 캐시 무효화
       await queryClient.invalidateQueries({ queryKey: ["user", "me"] });
 
@@ -66,6 +70,7 @@ export function useEditProfileForm() {
       router.push("/");
     } catch (error) {
       console.error("프로필 수정 실패:", error);
+      toast.error("프로필 수정에 실패 했어요.");
       setServerError(
         error instanceof Error
           ? error.message

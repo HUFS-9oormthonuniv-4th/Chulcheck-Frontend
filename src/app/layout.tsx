@@ -2,6 +2,7 @@ import localFont from "next/font/local";
 
 import { SessionProvider } from "next-auth/react";
 
+import { Toaster } from "@/components/ui/sonner";
 import { QueryClientProvider } from "@/lib/providers/query-client-provider";
 
 import type { Metadata } from "next";
@@ -40,7 +41,10 @@ export default function RootLayout({
         <div className="min-h-screen flex justify-center">
           <div className="w-full max-w-md bg-[#F9FAFB] min-h-screen px-4 py-6 sm:px-6 lg:px-8">
             <SessionProvider>
-              <QueryClientProvider>{children}</QueryClientProvider>
+              <QueryClientProvider>
+                {children}
+                <Toaster richColors />
+              </QueryClientProvider>
             </SessionProvider>
           </div>
         </div>
