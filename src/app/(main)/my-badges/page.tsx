@@ -25,7 +25,7 @@ export default function MyBadgesPage() {
         }
       />
       <div className="grid grid-cols-3 gap-6 mt-6">
-        {user?.badges.map((badge) => {
+        {(user?.badges ?? []).map((badge) => {
           return (
             <div key={badge.id} className="flex flex-col items-center">
               <div className="rounded-full flex items-center justify-center w-full h-auto">

@@ -36,7 +36,7 @@ export function useEditProfileForm() {
   useEffect(() => {
     if (user) {
       form.reset({
-        nickname: user.userId || "",
+        nickname: user.nickname || "",
         name: user.name || "",
         school: user.school || "",
         major: user.major || "",

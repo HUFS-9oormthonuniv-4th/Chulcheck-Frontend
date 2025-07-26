@@ -1,7 +1,5 @@
 import React from "react";
 
-// import { useUser } from '@/lib/hooks/useUser';
-
 import { UpdateUserInfoFormData } from "@/app/(main)/profile/_lib";
 import { ErrorAlert } from "@/app/auth/components/ErrorAlert";
 import { TitleAndDescription } from "@/components/TitleAndDescription";
@@ -32,8 +30,6 @@ export function EditProfileForm({
   serverError,
   onSubmit,
 }: BasicInfoFormProps) {
-  //   const { data: user, isLoading: userLoading, error: userError } = useUser();
-
   return (
     <div className="w-full max-w-[340px] flex flex-col gap-6 mt-2">
       <TitleAndDescription
@@ -65,7 +61,7 @@ export function EditProfileForm({
                   <Input
                     placeholder="이메일을 입력 해주세요"
                     className="w-full h-[52px] border border-[#CBD5E1] rounded-md px-3 placeholder:text-[#94A3B8] text-base"
-                    aria-invalid={!!form.formState.errors.name}
+                    aria-invalid={!!form.formState.errors.nickname}
                     disabled
                     readOnly
                     {...field}
