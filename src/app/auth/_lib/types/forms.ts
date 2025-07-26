@@ -6,6 +6,7 @@ import {
   resetPasswordSchema,
   basicInfoSchema,
   passwordResetSchema,
+  newPasswordSchema,
 } from "@/app/auth/_lib/schemas/validation";
 
 // 폼 검증 스키마에서 타입 추출
@@ -14,3 +15,4 @@ export type SignUpFormData = z.infer<typeof signupSchema>;
 export type ResetPasswordFormData = z.infer<typeof resetPasswordSchema>;
 export type BasicInfoFormData = z.infer<typeof basicInfoSchema>;
 export type PasswordResetFormData = z.infer<typeof passwordResetSchema>;
+export type NewPasswordFormData = z.infer<typeof newPasswordSchema>;

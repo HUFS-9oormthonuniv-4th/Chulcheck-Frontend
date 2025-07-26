@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { passwordResetSchema, PasswordResetFormData } from "@/app/auth/_lib";
+import { passwordReset } from "@/app/auth/api/password-reset";
 
 export function usePasswordResetForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -19,9 +20,11 @@ export function usePasswordResetForm() {
   const onSubmit = async (data: PasswordResetFormData) => {
     setIsLoading(true);
     try {
-      // TODO: 비밀번호 재설정 이메일 전송 로직 필요, 완료 후 라우터 이동처리
+      await passwordReset(data.email);
       await new Promise((resolve) => setTimeout(resolve, 100));
       router.push("/auth/password-reset/confirmation");
+    } catch (error) {
+      console.error("비밀번호 재설정 실패:", error);
     } finally {
       setIsLoading(false);
     }

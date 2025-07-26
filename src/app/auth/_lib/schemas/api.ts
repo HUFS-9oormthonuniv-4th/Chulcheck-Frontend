@@ -64,10 +64,34 @@ export const LogoutResponseSchema = z.object({
   message: z.string(),
 });
 
+export const PasswordResetRequestSchema = z.object({
+  email: z
+    .string()
+    .min(1, "이메일은 필수입니다")
+    .email("유효한 이메일을 입력해주세요"),
+});
+
+export const PasswordResetResponseSchema = z.object({
+  status: z.number(),
+  message: z.string(),
+  data: z.object({}),
+});
+
 // API 에러 응답 스키마
 export const ApiErrorResponseSchema = z.object({
   message: z.string().optional(),
   status: z.number().optional(),
   code: z.string().optional(),
   error: z.string().optional(),
+});
+
+export const NewPasswordRequestSchema = z.object({
+  token: z.string().min(1, "토큰이 필요합니다"),
+  newPassword: z.string().min(8, "비밀번호는 최소 8자 이상이어야 합니다"),
+});
+
+export const NewPasswordResponseSchema = z.object({
+  status: z.number(),
+  message: z.string(),
+  data: z.object({}),
 });
