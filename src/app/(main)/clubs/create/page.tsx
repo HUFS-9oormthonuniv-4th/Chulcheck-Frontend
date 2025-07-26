@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 import { useForm } from "react-hook-form";
 
@@ -22,7 +23,7 @@ export default function CreateClubPage() {
     handleSubmit,
     formState: { isSubmitting },
   } = form;
-
+  const router = useRouter();
   const createClub = useCreateClub();
 
   const onSubmit = async (data: CreateClubFormValues) => {
@@ -36,6 +37,7 @@ export default function CreateClubPage() {
       });
 
       alert("동아리 생성이 완료되었습니다.");
+      router.push("/clubs");
     } catch (error) {
       alert(error instanceof Error ? error.message : "동아리 생성 실패");
     }

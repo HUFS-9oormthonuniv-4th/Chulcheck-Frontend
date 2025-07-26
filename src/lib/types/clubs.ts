@@ -1,5 +1,3 @@
-// src/lib/types/clubs.ts
-
 export interface CreateClubRequest {
   name: string;
   representativeAlias: string;
@@ -9,6 +7,12 @@ export interface CreateClubRequest {
 }
 
 export interface CreateClubResponse {
-  clubId: string;
-  message: string;
+  id: string;
+  name: string;
+  representativeAlias: string;
+  memberAlias: string;
+  description: string;
+  ownerId: string;
+  createdAt: string;
+  updatedAt: string;
 }
