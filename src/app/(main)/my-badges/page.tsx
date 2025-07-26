@@ -3,13 +3,15 @@
 import Image from "next/image";
 
 import { TitleAndDescription } from "@/components/TitleAndDescription";
+import Header from "@/components/ui/Header";
 import { useUser } from "@/lib/hooks/useUser";
 
 export default function MyBadgesPage() {
   const { data: user } = useUser();
 
   return (
-    <div className="flex flex-col gap-4 items-left w-full max-w-xl mx-auto py-4">
+    <div className="flex flex-col gap-2 items-left w-full max-w-xl mx-auto py-4">
+      <Header variant="main" />
       <TitleAndDescription
         title="나의 출석 뱃지"
         description={

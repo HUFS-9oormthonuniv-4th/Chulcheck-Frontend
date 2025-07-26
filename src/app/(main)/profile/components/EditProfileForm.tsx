@@ -31,7 +31,7 @@ export function EditProfileForm({
   onSubmit,
 }: BasicInfoFormProps) {
   return (
-    <div className="w-full max-w-[340px] flex flex-col gap-6 mt-2">
+    <div className="w-full flex flex-col gap-6">
       <TitleAndDescription
         title="내 프로필"
         description="나의 정보를 여기서 확인하고 수정 가능해요."
