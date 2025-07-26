@@ -22,6 +22,7 @@ export function usePasswordResetForm() {
     try {
       await passwordReset(data.email);
       await new Promise((resolve) => setTimeout(resolve, 100));
+
       router.push("/auth/password-reset/confirmation");
     } catch (error) {
       console.error("비밀번호 재설정 실패:", error);

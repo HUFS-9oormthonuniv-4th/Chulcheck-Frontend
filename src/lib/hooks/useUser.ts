@@ -13,8 +13,8 @@ export function useUser(): UseQueryResult<UserWithBadgesResponse, Error> {
     queryKey: USER_QUERY_KEY,
     queryFn: fetchMyInfo,
     enabled: status === "authenticated" && !!session?.accessToken,
-    staleTime: 5 * 60 * 1000, // 5분 - 사용자 정보는 자주 변경되지 않음
-    gcTime: 10 * 60 * 1000, // 10분
+    staleTime: 5 * 60 * 1000, // 5분 - 데이터 캐시 유지 시간
+    gcTime: 10 * 60 * 1000, // 10분 - 데이터 캐시 삭제 시간
     retry: (failureCount, error) => {
       // 401 에러(인증 실패)는 재시도하지 않음
       if (error instanceof Error && error.message.includes("401")) {

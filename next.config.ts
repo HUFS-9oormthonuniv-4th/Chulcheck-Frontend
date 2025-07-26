@@ -45,7 +45,7 @@ const nextConfig: NextConfig = {
           {
             key: "Permissions-Policy",
             value:
-              'camera="self", microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), gyroscope=()',
+              "camera=*, microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), gyroscope=()",
           },
         ],
       },
@@ -103,9 +103,9 @@ const nextConfig: NextConfig = {
             value: [
               "default-src 'self'",
               // 스크립트 정책 - unsafe-eval 제거, 필요한 경우에만 추가
-              "script-src 'self' https://vercel.live",
+              "script-src 'unsafe-inline' 'self' https://vercel.live",
               // 스타일 정책 - Google Fonts 허용
-              "style-src 'self' https://fonts.googleapis.com",
+              "style-src 'unsafe-inline' 'self' https://fonts.googleapis.com",
               // 폰트 정책
               "font-src 'self' https://fonts.gstatic.com data:",
               // 이미지 정책

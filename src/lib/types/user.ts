@@ -4,6 +4,7 @@ export interface BadgeResponse {
   name: string;
   badgeImage: string;
   obtainedAt: string; // ISO date string
+  isAcquired: boolean;
 }
 
 // 사용자 정보 타입 정의 (배지 포함)
@@ -20,6 +21,7 @@ export interface UserWithBadgesResponse {
   updatedAt: string; // ISO date string
   isActive: boolean;
   isOAuthUser: boolean;
+  attendanceRate: number;
   badges: BadgeResponse[];
 }
 
