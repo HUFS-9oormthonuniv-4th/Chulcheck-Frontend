@@ -17,7 +17,7 @@ import { Input } from "@/components/ui/input";
 
 interface LoginFormProps {
   isLoading: boolean;
-  onSubmit: (data: LoginFormData) => Promise<void>;
+  onSubmit: React.FormEventHandler<HTMLFormElement>;
   serverError: string | null;
   form: UseFormReturn<LoginFormData>;
 }
@@ -32,13 +32,7 @@ export function LoginForm({
     <>
       {serverError && <ErrorAlert message={serverError} />}
       <Form {...form}>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            void form.handleSubmit(onSubmit)(e);
-          }}
-          className="space-y-5"
-        >
+        <form onSubmit={onSubmit} className="space-y-5">
           {/* 이메일 입력 */}
           <FormField
             control={form.control}

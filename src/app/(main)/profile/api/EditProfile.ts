@@ -11,16 +11,23 @@ import { HttpError } from "@/lib/utils/httpService";
  * 내 정보 수정 API
  * PATCH /api/v1/user/me
  */
+
+// 빈 값들을 제거하여 실제 변경된 필드만 전송
+function filterNonEmptyValues<T extends UpdateUserInfoRequest>(
+  data: T,
+): Partial<UpdateUserInfoRequest> {
+  return Object.fromEntries(
+    Object.entries(data).filter(
+      ([_, value]) => value !== "" && value !== undefined,
+    ),
+  ) as Partial<UpdateUserInfoRequest>;
+}
+
 export async function editProfile(
   data: UpdateUserInfoRequest,
 ): Promise<UpdateUserInfoResponse> {
   try {
-    // 빈 값들을 제거하여 실제 변경된 필드만 전송
-    const cleanedData = Object.fromEntries(
-      Object.entries(data).filter(
-        ([_, value]) => value !== "" && value !== undefined,
-      ),
-    ) as UpdateUserInfoRequest;
+    const cleanedData = filterNonEmptyValues<UpdateUserInfoRequest>(data);
 
     const response = await httpService.patch<UpdateUserInfoResponse>(
       "user/me",
@@ -29,6 +36,7 @@ export async function editProfile(
 
     // Zod를 사용한 응답 데이터 검증
     const validationResult = UpdateUserInfoResponseSchema.safeParse(response);
+
     if (validationResult.success) {
       return validationResult.data;
     } else {

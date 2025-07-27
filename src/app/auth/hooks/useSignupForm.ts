@@ -1,17 +1,15 @@
-import { useState } from "react";
-
 import { useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 import { signupSchema, SignUpFormData } from "@/app/auth/_lib";
 import { saveTempSignupData } from "@/app/auth/actions/signup";
 
 export function useSignupForm() {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
-  const [serverError, setServerError] = useState<string | null>(null);
 
   const form = useForm<SignUpFormData>({
     resolver: zodResolver(signupSchema),
@@ -23,31 +21,27 @@ export function useSignupForm() {
     mode: "onSubmit",
   });
 
-  const onSubmit = async (data: SignUpFormData) => {
-    setIsLoading(true);
-    setServerError(null);
-
-    try {
-      // 서버 액션을 통해 임시 데이터 저장
-      const result = await saveTempSignupData(data);
-
-      if (!result.success) {
-        throw new Error(result.message);
-      }
-
+  const signupMutation = useMutation({
+    mutationFn: saveTempSignupData,
+    onSuccess: () => {
       // 성공 시 기본정보 페이지로 이동
       router.push("/auth/signup/basic-info");
-    } catch (error) {
-      console.error("회원가입 단계 이동 실패:", error);
-      setServerError(
-        error instanceof Error
-          ? error.message
-          : "회원가입 중 오류가 발생했습니다.",
-      );
-    } finally {
-      setIsLoading(false);
-    }
+    },
+    onError: (error: Error) => {
+      toast.error(error.message);
+    },
+  });
+
+  const onSubmit = (data: SignUpFormData) => {
+    signupMutation.mutate(data);
   };
 
-  return { form, isLoading, serverError, onSubmit };
+  const handleFormSubmit = form.handleSubmit(onSubmit);
+
+  return {
+    form,
+    isLoading: signupMutation.isPending,
+    serverError: signupMutation.error?.message || null,
+    onSubmit: handleFormSubmit,
+  };
 }

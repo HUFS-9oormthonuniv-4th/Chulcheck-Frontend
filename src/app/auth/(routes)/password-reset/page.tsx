@@ -8,7 +8,7 @@ import { usePasswordResetForm } from "@/app/auth/hooks/usePasswordResetForm";
 import { TitleAndDescription } from "@/components/TitleAndDescription";
 
 export default function PasswordResetPage() {
-  const { form, isLoading, onSubmit } = usePasswordResetForm();
+  const { form, isLoading, serverError, onSubmit } = usePasswordResetForm();
 
   return (
     <div className="flex flex-col items-center">
@@ -40,6 +40,7 @@ export default function PasswordResetPage() {
           <PasswordResetForm
             form={form}
             isLoading={isLoading}
+            serverError={serverError}
             onSubmit={onSubmit}
           />
           <div className="mt-3 text-xs text-start text-[#64748B]">

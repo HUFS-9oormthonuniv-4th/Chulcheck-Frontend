@@ -5,6 +5,9 @@ import { auth } from "@/app/auth/auth";
 // 인증이 필요한 경로들 (보호된 경로)
 const PROTECTED_PATHS = [
   "/admin*", // admin으로 시작하는 모든 경로
+  "/profile*",
+  "/",
+  "/club*",
 ];
 
 // 인증 관련 페이지들 (로그인한 사용자는 접근 불가)
@@ -18,6 +21,31 @@ const AUTH_PATHS = [
 // 완전 공개 경로들
 const PUBLIC_PATHS = ["/", "/auth/error", "/api/auth"];
 
+// 유효한 경로들 정의 (404 방지용)
+const VALID_PATHS = [
+  "/",
+  "/admin",
+  "/admin/*",
+  "/profile",
+  "/profile/*",
+  "/clubs",
+  "/clubs/*",
+  "/auth/login",
+  "/auth/signup",
+  "/auth/signup/basic-info",
+  "/auth/password-reset",
+  "/auth/password-reset/confirmation",
+  "/auth/password-reset/new",
+  "/auth/error",
+  "/my-badges",
+  "/check-attendance",
+  "/create-session",
+  "/create-session/*",
+  "/member/*",
+  "/setting",
+  "/setting/*",
+];
+
 const TEMP_SIGNUP_COOKIE_NAME = "chulcheck_temp_signup";
 const COOKIE_MAX_AGE = 30 * 60; // 30분
 
@@ -26,6 +54,17 @@ function isMatchPath(pathname: string, patterns: string[]) {
   return patterns.some((pattern) => {
     if (pattern.endsWith("*")) {
       // 와일드카드 매칭
+      const prefix = pattern.slice(0, -1);
+      return pathname.startsWith(prefix);
+    }
+    return pathname === pattern;
+  });
+}
+
+// 경로가 유효한지 확인하는 함수
+function isValidPath(pathname: string): boolean {
+  return VALID_PATHS.some((pattern) => {
+    if (pattern.endsWith("*")) {
       const prefix = pattern.slice(0, -1);
       return pathname.startsWith(prefix);
     }
@@ -113,7 +152,12 @@ export default auth((req) => {
     return;
   }
 
-  // 5. 기타 경로는 기본적으로 통과 (필요시 보호된 경로에 추가)
+  // 5. 유효하지 않은 경로 → 루트 페이지로 리다이렉트
+  if (!isValidPath(pathname)) {
+    return Response.redirect(new URL("/", req.url));
+  }
+
+  // 6. 기타 경로는 기본적으로 통과
   return;
 });
 

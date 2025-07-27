@@ -20,7 +20,7 @@ interface BasicInfoFormProps {
   form: UseFormReturn<BasicInfoFormData>;
   isLoading: boolean;
   serverError: string | null;
-  onSubmit: (data: BasicInfoFormData) => Promise<void>;
+  onSubmit: React.FormEventHandler<HTMLFormElement>;
 }
 
 export function BasicInfoForm({
@@ -39,13 +39,7 @@ export function BasicInfoForm({
       {serverError && <ErrorAlert message={serverError} />}
 
       <Form {...form}>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            void form.handleSubmit(onSubmit)(e);
-          }}
-          className="flex flex-col gap-4"
-        >
+        <form onSubmit={onSubmit} className="flex flex-col gap-4">
           {/* 이름 */}
           <FormField
             control={form.control}

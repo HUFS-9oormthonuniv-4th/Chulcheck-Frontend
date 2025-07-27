@@ -20,7 +20,7 @@ interface NewPasswordFormProps {
   form: UseFormReturn<NewPasswordFormData>;
   isLoading: boolean;
   serverError: string | null;
-  onSubmit: (data: NewPasswordFormData) => Promise<void>;
+  onSubmit: (e?: React.BaseSyntheticEvent) => Promise<void>;
 }
 
 export function NewPasswordForm({
@@ -41,8 +41,7 @@ export function NewPasswordForm({
       <Form {...form}>
         <form
           onSubmit={(e) => {
-            e.preventDefault();
-            void form.handleSubmit(onSubmit)(e);
+            void onSubmit(e);
           }}
           className="flex flex-col gap-4"
         >

@@ -19,7 +19,7 @@ interface SignupFormProps {
   isLoading: boolean;
   serverError: string | null;
   form: UseFormReturn<SignUpFormData>;
-  onSubmit: (data: SignUpFormData) => Promise<void>;
+  onSubmit: React.FormEventHandler<HTMLFormElement>;
 }
 
 export function SignupForm({
@@ -32,13 +32,7 @@ export function SignupForm({
     <>
       {serverError && <ErrorAlert message={serverError} />}
       <Form {...form}>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            void form.handleSubmit(onSubmit)(e);
-          }}
-          className="space-y-5"
-        >
+        <form onSubmit={onSubmit} className="space-y-5">
           <FormField
             control={form.control}
             name="email"

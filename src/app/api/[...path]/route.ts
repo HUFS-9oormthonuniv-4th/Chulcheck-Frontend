@@ -10,8 +10,8 @@ const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL;
 const PUBLIC_ENDPOINTS = [
   "/api/auth/login",
   "/api/auth/signup",
+  "/api/auth/password-reset/request",
   "/api/auth/validate",
-  "/api/test/",
 ];
 
 // 경로가 공개 엔드포인트인지 확인

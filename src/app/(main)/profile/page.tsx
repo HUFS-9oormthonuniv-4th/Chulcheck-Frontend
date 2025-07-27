@@ -3,9 +3,16 @@
 import { EditProfileForm } from "@/app/(main)/profile/components/EditProfileForm";
 import { useEditProfileForm } from "@/app/(main)/profile/hooks/useEditProfileForm";
 import Header from "@/components/ui/Header";
+import { useUser } from "@/lib/hooks/useUser";
 
 export default function EditProfilePage() {
-  const { form, isLoading, serverError, onSubmit } = useEditProfileForm();
+  const { isLoading: isUserLoading } = useUser();
+  const {
+    form,
+    isLoading: isFormLoading,
+    serverError,
+    onSubmit,
+  } = useEditProfileForm();
 
   return (
     <div className="flex flex-col items-center">
@@ -13,7 +20,7 @@ export default function EditProfilePage() {
         <Header variant="main" />
         <EditProfileForm
           form={form}
-          isLoading={isLoading}
+          isLoading={isUserLoading || isFormLoading}
           serverError={serverError}
           onSubmit={onSubmit}
         />
