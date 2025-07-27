@@ -1,12 +1,6 @@
 import { z } from "zod";
 
-import {
-  USER_ID_MIN_LENGTH,
-  USER_ID_MAX_LENGTH,
-  USER_ID_REGEX,
-  PASSWORD_MIN_LENGTH,
-  PASSWORD_REGEX,
-} from "@/app/auth/_lib/constants";
+import { PASSWORD_MIN_LENGTH, PASSWORD_REGEX } from "@/app/auth/_lib/constants";
 
 // API 요청/응답 스키마 정의 (실제 사용에 맞게 수정)
 export const LoginRequestSchema = z.object({

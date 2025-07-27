@@ -69,8 +69,6 @@ export const {
           const validatedCredentials = LoginRequestSchema.parse(credentials);
           const user = await loginApi(validatedCredentials);
 
-          console.log("user", user);
-
           // 필수 필드 검증
           if (!user.userId || !user.nickname || !user.role || !user.token) {
             console.error("Invalid user data from API:", {

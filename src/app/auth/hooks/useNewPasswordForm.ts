@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 import { newPasswordSchema, NewPasswordFormData } from "@/app/auth/_lib";
 import { newPassword } from "@/app/auth/api/new-password";
@@ -38,6 +39,9 @@ export function useNewPasswordForm() {
     try {
       // 비밀번호 재설정 API 호출
       await newPassword(token, data.password);
+
+      // 성공 시 토스트 띄우기
+      toast.success("비밀번호 재설정이 완료 되었어요");
 
       // 성공 시 로그인 페이지로 이동
       router.push("/auth/login?message=password-reset-success");

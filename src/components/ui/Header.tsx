@@ -19,6 +19,8 @@ import { useRouter } from "next/navigation";
 
 import { ArrowLeft, FolderHeart, MenuIcon } from "lucide-react";
 
+import { useUser } from "@/lib/hooks/useUser";
+
 import Logo from "../svg/logo_wordmark";
 
 interface HeaderProps {
@@ -28,6 +30,7 @@ interface HeaderProps {
 
 export default function Header({ variant, title = "돌아가기" }: HeaderProps) {
   const router = useRouter();
+  const { data: user, isLoading } = useUser();
 
   if (variant === "back") {
     return (
@@ -55,8 +58,20 @@ export default function Header({ variant, title = "돌아가기" }: HeaderProps)
           <FolderHeart className="w-5 h-5" />
           <span>내 동아리</span>
         </button>
-        {/* 소셜로그인 프로필사진으로 가져오기 */}
-        <span className="rounded-full bg-gray-500 text-white text-sm font-semibold w-8 h-8 flex items-center justify-center" />
+        {isLoading ? (
+          <div className="w-8 h-8 bg-gray-300 rounded-full animate-pulse" />
+        ) : user?.image ? (
+          <img
+            src={user.image}
+            alt={user.name}
+            className="w-8 h-8 rounded-full object-cover"
+          />
+        ) : (
+          <span className="rounded-full bg-gray-500 text-white text-sm font-semibold w-8 h-8 flex items-center justify-center">
+            {user?.name?.[0] || "?"}
+          </span>
+        )}
+
         <MenuIcon className="w-6 h-6 text-[#64748B]" />
       </div>
     </header>

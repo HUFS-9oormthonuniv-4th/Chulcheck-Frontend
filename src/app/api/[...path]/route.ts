@@ -24,7 +24,7 @@ async function apiHandler(req: NextRequest) {
   const backendApiUrl = `${BACKEND_URL}${path}`;
 
   if (!BACKEND_URL) {
-    console.error("NEXT_PUBLIC_API_URL is not configured");
+    // console.error("NEXT_PUBLIC_API_URL is not configured");
     return NextResponse.json(
       { error: "서버 설정 오류: API URL이 구성되지 않았습니다." },
       { status: 500 },
