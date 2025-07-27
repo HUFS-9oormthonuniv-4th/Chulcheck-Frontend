@@ -18,6 +18,7 @@ interface CreateClubFormValues {
   leaderTitle: string;
   memberTitle: string;
   description: string;
+  ownerId: string;
 }
 
 interface Props {
@@ -42,7 +43,7 @@ export function CreateClubForm({ form, onSubmit, isSubmitting }: Props) {
               <FormControl>
                 <Input
                   placeholder="동아리 이름을 입력해주세요"
-                  className="h-[50px] border border-[#CBD5E1] rounded-md px-3 placeholder:text-[#94A3B8]"
+                  className="h-[50px] border border-[#CBD5E1] bg-white rounded-md px-3 placeholder:text-[#94A3B8]"
                   {...field}
                 />
               </FormControl>
@@ -63,7 +64,7 @@ export function CreateClubForm({ form, onSubmit, isSubmitting }: Props) {
               <FormControl>
                 <Input
                   placeholder="동아리대표 명칭을 입력해주세요"
-                  className="h-[50px] border border-[#CBD5E1] rounded-md px-3 placeholder:text-[#94A3B8]"
+                  className="h-[50px] border border-[#CBD5E1] bg-white rounded-md px-3 placeholder:text-[#94A3B8]"
                   {...field}
                 />
               </FormControl>
@@ -84,7 +85,7 @@ export function CreateClubForm({ form, onSubmit, isSubmitting }: Props) {
               <FormControl>
                 <Input
                   placeholder="동아리멤버 명칭을 입력해주세요"
-                  className="h-[50px] border border-[#CBD5E1] rounded-md px-3 placeholder:text-[#94A3B8]"
+                  className="h-[50px] border border-[#CBD5E1] bg-white rounded-md px-3 placeholder:text-[#94A3B8]"
                   {...field}
                 />
               </FormControl>
@@ -105,7 +106,7 @@ export function CreateClubForm({ form, onSubmit, isSubmitting }: Props) {
               <FormControl>
                 <Textarea
                   placeholder="동아리에 대한 간단한 설명을 입력하세요"
-                  className="h-[150px] px-3 py-2 border border-[#CBD5E1] rounded-md placeholder:text-[#94A3B8]"
+                  className="h-[150px] px-3 py-2 border border-[#CBD5E1] bg-white rounded-md placeholder:text-[#94A3B8]"
                   {...field}
                 />
               </FormControl>
