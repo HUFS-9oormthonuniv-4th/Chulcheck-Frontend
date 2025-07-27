@@ -1,30 +1,23 @@
+import { httpService, HttpError } from "@/lib/utils/httpService";
+
 import type { CreateClubRequest, CreateClubResponse } from "@/lib/types/clubs";
 
-interface ErrorResponse {
-  message?: string;
-  [key: string]: unknown;
-}
+type ApiError = { message?: string };
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 export async function createClubApi(
   data: CreateClubRequest,
 ): Promise<CreateClubResponse> {
-  const url = `${API_BASE_URL}/api/v1/clubs`;
+  try {
+    return await httpService.post<CreateClubResponse>("/api/v1/clubs", {
+      data,
+    });
+  } catch (error) {
+    if (error instanceof HttpError) {
+      const errBody = error.responseBody as ApiError;
+      throw new Error(errBody.message || "동아리 생성에 실패했습니다.");
+    }
+    if (error instanceof Error) throw error;
 
-  const res = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-    body: JSON.stringify(data),
-    credentials: "include",
-  });
-
-  if (!res.ok) {
-    const error = (await res.json().catch(() => ({}))) as ErrorResponse;
-    throw new Error(error.message ?? "동아리 생성에 실패했습니다.");
+    throw new Error("네트워크 오류가 발생했습니다.");
   }
-
-  return (await res.json()) as CreateClubResponse;
 }

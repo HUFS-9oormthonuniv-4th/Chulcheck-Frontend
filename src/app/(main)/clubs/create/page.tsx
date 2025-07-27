@@ -3,9 +3,11 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
+import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 
 import { useCreateClub } from "@/app/(main)/clubs/hooks/useCreateClub";
+import { useUser } from "@/lib/hooks/useUser";
 
 import { CreateClubForm } from "../components/CreateClubForm";
 
@@ -18,6 +20,7 @@ interface CreateClubFormValues {
 }
 
 export default function CreateClubPage() {
+  const { data: userData } = useUser();
   const form = useForm<CreateClubFormValues>();
   const {
     handleSubmit,
@@ -27,13 +30,19 @@ export default function CreateClubPage() {
   const createClub = useCreateClub();
 
   const onSubmit = async (data: CreateClubFormValues) => {
+    const ownerId = userData?.userId;
+
+    if (!ownerId) {
+      alert("로그인이 필요합니다.");
+      return;
+    }
     try {
       await createClub.mutateAsync({
         name: data.name,
         representativeAlias: data.leaderTitle,
         memberAlias: data.memberTitle,
         description: data.description,
-        ownerId: "",
+        ownerId,
       });
 
       alert("동아리 생성이 완료되었습니다.");
@@ -43,9 +52,9 @@ export default function CreateClubPage() {
     }
   };
   return (
-    <div className="flex flex-col items-center bg-white pb-10">
+    <div className="flex flex-col items-center bg-[#F9FAFB] pb-10">
       {/* 헤더 */}
-      <div className="w-full max-w-[375px] px-3 py-5">
+      <div className="w-full max-w-[375px]">
         <div className="inline-flex items-center gap-1">
           <Image
             src="/assets/icons/arrow-up.svg"
@@ -59,7 +68,7 @@ export default function CreateClubPage() {
         </div>
       </div>
 
-      <div className="w-full max-w-[375px] flex flex-col mt-[27px] px-4">
+      <div className="w-full max-w-[375px] flex flex-col mt-[27px]">
         <div className="flex flex-col items-start gap-[12px] self-stretch mb-[44px]">
           <h2 className="text-[#0F172A] text-[18px] font-bold leading-[18px] font-inter">
             동아리 정보
