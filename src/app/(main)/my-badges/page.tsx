@@ -4,10 +4,31 @@ import Image from "next/image";
 
 import { TitleAndDescription } from "@/components/TitleAndDescription";
 import Header from "@/components/ui/Header";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useUser } from "@/lib/hooks/useUser";
 
 export default function MyBadgesPage() {
-  const { data: user } = useUser();
+  const { data: user, isLoading } = useUser();
+
+  // 로딩 중일 때 스켈레톤 UI 표시
+  if (isLoading) {
+    return (
+      <div className="flex flex-col gap-2 items-left w-full max-w-xl mx-auto py-4">
+        <Header variant="main" />
+        <div className="space-y-4">
+          <Skeleton className="h-8 w-48" />
+          <Skeleton className="h-16 w-full" />
+        </div>
+        <div className="grid grid-cols-3 gap-6 mt-6">
+          {Array.from({ length: 6 }).map((_, index) => (
+            <div key={index} className="flex flex-col items-center">
+              <Skeleton className="w-24 h-32 rounded-full" />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col gap-2 items-left w-full max-w-xl mx-auto py-4">
