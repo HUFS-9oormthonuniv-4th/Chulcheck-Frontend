@@ -18,7 +18,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 import type { UseFormReturn } from "react-hook-form";
 
-interface BasicInfoFormProps {
+interface EditProfileFormProps {
   form: UseFormReturn<UpdateUserInfoFormData>;
   isLoading: boolean;
   serverError: string | null;
@@ -80,7 +80,7 @@ export function EditProfileForm({
   isLoading,
   serverError,
   onSubmit,
-}: BasicInfoFormProps) {
+}: EditProfileFormProps) {
   // 로딩 중일 때 스켈레톤 표시
   if (isLoading) {
     return <EditProfileFormSkeleton />;

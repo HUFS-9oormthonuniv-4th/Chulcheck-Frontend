@@ -19,7 +19,7 @@ const AUTH_PATHS = [
 ];
 
 // 완전 공개 경로들
-const PUBLIC_PATHS = ["/", "/auth/error", "/api/auth"];
+const PUBLIC_PATHS = ["/auth/error", "/api/auth"];
 
 // 유효한 경로들 정의 (404 방지용)
 const VALID_PATHS = [
