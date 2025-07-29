@@ -42,8 +42,8 @@ export default function SettingsPage() {
     approveMutation.mutate(requestId);
   };
 
-  const handleReject = (requestId: number, reason: string) => {
-    rejectMutation.mutate({ requestId, reason });
+  const handleReject = (requestId: number) => {
+    rejectMutation.mutate({ requestId });
   };
 
   return (

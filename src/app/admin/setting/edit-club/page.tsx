@@ -36,9 +36,7 @@ export default function EditClubPage() {
   const { mutateAsync: update, isPending } = useUpdateClub(clubId, {
     onSuccess: () => {
       alert("동아리 정보가 성공적으로 수정되었습니다.");
-      void router.push(
-        `/admin/setting?clubId=${clubId}&clubName=${encodeURIComponent(clubName)}`
-      );
+      void router.push(`/admin?clubId=${clubId}`);
     },
     onError: () => alert("오류가 발생했습니다. 다시 시도해주세요."),
   });
@@ -119,6 +117,7 @@ export default function EditClubPage() {
             변경사항 저장
           </FormButton>
           <FormButton
+            type="button"
             variant="secondary"
             onClick={() => void handleCancelClick()}
           >

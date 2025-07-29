@@ -26,18 +26,29 @@ import Logo from "../svg/logo_wordmark";
 interface HeaderProps {
   variant: "main" | "back";
   title?: string;
+  backUrl?: string;
 }
 
-export default function Header({ variant, title = "돌아가기" }: HeaderProps) {
+export default function Header({
+  variant,
+  title = "돌아가기",
+  backUrl,
+}: HeaderProps) {
   const router = useRouter();
   const { data: user, isLoading } = useUser();
 
   if (variant === "back") {
     return (
-      <header className="flex items-center h-12  mb-2 border-b">
+      <header className="flex items-center h-12 mb-2 border-b">
         <button
-          onClick={() => router.back()}
-          className="flex items-center space-x-2 "
+          onClick={() => {
+            if (backUrl) {
+              router.push(backUrl);
+            } else {
+              router.back();
+            }
+          }}
+          className="flex items-center space-x-2"
         >
           <ArrowLeft className="w-5 h-5 text-[#0F172A]" />
           <span className="text-[20px] font-semibold text-[#0F172A]">
@@ -47,6 +58,7 @@ export default function Header({ variant, title = "돌아가기" }: HeaderProps)
       </header>
     );
   }
+
   return (
     <header className="flex justify-between items-center h-12 border-b mb-2 max-w-[375px]">
       <div className="flex items-center">
