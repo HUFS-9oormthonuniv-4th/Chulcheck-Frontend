@@ -1,65 +1,67 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-
-import { FolderPlus } from "lucide-react";
+import { useSearchParams, useRouter } from "next/navigation";
 
 import { TitleAndDescription } from "@/components/TitleAndDescription";
 import Header from "@/components/ui/Header";
 
-import { FormButton } from "../../components/Button";
-import { FormField } from "../../components/setting/FormField";
-
-export default function EditClubPage() {
+export default function SettingsPage() {
+  const searchParams = useSearchParams();
   const router = useRouter();
 
+  const clubId = searchParams.get("clubId");
+  const clubName = searchParams.get("clubName");
+
   return (
-    <div className="min-h-screen  pb-10 max-w-md mx-auto">
+    <div className="min-h-screen max-w-md mx-auto">
       <Header variant="back" />
       <TitleAndDescription
-        title="동아리 정보 수정"
-        description={<> 구름톤 유니브 한국외대의 정보를 입력하세요</>}
+        title="설정"
+        description={
+          <>{clubName ? ` ${clubName}` : "동아리 이름을 불러오는 중..."}</>
+        }
       />
-      <form className="space-y-5 pt-6">
-        <FormField
-          label="동아리 이름"
-          placeholder="동아리 이름을 입력해주세요"
-        />
-        <FormField
-          label="대표 명칭"
-          placeholder="동아리대표 명칭을 입력해주세요"
-        />
-        <FormField
-          label="멤버 명칭"
-          placeholder="동아리멤버 명칭을 입력해주세요"
-        />
-
-        <div>
-          <label className="block text-sm font-semibold text-[#2C3344] mb-1">
-            동아리 설명
-          </label>
-          <textarea
-            rows={5}
-            placeholder="동아리에 대한 간단한 설명을 입력하세요"
-            className="w-full px-4 py-3 rounded-md border border-[#CBD5E1] text-sm placeholder:text-[#94A3B8] bg-white"
-          />
-        </div>
-
-        <div className="space-y-2 mt-6">
-          <FormButton
-            variant="primary"
-            icon={<FolderPlus className="w-5 h-5" />}
-          >
-            변경사항 저장
-          </FormButton>
-          <FormButton
-            variant="secondary"
-            onClick={() => router.push("/admin/setting")}
-          >
-            취소
-          </FormButton>
-        </div>
-      </form>
+      <div className="space-y-1">
+        <button
+          onClick={() =>
+            router.push(
+              `/admin/setting/approval?clubId=${clubId}&clubName=${encodeURIComponent(
+                clubName ?? "",
+              )}`,
+            )
+          }
+          className="w-full pl-2 text-left text-[#64748B] text-base py-2.5 border-b border-[#c0c6ce]"
+        >
+          가입 요청 목록
+        </button>
+        <button
+          onClick={() => {
+            console.log("이동 시도:", clubId, clubName);
+            if (clubId && clubName) {
+              router.push(
+                `/admin/setting/edit-club?clubId=${clubId}&clubName=${encodeURIComponent(
+                  clubName,
+                )}`,
+              );
+            }
+          }}
+          className="w-full pl-2 text-left text-[#64748B] text-base py-2.5 border-b border-[#c0c6ce]"
+        >
+          동아리 정보 수정
+        </button>
+        <button
+          onClick={() =>
+            router.push(
+              `/admin/setting/delete-club?clubId=${clubId}&clubName=${encodeURIComponent(
+                clubName ?? "",
+              )}`,
+            )
+          }
+          className="w-full pl-2 text-left text-[#64748B] text-base py-2.5 border-b border-[#c0c6ce]"
+        >
+          동아리 삭제
+        </button>
+      </div>
     </div>
   );
 }
