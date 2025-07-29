@@ -11,18 +11,29 @@ interface MemberListProps {
   memberAlias: string;
   clubName: string;
   clubId: number;
+  founderId?: string;
 }
+
 export function MemberList({
   members,
   onRoleChange,
   memberAlias,
+  representativeAlias,
   clubName,
   clubId,
+  founderId,
 }: MemberListProps) {
   const router = useRouter();
-  const representativeId = members.find(
-    (m) => m.role === ClubRole.MANAGER
-  )?.userId;
+
+  const actualFounderId =
+    founderId ||
+    members.reduce((earliest, current) => {
+      if (!earliest) return current.userId;
+      const earliestMember = members.find((m) => m.userId === earliest);
+      const earliestDate = new Date(earliestMember?.joinedAt || "");
+      const currentDate = new Date(current.joinedAt);
+      return currentDate < earliestDate ? current.userId : earliest;
+    }, "");
 
   return (
     <div>
@@ -39,7 +50,7 @@ export function MemberList({
             key={member.userId}
             onClick={() =>
               router.push(
-                `/admin/member?userId=${encodeURIComponent(member.userId)}&clubId=${clubId}`
+                `/admin/member?userId=${encodeURIComponent(member.userId)}&clubId=${clubId}`,
               )
             }
             className="flex items-center space-x-2 bg-white p-4 rounded-lg border border-gray-200"
@@ -61,11 +72,10 @@ export function MemberList({
             <div className="relative" onClick={(e) => e.stopPropagation()}>
               <MemberSelect
                 value={member.role}
-                isRepresentative={member.userId === representativeId}
                 memberAlias={memberAlias}
-                onChange={(newRole) =>
-                  onRoleChange(member.userId, newRole as ClubRole)
-                }
+                representativeAlias={representativeAlias}
+                isFounder={member.userId === actualFounderId}
+                onChange={(newRole) => onRoleChange(member.userId, newRole)}
               />
             </div>
           </div>

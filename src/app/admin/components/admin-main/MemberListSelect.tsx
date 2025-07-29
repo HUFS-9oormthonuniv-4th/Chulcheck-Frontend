@@ -7,8 +7,9 @@ import { ClubRole } from "../../types/member";
 
 interface MemberSelectProps {
   value: ClubRole;
-  isRepresentative: boolean;
   memberAlias: string;
+  representativeAlias: string;
+  isFounder?: boolean;
   onChange: (value: ClubRole) => void;
 }
 
@@ -16,20 +17,22 @@ const options: { value: ClubRole; label: string }[] = [
   { value: ClubRole.MANAGER, label: "관리자" },
   { value: ClubRole.MEMBER, label: "멤버" },
 ];
+
 export function MemberSelect({
   value,
-  isRepresentative,
   memberAlias,
+  representativeAlias,
+  isFounder = false,
   onChange,
 }: MemberSelectProps) {
-  // 대표일 경우 선택 불가한 드롭다운
-  if (isRepresentative) {
+  // 생성자일 경우에만 선택 불가능
+  if (isFounder) {
     return (
       <div className="relative text-sm overflow-visible">
         <Listbox value={value} onChange={() => {}} disabled>
           <div className="relative">
             <Listbox.Button className="w-20 cursor-not-allowed rounded-md bg-gray-100 py-2 pl-3 pr-7 text-right text-gray-500">
-              대표
+              {representativeAlias}
               <span className="pointer-events-none absolute inset-y-0 right-1 flex items-center">
                 <ChevronDown className="h-4 w-4 text-gray-400" />
               </span>
@@ -40,7 +43,7 @@ export function MemberSelect({
     );
   }
 
-  // 일반 사용자 권한 선택 가능
+  // 일반 멤버/관리자는 선택 가능
   return (
     <div className="relative text-sm overflow-visible">
       <Listbox value={value} onChange={onChange}>

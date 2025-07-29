@@ -19,7 +19,7 @@ export default function ApprovalBottomSheet({
   onApprove,
   onReject,
 }: ApprovalBottomSheetProps) {
-  const [rejectionReason, setRejectionReason] = useState("");
+  const [rejectionReason, _] = useState("");
 
   const handleApprove = async () => {
     try {
