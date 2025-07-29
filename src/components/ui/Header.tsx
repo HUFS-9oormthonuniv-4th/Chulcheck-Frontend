@@ -15,6 +15,9 @@
  * <Header variant="back" title="출석 상세" />
  */
 
+import { useEffect, useState } from "react";
+
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 import { ArrowLeft, FolderHeart, MenuIcon } from "lucide-react";
@@ -23,21 +26,50 @@ import { useUser } from "@/lib/hooks/useUser";
 
 import Logo from "../svg/logo_wordmark";
 
+import { Skeleton } from "./skeleton";
+
 interface HeaderProps {
   variant: "main" | "back";
   title?: string;
 }
 
+function HeaderSkeleton() {
+  return (
+    <header className="flex justify-between items-center h-12 border-b mb-2 max-w-[375px]">
+      <div className="flex items-center">
+        <Skeleton className="w-[150px] h-6" />
+      </div>
+      <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-1">
+          <Skeleton className="w-5 h-5" />
+          <Skeleton className="w-16 h-4" />
+        </div>
+        <Skeleton className="w-8 h-8 rounded-full" />
+        <Skeleton className="w-6 h-6" />
+      </div>
+    </header>
+  );
+}
+
 export default function Header({ variant, title = "돌아가기" }: HeaderProps) {
   const router = useRouter();
   const { data: user, isLoading } = useUser();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const handleLogoClick = () => {
+    router.push("/");
+  };
 
   if (variant === "back") {
     return (
-      <header className="flex items-center h-12  mb-2 border-b">
+      <header className="flex items-center h-12 mb-2 border-b">
         <button
           onClick={() => router.back()}
-          className="flex items-center space-x-2 "
+          className="flex items-center space-x-2"
         >
           <ArrowLeft className="w-5 h-5 text-[#0F172A]" />
           <span className="text-[20px] font-semibold text-[#0F172A]">
@@ -47,10 +79,22 @@ export default function Header({ variant, title = "돌아가기" }: HeaderProps)
       </header>
     );
   }
+
+  // 마운트 전에는 스켈레톤 렌더링
+  if (!mounted) {
+    return <HeaderSkeleton />;
+  }
+
   return (
     <header className="flex justify-between items-center h-12 border-b mb-2 max-w-[375px]">
       <div className="flex items-center">
-        <Logo className="w-[150px]" />
+        <button
+          onClick={handleLogoClick}
+          className="cursor-pointer hover:opacity-80 transition-opacity"
+          aria-label="홈으로 이동"
+        >
+          <Logo className="w-[150px]" />
+        </button>
       </div>
 
       <div className="flex items-center space-x-2">
@@ -59,9 +103,9 @@ export default function Header({ variant, title = "돌아가기" }: HeaderProps)
           <span>내 동아리</span>
         </button>
         {isLoading ? (
-          <div className="w-8 h-8 bg-gray-300 rounded-full animate-pulse" />
+          <Skeleton className="w-8 h-8 rounded-full" />
         ) : user?.image ? (
-          <img
+          <Image
             src={user.image}
             alt={user.name}
             className="w-8 h-8 rounded-full object-cover"

@@ -14,14 +14,65 @@ import {
   FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Skeleton } from "@/components/ui/skeleton";
 
 import type { UseFormReturn } from "react-hook-form";
 
-interface BasicInfoFormProps {
+interface EditProfileFormProps {
   form: UseFormReturn<UpdateUserInfoFormData>;
   isLoading: boolean;
   serverError: string | null;
-  onSubmit: (data: UpdateUserInfoFormData) => Promise<void>;
+  onSubmit: (e?: React.BaseSyntheticEvent) => Promise<void>;
+}
+
+// 스켈레톤 컴포넌트
+function EditProfileFormSkeleton() {
+  return (
+    <div className="w-full flex flex-col gap-6">
+      <TitleAndDescription
+        title="내 프로필"
+        description="나의 정보를 여기서 확인하고 수정 가능해요."
+      />
+
+      <div className="flex flex-col gap-4">
+        {/* 이메일 필드 스켈레톤 */}
+        <div className="flex flex-col gap-2">
+          <Skeleton className="h-4 w-16" />
+          <Skeleton className="h-[52px] w-full" />
+          <Skeleton className="h-3 w-60" />
+        </div>
+
+        {/* 이름 필드 스켈레톤 */}
+        <div className="flex flex-col gap-2">
+          <Skeleton className="h-4 w-12" />
+          <Skeleton className="h-[52px] w-full" />
+        </div>
+
+        {/* 학교 필드 스켈레톤 */}
+        <div className="flex flex-col gap-2">
+          <Skeleton className="h-4 w-12" />
+          <Skeleton className="h-[52px] w-full" />
+        </div>
+
+        {/* 학과 필드 스켈레톤 */}
+        <div className="flex flex-col gap-2">
+          <Skeleton className="h-4 w-12" />
+          <Skeleton className="h-[52px] w-full" />
+        </div>
+
+        {/* 학번 필드 스켈레톤 */}
+        <div className="flex flex-col gap-2">
+          <Skeleton className="h-4 w-12" />
+          <Skeleton className="h-[52px] w-full" />
+        </div>
+
+        {/* 버튼 스켈레톤 */}
+        <div className="mt-10">
+          <Skeleton className="h-[60px] w-full" />
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export function EditProfileForm({
@@ -29,7 +80,12 @@ export function EditProfileForm({
   isLoading,
   serverError,
   onSubmit,
-}: BasicInfoFormProps) {
+}: EditProfileFormProps) {
+  // 로딩 중일 때 스켈레톤 표시
+  if (isLoading) {
+    return <EditProfileFormSkeleton />;
+  }
+
   return (
     <div className="w-full flex flex-col gap-6">
       <TitleAndDescription
@@ -42,8 +98,7 @@ export function EditProfileForm({
       <Form {...form}>
         <form
           onSubmit={(e) => {
-            e.preventDefault();
-            void form.handleSubmit(onSubmit)(e);
+            void onSubmit(e);
           }}
           className="flex flex-col gap-4"
         >

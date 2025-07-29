@@ -57,5 +57,7 @@ export function useNewPasswordForm() {
     }
   };
 
-  return { form, isLoading, serverError, onSubmit, token };
+  const handleFormSubmit = form.handleSubmit(onSubmit);
+
+  return { form, isLoading, serverError, onSubmit: handleFormSubmit, token };
 }

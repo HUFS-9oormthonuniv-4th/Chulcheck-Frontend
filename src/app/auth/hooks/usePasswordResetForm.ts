@@ -1,15 +1,14 @@
-import { useState } from "react";
-
 import { useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 import { passwordResetSchema, PasswordResetFormData } from "@/app/auth/_lib";
 import { passwordReset } from "@/app/auth/api/password-reset";
 
 export function usePasswordResetForm() {
-  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const form = useForm<PasswordResetFormData>({
@@ -17,19 +16,30 @@ export function usePasswordResetForm() {
     defaultValues: { email: "" },
   });
 
-  const onSubmit = async (data: PasswordResetFormData) => {
-    setIsLoading(true);
-    try {
+  const passwordResetMutation = useMutation({
+    mutationFn: async (data: PasswordResetFormData) => {
       await passwordReset(data.email);
       await new Promise((resolve) => setTimeout(resolve, 100));
-
+      return true;
+    },
+    onSuccess: () => {
       router.push("/auth/password-reset/confirmation");
-    } catch (error) {
-      console.error("비밀번호 재설정 실패:", error);
-    } finally {
-      setIsLoading(false);
-    }
+    },
+    onError: (error: Error) => {
+      toast.error(error.message);
+    },
+  });
+
+  const onSubmit = (data: PasswordResetFormData) => {
+    passwordResetMutation.mutate(data);
   };
 
-  return { form, isLoading, onSubmit };
+  const handleFormSubmit = form.handleSubmit(onSubmit);
+
+  return {
+    form,
+    isLoading: passwordResetMutation.isPending,
+    serverError: passwordResetMutation.error?.message || null,
+    onSubmit: handleFormSubmit,
+  };
 }

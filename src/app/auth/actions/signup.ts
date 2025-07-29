@@ -1,7 +1,6 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 
 import { SignupRequest, SignupResponse } from "@/app/auth/_lib/types/api";
 import { SignUpFormData, BasicInfoFormData } from "@/app/auth/_lib/types/forms";

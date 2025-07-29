@@ -2,7 +2,7 @@
 
 import { Suspense } from "react";
 
-import { NewPasswordForm } from "@/app/auth/components/NewPassword";
+import { NewPasswordForm } from "@/app/auth/components/NewPasswordForm";
 import { useNewPasswordForm } from "@/app/auth/hooks/useNewPasswordForm";
 
 function NewPasswordContent() {

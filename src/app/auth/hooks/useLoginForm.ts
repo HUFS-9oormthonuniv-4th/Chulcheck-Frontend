@@ -1,17 +1,15 @@
-import { useState } from "react";
-
 import { useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 import { loginSchema, LoginFormData } from "@/app/auth/_lib";
 
 export function useLoginForm(callbackUrl?: string | null) {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
-  const [serverError, setServerError] = useState<string | null>(null);
 
   const form = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
@@ -22,11 +20,8 @@ export function useLoginForm(callbackUrl?: string | null) {
     mode: "onSubmit",
   });
 
-  const onSubmit = async (data: LoginFormData) => {
-    setIsLoading(true);
-    setServerError(null);
-
-    try {
+  const loginMutation = useMutation({
+    mutationFn: async (data: LoginFormData) => {
       const result = await signIn("credentials", {
         redirect: false,
         userId: data.email,
@@ -47,24 +42,31 @@ export function useLoginForm(callbackUrl?: string | null) {
           }
         })();
 
-        setServerError(errorMessage);
-        return;
+        throw new Error(errorMessage);
       }
 
+      return result;
+    },
+    onSuccess: () => {
       // 성공 시 callbackUrl이 있으면 해당 페이지로, 없으면 기본 페이지로 이동
       const redirectUrl = callbackUrl || "/";
       router.push(redirectUrl);
-    } catch (error) {
-      console.error("Login error:", error);
-      setServerError(
-        error instanceof Error
-          ? error.message
-          : "로그인 중 예기치 못한 오류가 발생했습니다.",
-      );
-    } finally {
-      setIsLoading(false);
-    }
+    },
+    onError: (error: Error) => {
+      toast.error(error.message);
+    },
+  });
+
+  const onSubmit = (data: LoginFormData) => {
+    loginMutation.mutate(data);
   };
 
-  return { form, isLoading, serverError, onSubmit };
+  const handleFormSubmit = form.handleSubmit(onSubmit);
+
+  return {
+    form,
+    isLoading: loginMutation.isPending,
+    serverError: loginMutation.error?.message || null,
+    onSubmit: handleFormSubmit,
+  };
 }

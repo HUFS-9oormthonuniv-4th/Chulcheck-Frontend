@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import { useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
+import { UpdateUserInfoResponse } from "@/app/(main)/profile/_lib";
 import {
   UpdateUserInfoFormData,
   updateUserInfoSchema,
@@ -18,8 +19,6 @@ export function useEditProfileForm() {
   const { data: user } = useUser();
   const router = useRouter();
   const queryClient = useQueryClient();
-  const [isLoading, setIsLoading] = useState(false);
-  const [serverError, setServerError] = useState<string | null>(null);
 
   const form = useForm<UpdateUserInfoFormData>({
     resolver: zodResolver(updateUserInfoSchema),
@@ -31,6 +30,52 @@ export function useEditProfileForm() {
       studentNum: "",
     },
     mode: "onSubmit",
+  });
+
+  const editProfileMutation = useMutation({
+    mutationFn: editProfile,
+    onMutate: async (newData: UpdateUserInfoFormData) => {
+      // 이전 데이터 백업
+      await queryClient.cancelQueries({ queryKey: ["user", "me"] });
+      const previousData = queryClient.getQueryData<UpdateUserInfoResponse>([
+        "user",
+        "me",
+      ]);
+
+      // 낙관적 업데이트
+      queryClient.setQueryData<UpdateUserInfoResponse>(
+        ["user", "me"],
+        (old) => {
+          if (!old) return old;
+
+          return {
+            ...old,
+            ...newData,
+          };
+        },
+      );
+
+      return { previousData };
+    },
+    onSuccess: () => {
+      toast.success("프로필 수정이 완료되었어요");
+      router.push("/");
+    },
+    onError: (
+      error: Error,
+      newData: UpdateUserInfoFormData,
+      context: { previousData: UpdateUserInfoResponse | undefined } | undefined,
+    ) => {
+      toast.error(error.message);
+
+      if (context?.previousData) {
+        queryClient.setQueryData(["user", "me"], context.previousData);
+      }
+    },
+    onSettled: async () => {
+      // 성공/실패 관계없이 쿼리 무효화
+      await queryClient.invalidateQueries({ queryKey: ["user", "me"] });
+    },
   });
 
   useEffect(() => {
@@ -45,41 +90,22 @@ export function useEditProfileForm() {
     }
   }, [user, form]);
 
-  const onSubmit = async (data: UpdateUserInfoFormData) => {
-    setIsLoading(true);
-    setServerError(null);
-
-    try {
-      // 실제 API 호출
-      await editProfile({
-        nickname: data.nickname,
-        name: data.name,
-        school: data.school,
-        major: data.major,
-        studentNum: data.studentNum,
-        // image는 현재 폼에 없으므로 제외
-      });
-
-      // 성공 시 토스트 띄우기
-      toast.success("프로필 수정이 완료되었어요");
-
-      // 성공 시 사용자 데이터 캐시 무효화
-      await queryClient.invalidateQueries({ queryKey: ["user", "me"] });
-
-      // 성공 시 루트 페이지로 이동
-      router.push("/");
-    } catch (error) {
-      console.error("프로필 수정 실패:", error);
-      toast.error("프로필 수정에 실패 했어요.");
-      setServerError(
-        error instanceof Error
-          ? error.message
-          : "프로필 수정 중 오류가 발생했습니다.",
-      );
-    } finally {
-      setIsLoading(false);
-    }
+  const onSubmit = (data: UpdateUserInfoFormData) => {
+    editProfileMutation.mutate({
+      nickname: data.nickname,
+      name: data.name,
+      school: data.school || "",
+      major: data.major || "",
+      studentNum: data.studentNum || "",
+    });
   };
 
-  return { form, isLoading, serverError, onSubmit };
+  const handleFormSubmit = form.handleSubmit(onSubmit);
+
+  return {
+    form,
+    isLoading: editProfileMutation.isPending,
+    serverError: editProfileMutation.error?.message || null,
+    onSubmit: handleFormSubmit,
+  };
 }
