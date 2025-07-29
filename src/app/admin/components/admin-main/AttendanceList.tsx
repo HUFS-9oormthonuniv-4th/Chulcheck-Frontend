@@ -31,7 +31,7 @@ export function AttendanceList({
         {memberAlias} 출석관리
       </h3>
       <p className="text-sm text-gray-600 mb-4">
-        {clubName}에{memberAlias} 출석을 확인하고 관리해요
+        {clubName}의 {memberAlias} 출석을 확인하고 관리해요
       </p>
 
       <div className="space-y-4">
