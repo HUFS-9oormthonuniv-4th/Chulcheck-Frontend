@@ -1,16 +1,13 @@
 "use client";
 
-import { useState } from "react";
-
 import { AttendanceIcon, AbsenceIcon } from "@/assets/icons";
-
 import BottomSheetWrapper from "../BottomSheetWrapper";
 
 interface ApprovalBottomSheetProps {
   selected: { name: string; requestId: number };
   onClose: () => void;
-  onApprove: (requestId: number) => Promise<void>;
-  onReject: (requestId: number, reason: string) => Promise<void>;
+  onApprove: (requestId: number) => void;
+  onReject: (requestId: number) => void;
 }
 
 export default function ApprovalBottomSheet({
@@ -19,28 +16,12 @@ export default function ApprovalBottomSheet({
   onApprove,
   onReject,
 }: ApprovalBottomSheetProps) {
-  const [rejectionReason, _] = useState("");
-
-  const handleApprove = async () => {
-    try {
-      await onApprove(selected.requestId);
-      onClose();
-    } catch {
-      alert("승인 처리 중 오류가 발생했습니다.");
-    }
+  const handleApprove = () => {
+    onApprove(selected.requestId);
   };
 
-  const handleReject = async () => {
-    if (!rejectionReason.trim()) {
-      alert("거절 사유를 입력해주세요.");
-      return;
-    }
-    try {
-      await onReject(selected.requestId, rejectionReason);
-      onClose();
-    } catch {
-      alert("거절 처리 중 오류가 발생했습니다.");
-    }
+  const handleReject = () => {
+    onReject(selected.requestId);
   };
 
   return (
@@ -54,14 +35,14 @@ export default function ApprovalBottomSheet({
 
       <div className="space-y-1 divide-y divide-gray-200 mb-4">
         <button
-          onClick={() => void handleApprove()}
+          onClick={handleApprove}
           className="w-full flex justify-between items-center text-md font-medium px-3 py-4 text-start"
         >
           승인
           <AttendanceIcon />
         </button>
         <button
-          onClick={() => void handleReject()}
+          onClick={handleReject}
           className="w-full flex justify-between items-center text-md font-medium px-3 py-2 text-start"
         >
           거절

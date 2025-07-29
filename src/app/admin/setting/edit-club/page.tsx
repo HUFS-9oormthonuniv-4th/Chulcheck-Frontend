@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FolderPlus } from "lucide-react";
 
@@ -9,74 +9,59 @@ import Header from "@/components/ui/Header";
 import { FormButton } from "../../components/Button";
 import { FormField } from "../../components/setting/FormField";
 
-import { getClubDetail, updateClub } from "../../apis/clubs";
+import { useUpdateClub } from "../../hooks/setting/useUpdateClub";
+import { useClubDetailQuery } from "../../hooks/setting/useClubDetail";
 
 export default function EditClubPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const clubId = searchParams.get("clubId");
-
-  const [initialClubName, setInitialClubName] = useState("");
-  const [_initialDescription, setInitialDescription] = useState("");
+  const clubId = searchParams.get("clubId") ?? "";
 
   const [clubName, setClubName] = useState("");
   const [representativeAlias, setRepresentativeAlias] = useState("");
   const [memberAlias, setMemberAlias] = useState("");
   const [description, setDescription] = useState("");
 
-  const [loading, setLoading] = useState(true);
+  const { data: clubDetail, isLoading } = useClubDetailQuery(clubId);
 
   useEffect(() => {
-    if (!clubId) return;
+    if (clubDetail) {
+      setClubName(clubDetail.clubName);
+      setRepresentativeAlias(clubDetail.representativeAlias);
+      setMemberAlias(clubDetail.memberAlias);
+      setDescription(clubDetail.description);
+    }
+  }, [clubDetail]);
 
-    const fetchClubDetail = async () => {
-      try {
-        const data = await getClubDetail(clubId);
-        setInitialClubName(data.clubName);
-        setInitialDescription(data.description);
-
-        setClubName(data.clubName);
-        setRepresentativeAlias(data.representativeAlias);
-        setMemberAlias(data.memberAlias);
-        setDescription(data.description);
-      } catch (e) {
-        console.error(e);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    void fetchClubDetail();
-  }, [clubId]);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!clubId) return;
-
-    try {
-      await updateClub(clubId, {
-        name: clubName,
-        representativeAlias,
-        memberAlias,
-        description,
-      });
+  const { mutateAsync: update, isPending } = useUpdateClub(clubId, {
+    onSuccess: () => {
       alert("동아리 정보가 성공적으로 수정되었습니다.");
       void router.push(
         `/admin/setting?clubId=${clubId}&clubName=${encodeURIComponent(clubName)}`
       );
-    } catch (error) {
-      console.error(error);
-      alert("오류가 발생했습니다. 다시 시도해주세요.");
-    }
+    },
+    onError: () => alert("오류가 발생했습니다. 다시 시도해주세요."),
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await update({
+      name: clubName,
+      representativeAlias,
+      memberAlias,
+      description,
+    });
   };
 
   const handleCancelClick = () => {
     void router.push(
-      `/admin/setting?clubId=${clubId}&clubName=${encodeURIComponent(initialClubName)}`
+      `/admin/setting?clubId=${clubId}&clubName=${encodeURIComponent(
+        clubDetail?.clubName ?? ""
+      )}`
     );
   };
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="min-h-screen max-w-md mx-auto py-10 text-center">
         <p>동아리 정보를 불러오는 중입니다...</p>
@@ -89,7 +74,7 @@ export default function EditClubPage() {
       <Header variant="back" />
       <TitleAndDescription
         title="동아리 정보 수정"
-        description={<>구름톤 {initialClubName}의 정보를 입력하세요</>}
+        description={<> {clubDetail?.clubName}의 정보를 입력하세요</>}
       />
 
       <form className="space-y-5 pt-6" onSubmit={handleSubmit}>
@@ -129,10 +114,14 @@ export default function EditClubPage() {
           <FormButton
             variant="primary"
             icon={<FolderPlus className="w-5 h-5" />}
+            disabled={isPending}
           >
             변경사항 저장
           </FormButton>
-          <FormButton variant="secondary" onClick={handleCancelClick}>
+          <FormButton
+            variant="secondary"
+            onClick={() => void handleCancelClick()}
+          >
             취소
           </FormButton>
         </div>

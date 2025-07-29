@@ -1,71 +1,49 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 import { TitleAndDescription } from "@/components/TitleAndDescription";
 import Header from "@/components/ui/Header";
 import ApprovalBottomSheet from "../../components/setting/ApprovalBottomSheet";
 
-import {
-  getPendingJoinRequests,
-  approveJoinRequest,
-  rejectJoinRequest,
-  PendingMember,
-} from "../../apis/clubJoinRequests";
+import { PendingMember } from "../../apis/clubJoinRequests";
+import { usePendingJoinRequests } from "../../hooks/setting/usePendingJoinRequests";
+import { useApproveJoinRequest } from "../../hooks/setting/useApproveJoinRequest";
+import { useRejectJoinRequest } from "../../hooks/setting/useRejectJoinRequest";
 
 export default function SettingsPage() {
   const [selectedMember, setSelectedMember] = useState<PendingMember | null>(
     null
   );
   const [isSheetOpen, setIsSheetOpen] = useState(false);
-  const [pendingMembers, setPendingMembers] = useState<PendingMember[]>([]);
 
   const searchParams = useSearchParams();
   const clubName = searchParams.get("clubName") || "";
   const clubId = Number(searchParams.get("clubId")) || 0;
 
-  const fetchPendingRequests = async () => {
-    try {
-      const data = await getPendingJoinRequests(clubId);
-      setPendingMembers(data);
-    } catch (err) {
-      console.error(err);
-      alert("가입 요청을 불러오지 못했습니다.");
-    }
-  };
+  const {
+    data: pendingMembers = [],
+    isLoading,
+    isError,
+  } = usePendingJoinRequests(clubId);
 
-  useEffect(() => {
-    void fetchPendingRequests();
-  }, []);
+  const approveMutation = useApproveJoinRequest(clubId, () =>
+    setIsSheetOpen(false)
+  );
+  const rejectMutation = useRejectJoinRequest(clubId);
 
   const handleClick = (member: PendingMember) => {
     setSelectedMember(member);
     setIsSheetOpen(true);
   };
 
-  const handleApprove = async (requestId: number) => {
-    try {
-      await approveJoinRequest(clubId, requestId);
-      alert("가입 승인 완료!");
-      await fetchPendingRequests();
-      setIsSheetOpen(false);
-    } catch (err) {
-      console.error(err);
-      alert("승인 중 오류 발생");
-    }
+  const handleApprove = (requestId: number) => {
+    approveMutation.mutate(requestId);
   };
 
-  const handleReject = async (requestId: number, reason: string) => {
-    try {
-      await rejectJoinRequest(clubId, requestId, reason);
-      alert("가입 거절 완료!");
-      await fetchPendingRequests();
-      setIsSheetOpen(false);
-    } catch (err) {
-      console.error(err);
-      alert("거절 중 오류 발생");
-    }
+  const handleReject = (requestId: number, reason: string) => {
+    rejectMutation.mutate({ requestId, reason });
   };
 
   return (
@@ -77,7 +55,13 @@ export default function SettingsPage() {
       />
 
       <section className="space-y-3 mt-4">
-        {pendingMembers.length === 0 ? (
+        {isLoading ? (
+          <div className="text-center text-gray-500 py-10">로딩 중...</div>
+        ) : isError ? (
+          <div className="text-center text-red-500 py-10">
+            가입 요청을 불러오는 중 오류 발생
+          </div>
+        ) : pendingMembers.length === 0 ? (
           <div className="text-center text-gray-500 py-10">
             대기 중인 가입 요청이 없습니다.
           </div>

@@ -8,24 +8,17 @@ import { useSession } from "next-auth/react";
 import { TitleAndDescription } from "@/components/TitleAndDescription";
 import Header from "@/components/ui/Header";
 
-import { AttendanceGraph } from "./components/admin-main/AttendanceGraph";
 import { AttendanceList } from "./components/admin-main/AttendanceList";
 import { CopyLink } from "./components/admin-main/CopyLink";
 import { InfoGrid } from "./components/admin-main/InfoGrid";
 import { ManagementTabs } from "./components/admin-main/ManageTabs";
 import { MemberList } from "./components/admin-main/MemberList";
 
-import { AttendanceSession } from "./types/attendances";
-import { ClubDetailResponse } from "./types/clubs";
 import { ClubMember, ClubRole } from "./types/member";
-
-import {
-  getClubDetail,
-  getAttendanceSessions,
-  getAttendanceStats,
-  updateClubRoles,
-  AttendanceStats,
-} from "./apis/adminClub";
+import { useClubDetailQuery } from "./hooks/useClubDetailQuery";
+import { useAttendanceSessionsQuery } from "./hooks/useAttendanceSessionsQuery";
+import { useUpdateClubRolesMutation } from "./hooks/useUpdateClubRolesMutation";
+import { getAttendanceStats, AttendanceStats } from "./apis/adminClub";
 
 export default function AdminPage() {
   const router = useRouter();
@@ -39,44 +32,37 @@ export default function AdminPage() {
     "memberManagement" | "attendanceManagement"
   >("memberManagement");
 
-  const [clubData, setClubData] = useState<ClubDetailResponse | null>(null);
-  const [attendanceSessions, setAttendanceSessions] = useState<
-    AttendanceSession[]
-  >([]);
   const [initialMembers, setInitialMembers] = useState<ClubMember[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-  const [attendanceStats, setAttendanceStats] =
-    useState<AttendanceStats | null>(null);
+  const [_, setAttendanceStats] = useState<AttendanceStats | null>(null);
+
+  const {
+    data: clubData,
+    isLoading,
+    isError,
+  } = useClubDetailQuery(clubId ?? 0);
+
+  const { data: attendanceSessions = [] } = useAttendanceSessionsQuery(
+    clubId ?? 0
+  );
+
+  const updateClubRolesMutation = useUpdateClubRolesMutation(clubId ?? 0);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if (!clubId) return;
+    if (clubData) {
+      const deepCopied = JSON.parse(
+        JSON.stringify(clubData.members)
+      ) as ClubMember[];
+      setInitialMembers(deepCopied);
+    }
+  }, [clubData]);
 
-        const [clubDetail, sessions, stats] = await Promise.all([
-          getClubDetail(clubId),
-          getAttendanceSessions(clubId),
-          getAttendanceStats(clubId),
-        ]);
-
-        setClubData(clubDetail);
-        setAttendanceSessions(sessions);
-        setAttendanceStats(stats);
-
-        const deepCopiedMembers = JSON.parse(
-          JSON.stringify(clubDetail.members)
-        ) as ClubMember[];
-        setInitialMembers(deepCopiedMembers);
-      } catch (err) {
-        console.error(err);
-        setError("데이터를 불러오지 못했습니다.");
-      } finally {
-        setLoading(false);
-      }
+  useEffect(() => {
+    const fetchStats = async () => {
+      if (!clubId) return;
+      const stats = await getAttendanceStats(clubId);
+      setAttendanceStats(stats);
     };
-
-    void fetchData();
+    void fetchStats();
   }, [clubId]);
 
   const handleRoleChange = (userId: string, newRole: ClubMember["role"]) => {
@@ -84,7 +70,7 @@ export default function AdminPage() {
     const updated = clubData.members.map((m) =>
       m.userId === userId ? { ...m, role: newRole } : m
     );
-    setClubData({ ...clubData, members: updated });
+    clubData.members = updated;
   };
 
   const handleSaveChanges = async () => {
@@ -95,10 +81,7 @@ export default function AdminPage() {
         const original = initialMembers.find((m) => m.userId === member.userId);
         return original && String(original.role) !== String(member.role);
       })
-      .map((member) => ({
-        userId: member.userId,
-        newRole: member.role,
-      }));
+      .map((member) => ({ userId: member.userId, newRole: member.role }));
 
     if (changes.length === 0) {
       alert("변경된 내용이 없습니다.");
@@ -106,12 +89,11 @@ export default function AdminPage() {
     }
 
     try {
-      await updateClubRoles(clubId, changes);
+      await updateClubRolesMutation.mutateAsync(changes);
       alert("변경사항이 저장되었습니다.");
-      const deepCopiedMembers = JSON.parse(
-        JSON.stringify(clubData.members)
-      ) as ClubMember[];
-      setInitialMembers(deepCopiedMembers);
+      setInitialMembers(
+        JSON.parse(JSON.stringify(clubData.members)) as ClubMember[]
+      );
     } catch (err) {
       console.error(err);
       alert("변경사항 저장 중 오류가 발생했습니다.");
@@ -155,19 +137,6 @@ export default function AdminPage() {
             <span className="text-[20px]">출석 세션 생성</span>
           </button>
         </div>
-        {/* 
-        <AttendanceGraph
-          percentage={
-            attendanceStats && attendanceStats.totalCount > 0
-              ? Math.round(
-                  (attendanceStats.presentCount / attendanceStats.totalCount) *
-                    100
-                )
-              : 0
-          }
-          total={attendanceStats?.totalCount ?? 0}
-          attended={attendanceStats?.presentCount ?? 0}
-        /> */}
 
         <InfoGrid
           memberCount={clubData?.memberCount ?? 0}
@@ -193,10 +162,12 @@ export default function AdminPage() {
 
         {activeTab === "memberManagement" && (
           <>
-            {loading ? (
+            {isLoading ? (
               <p className="text-center py-8">로딩 중...</p>
-            ) : error ? (
-              <p className="text-center text-red-500 py-8">{error}</p>
+            ) : isError ? (
+              <p className="text-center text-red-500 py-8">
+                데이터를 불러오지 못했습니다.
+              </p>
             ) : (
               <>
                 <MemberList
@@ -209,7 +180,7 @@ export default function AdminPage() {
                 />
                 <div className="flex w-full mt-6 mb-10">
                   <button
-                    onClick={handleSaveChanges}
+                    onClick={() => void handleSaveChanges()}
                     className="w-full bg-black text-white py-2 px-8 rounded-lg font-semibold"
                   >
                     변경사항 저장하기

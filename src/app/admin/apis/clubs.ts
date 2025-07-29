@@ -23,6 +23,6 @@ export const updateClub = async (
     memberAlias: string;
     description: string;
   }
-) => {
-  return await httpService.put(`clubs/${clubId}`, data);
+): Promise<void> => {
+  await httpService.put(`clubs/${clubId}`, data);
 };

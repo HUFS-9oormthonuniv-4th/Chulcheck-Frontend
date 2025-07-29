@@ -24,17 +24,12 @@ export const approveJoinRequest = async (clubId: number, requestId: number) => {
   );
 };
 
-export const rejectJoinRequest = async (
-  clubId: number,
-  requestId: number,
-  reason: string
-) => {
+export const rejectJoinRequest = async (clubId: number, requestId: number) => {
   return await httpService.put(
     `clubs/${clubId}/join-requests/${requestId}/process`,
     {
       requestId,
       status: "REJECTED",
-      rejectionReason: reason,
     }
   );
 };

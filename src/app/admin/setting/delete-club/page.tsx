@@ -7,7 +7,7 @@ import { FolderMinus } from "lucide-react";
 import { TitleAndDescription } from "@/components/TitleAndDescription";
 import Header from "@/components/ui/Header";
 import { FormButton } from "../../components/Button";
-import { deleteClub } from "../../apis/clubs";
+import { useDeleteClub } from "../../hooks/setting/useDeleteClub";
 
 export default function EditClubPage() {
   const router = useRouter();
@@ -17,9 +17,18 @@ export default function EditClubPage() {
   const clubName = searchParams.get("clubName") || "";
 
   const [inputName, setInputName] = useState("");
-  const [loading, setLoading] = useState(false);
 
-  const handleDelete = async () => {
+  const deleteMutation = useDeleteClub({
+    onSuccess: () => {
+      alert("동아리가 성공적으로 삭제되었습니다.");
+      router.push("/");
+    },
+    onError: () => {
+      alert("삭제 중 오류가 발생했습니다.");
+    },
+  });
+
+  const handleDelete = () => {
     if (inputName !== clubName) {
       alert("동아리 이름이 정확하지 않습니다.");
       return;
@@ -33,18 +42,7 @@ export default function EditClubPage() {
     const confirm = window.confirm("정말로 동아리를 삭제하시겠습니까?");
     if (!confirm) return;
 
-    try {
-      setLoading(true);
-      await deleteClub(clubId);
-
-      alert("동아리가 성공적으로 삭제되었습니다.");
-      router.push("/");
-    } catch (err) {
-      console.error(err);
-      alert("삭제 중 오류가 발생했습니다.");
-    } finally {
-      setLoading(false);
-    }
+    deleteMutation.mutate(clubId);
   };
 
   return (
@@ -78,7 +76,7 @@ export default function EditClubPage() {
           variant="danger"
           icon={<FolderMinus className="w-5 h-5 mr-2" />}
           onClick={() => void handleDelete()}
-          disabled={loading}
+          disabled={deleteMutation.isPending}
         >
           동아리 삭제하기
         </FormButton>
