@@ -1,16 +1,13 @@
 "use client";
 
 import { useState } from "react";
-
 import { useRouter, useSearchParams } from "next/navigation";
-
 import { FolderMinus } from "lucide-react";
 
 import { TitleAndDescription } from "@/components/TitleAndDescription";
 import Header from "@/components/ui/Header";
-import { httpService } from "@/lib/utils/httpService";
-
 import { FormButton } from "../../components/Button";
+import { deleteClub } from "../../apis/clubs";
 
 export default function EditClubPage() {
   const router = useRouter();
@@ -38,7 +35,7 @@ export default function EditClubPage() {
 
     try {
       setLoading(true);
-      await httpService.delete(`clubs/${clubId}`);
+      await deleteClub(clubId);
 
       alert("동아리가 성공적으로 삭제되었습니다.");
       router.push("/");

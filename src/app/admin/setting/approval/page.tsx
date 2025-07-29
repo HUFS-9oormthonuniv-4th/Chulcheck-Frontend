@@ -1,37 +1,33 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
 import { useSearchParams } from "next/navigation";
 
 import { TitleAndDescription } from "@/components/TitleAndDescription";
 import Header from "@/components/ui/Header";
-import { httpService } from "@/lib/utils/httpService";
-
 import ApprovalBottomSheet from "../../components/setting/ApprovalBottomSheet";
 
-interface PendingMember {
-  id: number;
-  userName: string;
-  userNickname: string;
-  createdAt: string;
-}
+import {
+  getPendingJoinRequests,
+  approveJoinRequest,
+  rejectJoinRequest,
+  PendingMember,
+} from "../../apis/clubJoinRequests";
 
 export default function SettingsPage() {
   const [selectedMember, setSelectedMember] = useState<PendingMember | null>(
-    null,
+    null
   );
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [pendingMembers, setPendingMembers] = useState<PendingMember[]>([]);
+
   const searchParams = useSearchParams();
   const clubName = searchParams.get("clubName") || "";
-
   const clubId = Number(searchParams.get("clubId")) || 0;
+
   const fetchPendingRequests = async () => {
     try {
-      const data = await httpService.get<PendingMember[]>(
-        `clubs/${clubId}/join-requests/pending`,
-      );
+      const data = await getPendingJoinRequests(clubId);
       setPendingMembers(data);
     } catch (err) {
       console.error(err);
@@ -50,15 +46,7 @@ export default function SettingsPage() {
 
   const handleApprove = async (requestId: number) => {
     try {
-      await httpService.put(
-        `clubs/${clubId}/join-requests/${requestId}/process`,
-        {
-          requestId,
-          status: "ACTIVE",
-          rejectionReason: "",
-        },
-      );
-
+      await approveJoinRequest(clubId, requestId);
       alert("가입 승인 완료!");
       await fetchPendingRequests();
       setIsSheetOpen(false);
@@ -70,15 +58,7 @@ export default function SettingsPage() {
 
   const handleReject = async (requestId: number, reason: string) => {
     try {
-      await httpService.put(
-        `clubs/${clubId}/join-requests/${requestId}/process`,
-        {
-          requestId,
-          status: "REJECTED",
-          rejectionReason: reason,
-        },
-      );
-
+      await rejectJoinRequest(clubId, requestId, reason);
       alert("가입 거절 완료!");
       await fetchPendingRequests();
       setIsSheetOpen(false);
