@@ -180,6 +180,7 @@ export class HttpService {
           method: config.method || "GET",
           headers: this.getHeaders(config.headers),
           signal: controller.signal,
+          credentials: "include",
         };
 
         if (config.body !== undefined) {

@@ -20,9 +20,10 @@ export default function MyBadgesPage() {
           <Skeleton className="h-16 w-full" />
         </div>
         <div className="grid grid-cols-3 gap-6 mt-6">
-          {Array.from({ length: 6 }).map((_, index) => (
-            <div key={index} className="flex flex-col items-center">
-              <Skeleton className="w-24 h-32 rounded-full" />
+          {Array.from({ length: 8 }).map((_, index) => (
+            <div key={index} className="flex flex-col items-center gap-2">
+              <Skeleton className="w-24 h-24 rounded-full" />
+              <Skeleton className="h-4 w-12" />
             </div>
           ))}
         </div>
@@ -30,7 +31,7 @@ export default function MyBadgesPage() {
     );
   }
 
-  return (
+  return user?.badges.length ? (
     <div className="flex flex-col gap-2 items-left w-full max-w-xl mx-auto py-4">
       <Header variant="main" />
       <TitleAndDescription
@@ -64,6 +65,32 @@ export default function MyBadgesPage() {
             </div>
           );
         })}
+      </div>
+    </div>
+  ) : (
+    <div className="flex flex-col items-left w-full max-w-xl mx-auto py-4">
+      <Header variant="main" />
+      <TitleAndDescription
+        title="나의 출석 뱃지"
+        description={
+          <>
+            <span className="font-semibold">{user?.name}님</span>은 이번 학기{" "}
+            <span className="text-blue-500 font-bold">
+              {user?.attendanceRate}%
+            </span>{" "}
+            출석률을 기록하고 있어요.
+            <br />
+            개근을 달성하면 특별한 뱃지를 획득할 수 있어요!
+          </>
+        }
+      />
+      <div className="grid grid-cols-3 gap-6 mt-6">
+        {Array.from({ length: 8 }).map((_, index) => (
+          <div key={index} className="flex flex-col items-center gap-2">
+            <Skeleton className="w-24 h-24 rounded-full" />
+            <Skeleton className="h-4 w-12" />
+          </div>
+        ))}
       </div>
     </div>
   );
