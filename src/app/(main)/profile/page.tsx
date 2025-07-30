@@ -20,7 +20,8 @@ export default function EditProfilePage() {
         <Header variant="main" />
         <EditProfileForm
           form={form}
-          isLoading={isUserLoading || isFormLoading}
+          isUserLoading={isUserLoading}
+          isSubmitting={isFormLoading}
           serverError={serverError}
           onSubmit={onSubmit}
         />

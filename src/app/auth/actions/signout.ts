@@ -5,13 +5,11 @@ import { httpService, HttpError } from "@/lib/utils/httpService";
 
 async function backendLogout(token: string) {
   try {
-    const response = await httpService.post("auth/logout", undefined, {
+    await httpService.post("auth/logout", undefined, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-
-    console.log(response);
   } catch (error) {
     if (error instanceof HttpError) {
       console.error(

@@ -52,6 +52,7 @@ function HeaderSkeleton() {
     </header>
   );
 }
+
 export default function Header({ variant, title = "돌아가기" }: HeaderProps) {
   const router = useRouter();
   const { data: user, isLoading } = useUser();
