@@ -20,12 +20,14 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-import { ArrowLeft, FolderHeart, MenuIcon } from "lucide-react";
+import { ArrowLeft, FolderHeart } from "lucide-react";
 
 import { useUser } from "@/lib/hooks/useUser";
 
 import Logo from "../svg/logo_wordmark";
 
+import HamburgerMenu from "./hamburger";
+import SignoutButton from "./signoutButton";
 import { Skeleton } from "./skeleton";
 
 interface HeaderProps {
@@ -50,7 +52,6 @@ function HeaderSkeleton() {
     </header>
   );
 }
-
 export default function Header({ variant, title = "돌아가기" }: HeaderProps) {
   const router = useRouter();
   const { data: user, isLoading } = useUser();
@@ -116,7 +117,9 @@ export default function Header({ variant, title = "돌아가기" }: HeaderProps)
           </span>
         )}
 
-        <MenuIcon className="w-6 h-6 text-[#64748B]" />
+        <HamburgerMenu>
+          <SignoutButton />
+        </HamburgerMenu>
       </div>
     </header>
   );

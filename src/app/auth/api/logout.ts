@@ -1,4 +1,4 @@
-import { signOut } from "next-auth/react";
+import { signOut, getSession } from "next-auth/react";
 
 import { LogoutResponse } from "@/app/auth/_lib/types/api";
 import { httpService, HttpError } from "@/lib/utils/httpService";
@@ -20,7 +20,6 @@ export async function logoutApi(token: string): Promise<LogoutResponse> {
     return response;
   } catch (error) {
     if (error instanceof HttpError) {
-      // HttpError에서 에러 메시지 추출
       let errorMessage = "로그아웃 실패";
 
       if (error.responseBody && typeof error.responseBody === "object") {
@@ -39,15 +38,16 @@ export async function logoutApi(token: string): Promise<LogoutResponse> {
   }
 }
 
-export async function logout(token: string): Promise<void> {
+export async function logout(): Promise<void> {
   try {
-    // 1. 백엔드 API 호출 - 토큰 블랙리스트 추가
-    await logoutApi(token);
+    const session = await getSession();
+    if (session?.accessToken) {
+      await logoutApi(session.accessToken);
+    }
   } catch (error) {
     console.error("Backend logout failed:", error);
   }
 
-  // 2. 쿠키 정리
   await signOut({
     callbackUrl: "/auth/login",
     redirect: true,
