@@ -13,7 +13,9 @@ export default function BasicInfoPage() {
           form={form}
           isLoading={isLoading}
           serverError={serverError}
-          onSubmit={onSubmit}
+          onSubmit={(e) => {
+            void onSubmit(e);
+          }}
         />
       </div>
     </div>

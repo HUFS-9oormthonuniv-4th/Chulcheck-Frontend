@@ -26,7 +26,9 @@ export default function SignUpPage() {
           isLoading={isLoading}
           serverError={serverError}
           form={form}
-          onSubmit={onSubmit}
+          onSubmit={(e) => {
+            void onSubmit(e);
+          }}
         />
 
         {/* 로그인 페이지 연결 */}
