@@ -40,7 +40,9 @@ function LoginFormWithCallback() {
     <>
       <LoginForm
         isLoading={isLoading}
-        onSubmit={onSubmit}
+        onSubmit={(e) => {
+          void onSubmit(e);
+        }}
         serverError={serverError}
         form={form}
       />

@@ -1,24 +1,28 @@
 // src/lib/config/api.ts
-export const API_CONFIG = {
-  BASE_URL: process.env.NEXT_PUBLIC_API_URL,
-  TIMEOUT: parseInt(process.env.NEXT_PUBLIC_API_TIMEOUT || "10000"),
-  RETRY_ATTEMPTS: parseInt(process.env.NEXT_PUBLIC_API_RETRY_ATTEMPTS || "3"),
+// API 관련 공통 상수들
+export const API_TIMEOUTS = {
+  DEFAULT: 10000, // 10초
+  PROXY: 30000, // 30초 (프록시용)
+  UPLOAD: 60000, // 60초 (파일 업로드용)
 } as const;
 
-// 환경별 설정 (개발/프로덕션)
-export const getApiBaseUrl = () => {
-  // 개발 환경에서는 .env.local의 값을 우선 사용
-  if (process.env.NODE_ENV === "development") {
-    return process.env.NEXT_PUBLIC_API_URL || API_CONFIG.BASE_URL;
-  }
+export const API_RETRY_CONFIG = {
+  MAX_RETRIES: 3,
+  RETRY_DELAY: 1000, // 1초
+} as const;
 
-  // 프로덕션 환경에서는 환경 변수 사용
-  if (!process.env.NEXT_PUBLIC_API_URL) {
-    console.warn("NEXT_PUBLIC_API_URL is not set in production environment");
-  }
+// 에러 메시지 상수
+export const API_ERROR_MESSAGES = {
+  TIMEOUT: "요청이 시간 초과되었습니다",
+  NETWORK: "네트워크 오류가 발생했습니다",
+  UNAUTHORIZED: "인증이 필요합니다",
+  SERVER_ERROR: "서버 오류가 발생했습니다",
+  UNKNOWN: "알 수 없는 오류가 발생했습니다",
+} as const;
 
-  return process.env.NEXT_PUBLIC_API_URL || API_CONFIG.BASE_URL;
-};
+export function getApiBaseUrl(): string | undefined {
+  return process.env.NEXT_PUBLIC_API_URL;
+}
 
 // NextAuth.js 설정 검증
 export const validateAuthConfig = () => {

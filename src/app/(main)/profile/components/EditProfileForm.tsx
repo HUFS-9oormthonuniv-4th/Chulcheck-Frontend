@@ -20,7 +20,8 @@ import type { UseFormReturn } from "react-hook-form";
 
 interface EditProfileFormProps {
   form: UseFormReturn<UpdateUserInfoFormData>;
-  isLoading: boolean;
+  isUserLoading: boolean;
+  isSubmitting: boolean;
   serverError: string | null;
   onSubmit: (e?: React.BaseSyntheticEvent) => Promise<void>;
 }
@@ -77,12 +78,13 @@ function EditProfileFormSkeleton() {
 
 export function EditProfileForm({
   form,
-  isLoading,
+  isUserLoading,
+  isSubmitting,
   serverError,
   onSubmit,
 }: EditProfileFormProps) {
-  // 로딩 중일 때 스켈레톤 표시
-  if (isLoading) {
+  // 사용자 데이터 로딩 중일 때만 스켈레톤 표시
+  if (isUserLoading) {
     return <EditProfileFormSkeleton />;
   }
 
@@ -102,7 +104,6 @@ export function EditProfileForm({
           }}
           className="flex flex-col gap-4"
         >
-          {" "}
           {/* 이메일(닉네임) *변경불가 */}
           <FormField
             control={form.control}
@@ -143,7 +144,7 @@ export function EditProfileForm({
                     placeholder="이름을 입력 해주세요"
                     className="w-full h-[52px] border border-[#CBD5E1] rounded-md px-3 placeholder:text-[#94A3B8] text-base"
                     aria-invalid={!!form.formState.errors.name}
-                    disabled={isLoading}
+                    disabled={isSubmitting}
                     {...field}
                   />
                 </FormControl>
@@ -165,7 +166,7 @@ export function EditProfileForm({
                     placeholder="본인의 학교를 입력해주세요"
                     className="w-full h-[52px] border border-[#CBD5E1] rounded-md px-3 placeholder:text-[#94A3B8] text-base"
                     aria-invalid={!!form.formState.errors.school}
-                    disabled={isLoading}
+                    disabled={isSubmitting}
                     {...field}
                   />
                 </FormControl>
@@ -187,7 +188,7 @@ export function EditProfileForm({
                     placeholder="본인의 학과를 입력 해주세요"
                     className="w-full h-[52px] border border-[#CBD5E1] rounded-md px-3 placeholder:text-[#94A3B8] text-base"
                     aria-invalid={!!form.formState.errors.major}
-                    disabled={isLoading}
+                    disabled={isSubmitting}
                     {...field}
                   />
                 </FormControl>
@@ -209,7 +210,7 @@ export function EditProfileForm({
                     placeholder="학번을 입력 해주세요"
                     className="w-full h-[52px] border border-[#CBD5E1] rounded-md px-3 placeholder:text-[#94A3B8] text-base"
                     aria-invalid={!!form.formState.errors.studentNum}
-                    disabled={isLoading}
+                    disabled={isSubmitting}
                     {...field}
                   />
                 </FormControl>
@@ -222,9 +223,9 @@ export function EditProfileForm({
             <Button
               type="submit"
               className="w-full bg-primary hover:bg-primary/80 text-white text-base font-semibold py-4 rounded-lg h-auto"
-              disabled={isLoading}
+              disabled={isSubmitting}
             >
-              {isLoading ? "저장 중..." : "변경사항 저장"}
+              {isSubmitting ? "저장 중..." : "변경사항 저장"}
             </Button>
           </div>
         </form>

@@ -16,11 +16,12 @@ export default function EditProfilePage() {
 
   return (
     <div className="flex flex-col items-center">
-      <div className="w-full flex flex-col gap-2 mt-4">
+      <div className="flex flex-col items-left w-full max-w-xl mx-auto py-4">
         <Header variant="main" />
         <EditProfileForm
           form={form}
-          isLoading={isUserLoading || isFormLoading}
+          isUserLoading={isUserLoading}
+          isSubmitting={isFormLoading}
           serverError={serverError}
           onSubmit={onSubmit}
         />
