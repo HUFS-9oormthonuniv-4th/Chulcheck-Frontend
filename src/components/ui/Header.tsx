@@ -15,52 +15,43 @@
  * <Header variant="back" title="출석 상세" />
  */
 
-import { useEffect, useState } from "react";
-
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 import { ArrowLeft, FolderHeart } from "lucide-react";
 
+import Logo from "@/components/svg/logo_wordmark";
+import HamburgerMenu from "@/components/ui/hamburger";
+import SignoutButton from "@/components/ui/signoutButton";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useUser } from "@/lib/hooks/useUser";
-
-import Logo from "../svg/logo_wordmark";
-
-import HamburgerMenu from "./hamburger";
-import SignoutButton from "./signoutButton";
-import { Skeleton } from "./skeleton";
 
 interface HeaderProps {
   variant: "main" | "back";
   title?: string;
 }
 
-function HeaderSkeleton() {
-  return (
-    <header className="flex justify-between items-center h-12 border-b mb-2 max-w-[375px]">
-      <div className="flex items-center">
-        <Skeleton className="w-[150px] h-6" />
-      </div>
-      <div className="flex items-center space-x-2">
-        <div className="flex items-center space-x-1">
-          <Skeleton className="w-5 h-5" />
-          <Skeleton className="w-16 h-4" />
-        </div>
-        <Skeleton className="w-8 h-8 rounded-full" />
-        <Skeleton className="w-6 h-6" />
-      </div>
-    </header>
-  );
-}
+// function HeaderSkeleton() {
+//   return (
+//     <header className="flex justify-between items-center h-12 border-b mb-2 max-w-[375px]">
+//       <div className="flex items-center">
+//         <Skeleton className="w-[150px] h-6" />
+//       </div>
+//       <div className="flex items-center space-x-2">
+//         <div className="flex items-center space-x-1">
+//           <Skeleton className="w-5 h-5" />
+//           <Skeleton className="w-16 h-4" />
+//         </div>
+//         <Skeleton className="w-8 h-8 rounded-full" />
+//         <Skeleton className="w-6 h-6" />
+//       </div>
+//     </header>
+//   );
+// }
 
 export default function Header({ variant, title = "돌아가기" }: HeaderProps) {
   const router = useRouter();
   const { data: user, isLoading } = useUser();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const handleLogoClick = () => {
     router.push("/");
@@ -80,11 +71,6 @@ export default function Header({ variant, title = "돌아가기" }: HeaderProps)
         </button>
       </header>
     );
-  }
-
-  // 마운트 전에는 스켈레톤 렌더링
-  if (!mounted) {
-    return <HeaderSkeleton />;
   }
 
   return (
@@ -114,7 +100,7 @@ export default function Header({ variant, title = "돌아가기" }: HeaderProps)
           />
         ) : (
           <span className="rounded-full bg-gray-500 text-white text-sm font-semibold w-8 h-8 flex items-center justify-center">
-            {user?.name?.[0] || "?"}
+            {user?.name?.[0]}
           </span>
         )}
 
